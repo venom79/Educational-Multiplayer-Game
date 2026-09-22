@@ -1,0 +1,42 @@
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Uu]ser[Ss]ettings/
+
+# IDE / Visual Studio
+.vs/
+.vscode/
+.idea/
+
+# Visual Studio generated files
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Crash reports
+sysinfo.txt
+
+# Build artifacts
+*.apk
+*.aab
+*.unitypackage
+
+# Rider
+.idea/
+
+# Gradle
+.gradle/
+
+# Android generated
+**/gradleBuild/
