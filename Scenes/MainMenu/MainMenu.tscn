@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cw4yfrjdw7sxw"]
+
+[ext_resource type="Script" uid="uid://d0aal4pxi10uc" path="res://Scripts/UI/MainMenuController.cs" id="1_cdkru"]
+
+[node name="MainMenu" type="Control" unique_id=1280008268]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cdkru")
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=2108049722]
+custom_minimum_size = Vector2(350, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="MenuContainer" unique_id=1013751761]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "THE LAST BELL"
+
+[node name="HostButton" type="Button" parent="MenuContainer" unique_id=1280867168]
+layout_mode = 2
+text = "HOST GAME"
+
+[node name="JoinButton" type="Button" parent="MenuContainer" unique_id=971597209]
+layout_mode = 2
+text = "JOIN GAME"
+
+[connection signal="pressed" from="MenuContainer/HostButton" to="." method="OnHostPressed"]
+[connection signal="pressed" from="MenuContainer/JoinButton" to="." method="OnJoinPressed"]

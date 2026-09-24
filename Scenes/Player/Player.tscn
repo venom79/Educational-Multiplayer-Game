@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://tnew4p0t0qk5"]
+
+[ext_resource type="Script" uid="uid://0ns4lu8b4mq4" path="res://Scripts/Player/Player.cs" id="1_ft8w5"]
+[ext_resource type="Texture2D" uid="uid://fitptoigqpae" path="res://Assets/Characters/Black/black_down_walk/step1.png" id="1_s0eop"]
+[ext_resource type="Texture2D" uid="uid://csyn3natyu71y" path="res://Assets/Characters/Black/black_up_walk/step1.png" id="2_jmcll"]
+[ext_resource type="Texture2D" uid="uid://dnnslc4xntx0p" path="res://Assets/Characters/Black/black_left_walk/step1.png" id="4_4wape"]
+[ext_resource type="Texture2D" uid="uid://psxvici0b0ij" path="res://Assets/Characters/Black/black_right_walk/step1.png" id="5_t26db"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cekx0"]
+radius = 25.0
+height = 94.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1434159941]
+script = ExtResource("1_ft8w5")
+UpSprite = ExtResource("1_s0eop")
+DownSprite = ExtResource("2_jmcll")
+LeftSprite = ExtResource("4_4wape")
+RightSprite = ExtResource("5_t26db")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=815786270]
+texture = ExtResource("1_s0eop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1400945947]
+shape = SubResource("CapsuleShape2D_cekx0")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=34816961]
