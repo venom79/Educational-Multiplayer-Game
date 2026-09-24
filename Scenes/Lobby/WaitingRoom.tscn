@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c48guob310qn5"]
+
+[ext_resource type="Script" uid="uid://cuuveyto5juif" path="res://Scripts/Lobby/WaitingRoomController.cs" id="1_1yqdp"]
+
+[node name="WaitingRoom" type="Control" unique_id=237562341]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1yqdp")
+
+[node name="WaitingRoomContainer" type="VBoxContainer" parent="." unique_id=267014399]
+custom_minimum_size = Vector2(350, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -20.0
+offset_right = 61.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="WaitingRoomContainer" unique_id=560629704]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "WAITING ROOM"
+
+[node name="RoomCode" type="Label" parent="WaitingRoomContainer" unique_id=1511606419]
+layout_mode = 2
+text = "Room Code: ------"
+
+[node name="SelectedMode" type="Label" parent="WaitingRoomContainer" unique_id=1788914706]
+layout_mode = 2
+text = "Mode: ---"
+
+[node name="PlayerList" type="Label" parent="WaitingRoomContainer" unique_id=1893295538]
+layout_mode = 2
+text = "Players:
+1. Host"
+
+[node name="ReadyButton" type="Button" parent="WaitingRoomContainer" unique_id=1701833957]
+layout_mode = 2
+text = "READY"
+
+[node name="StartButton" type="Button" parent="WaitingRoomContainer" unique_id=44191305]
+layout_mode = 2
+text = "START GAME"
+
+[connection signal="pressed" from="WaitingRoomContainer/ReadyButton" to="." method="OnReadyPressed"]
+[connection signal="pressed" from="WaitingRoomContainer/StartButton" to="." method="OnStartPressed"]
