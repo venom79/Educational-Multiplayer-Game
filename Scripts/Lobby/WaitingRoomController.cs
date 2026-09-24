@@ -36,6 +36,8 @@ public partial class WaitingRoomController : Control
 		);
 
 		UpdateRoomUI();
+		
+		startButton.Disabled = true;
 	}
 
 	private void UpdateRoomUI()
@@ -58,11 +60,15 @@ public partial class WaitingRoomController : Control
 		if (isReady)
 		{
 			readyButton.Text = "UNREADY";
+			startButton.Disabled = false;
+
 			GD.Print("Host ready: True");
 		}
 		else
 		{
 			readyButton.Text = "READY";
+			startButton.Disabled = true;
+
 			GD.Print("Host ready: False");
 		}
 	}
@@ -78,5 +84,9 @@ public partial class WaitingRoomController : Control
 		GD.Print("Starting game...");
 
 		GameSession.Instance.SetState(GameState.Playing);
+
+		GetTree().ChangeSceneToFile(
+	        "res://Scenes/Game/game.tscn"
+		);
 	}
 }
