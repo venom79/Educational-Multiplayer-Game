@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cxn5gsp3oi6l"]
 
 [ext_resource type="PackedScene" uid="uid://bcvkb8x74odww" path="res://Assets/Maps/Exported/map.tscn" id="1_mv0hc"]
+[ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
 
 [node name="Game" type="Node2D" unique_id=411957723]
+script = ExtResource("1_qxfds")
 
 [node name="map" parent="." unique_id=455972878 instance=ExtResource("1_mv0hc")]
 position = Vector2(0, -2)

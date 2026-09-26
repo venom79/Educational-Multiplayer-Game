@@ -16,6 +16,13 @@ public partial class GameSession : Node
 
 	public GameState CurrentState { get; private set; } = GameState.MainMenu;
 
+	public string[] PlayerList { get; private set; } = [];
+
+	public void UpdatePlayerList(string[] players)
+	{
+		PlayerList = players;
+	}
+
 	public override void _Ready()
 	{
 		if (Instance != null && Instance != this)

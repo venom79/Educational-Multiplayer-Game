@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 
 public partial class WaitingRoomController : Control
 {
@@ -9,35 +10,40 @@ public partial class WaitingRoomController : Control
 	private Button readyButton;
 	private Button startButton;
 
-	private bool isReady = false;
-
 	public override void _Ready()
 	{
 		GameSession.Instance.SetState(GameState.WaitingRoom);
 
 		roomCodeLabel = GetNode<Label>(
-            "WaitingRoomContainer/RoomCode"
+			"WaitingRoomContainer/RoomCode"
 		);
 
 		modeLabel = GetNode<Label>(
-            "WaitingRoomContainer/SelectedMode"
+			"WaitingRoomContainer/SelectedMode"
 		);
 
 		playerListLabel = GetNode<Label>(
-            "WaitingRoomContainer/PlayerList"
+			"WaitingRoomContainer/PlayerList"
 		);
 
 		readyButton = GetNode<Button>(
-            "WaitingRoomContainer/ReadyButton"
+			"WaitingRoomContainer/ReadyButton"
 		);
 
 		startButton = GetNode<Button>(
-            "WaitingRoomContainer/StartButton"
+			"WaitingRoomContainer/StartButton"
 		);
 
 		UpdateRoomUI();
-		
-		startButton.Disabled = true;
+		UpdateReadyButton();
+		UpdateStartButton();
+	}
+
+	public override void _Process(double delta)
+	{
+		UpdatePlayerList();
+		UpdateReadyButton();
+		UpdateStartButton();
 	}
 
 	private void UpdateRoomUI()
@@ -47,47 +53,134 @@ public partial class WaitingRoomController : Control
 
 		modeLabel.Text =
 			$"Mode: {GameSession.Instance.SelectedMode}";
+	}
 
-		playerListLabel.Text =
-			"Players:\n1. Host";
+	private void UpdatePlayerList()
+	{
+		NetworkPlayer[] players =
+			LobbyManager.Instance.GetPlayers().ToArray();
 
-		readyButton.Text = "READY";
+		string text = "Players:\n";
+
+		int number = 1;
+
+		foreach (NetworkPlayer player in players)
+		{
+			string readyStatus =
+				player.IsReady ? "READY" : "NOT READY";
+
+			string hostLabel =
+				player.IsHost ? " (Host)" : "";
+
+			text +=
+				$"{number}. {player.PlayerName}{hostLabel} - {readyStatus}\n";
+
+			number++;
+		}
+
+		playerListLabel.Text = text;
+	}
+
+	private void UpdateReadyButton()
+	{
+		NetworkPlayer localPlayer =
+			LobbyManager.Instance.GetLocalPlayer();
+
+		if (localPlayer == null)
+			return;
+
+		readyButton.Text =
+			localPlayer.IsReady
+				? "UNREADY"
+				: "READY";
+	}
+
+	private void UpdateStartButton()
+	{
+		NetworkPlayer localPlayer =
+			LobbyManager.Instance.GetLocalPlayer();
+
+		// Until our player exists, hide Start.
+		if (localPlayer == null)
+		{
+			startButton.Visible = false;
+			return;
+		}
+
+		// Only the host can see the Start button.
+		if (!localPlayer.IsHost)
+		{
+			startButton.Visible = false;
+			return;
+		}
+
+		// Host can see it.
+		startButton.Visible = true;
+
+		// Everyone must be ready.
+		startButton.Disabled =
+			!LobbyManager.Instance.AreAllPlayersReady();
 	}
 
 	public void OnReadyPressed()
 	{
-		isReady = !isReady;
+		NetworkPlayer localPlayer =
+			LobbyManager.Instance.GetLocalPlayer();
 
-		if (isReady)
-		{
-			readyButton.Text = "UNREADY";
-			startButton.Disabled = false;
+		if (localPlayer == null)
+			return;
 
-			GD.Print("Host ready: True");
-		}
-		else
-		{
-			readyButton.Text = "READY";
-			startButton.Disabled = true;
+		bool newReadyState =
+			!localPlayer.IsReady;
 
-			GD.Print("Host ready: False");
-		}
+		NetworkManager.Instance.SetLocalReady(
+			newReadyState
+		);
+
+		GD.Print(
+			$"Local ready requested: {newReadyState}"
+		);
 	}
 
 	public void OnStartPressed()
 	{
-		if (!isReady)
+		NetworkPlayer localPlayer =
+			LobbyManager.Instance.GetLocalPlayer();
+
+		if (localPlayer == null)
+			return;
+
+		if (!localPlayer.IsHost)
 		{
-			GD.Print("Host must be ready before starting.");
+			GD.Print(
+				"Only the host can start the game."
+			);
+
 			return;
 		}
 
-		GD.Print("Starting game...");
+		if (!localPlayer.IsReady)
+		{
+			GD.Print(
+				"Host must be ready before starting."
+			);
 
-		GameSession.Instance.SetState(GameState.Playing);
+			return;
+		}
 
-		GetTree().ChangeSceneToFile(
-	        "res://Scenes/Game/game.tscn"
+		if (!LobbyManager.Instance.AreAllPlayersReady())
+		{
+			GD.Print(
+				"Cannot start: not all players are ready."
+			);
+
+			return;
+		}
+
+		GD.Print(
+			"Requesting game start..."
 		);
+
+		NetworkManager.Instance.RequestStartGame();
 	}
 }

@@ -1,9 +1,9 @@
 using Godot;
 
+
 public partial class NetworkManager : Node
 {
 	public static NetworkManager Instance { get; private set; }
-
 	public const int Port = 7777;
 	private const int DiscoveryPort = 7778;
 
@@ -28,7 +28,9 @@ public partial class NetworkManager : Node
 		Instance = this;
 
 		ProcessMode = ProcessModeEnum.Always;
-
+		
+		//ConnectedPlayers = new Dictionary<long, string>();
+		
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 		Multiplayer.ConnectedToServer += OnConnectedToServer;
@@ -77,6 +79,12 @@ public partial class NetworkManager : Node
 		Multiplayer.MultiplayerPeer = peer;
 
 		IsServer = true;
+
+		LobbyManager.Instance.AddPlayer(
+			Multiplayer.GetUniqueId(),
+			"Host",
+			true
+		);
 
 		string roomCode = GenerateRoomCode();
 
@@ -349,11 +357,31 @@ public partial class NetworkManager : Node
 	private void OnPeerConnected(long peerId)
 	{
 		GD.Print($"Peer connected: {peerId}");
+
+		if (!IsServer)
+			return;
+
+		LobbyManager.Instance.AddPlayer(
+			peerId,
+			$"Player {peerId}",
+			false
+		);
+
+		SyncLobbyToAllPlayers();
 	}
+
+	
 
 	private void OnPeerDisconnected(long peerId)
 	{
 		GD.Print($"Peer disconnected: {peerId}");
+
+		if (!IsServer)
+			return;
+
+		LobbyManager.Instance.RemovePlayer(peerId);
+		
+		SyncLobbyToAllPlayers();
 	}
 
 	private void OnConnectedToServer()
@@ -362,6 +390,14 @@ public partial class NetworkManager : Node
 
 		GD.Print(
 			$"My peer ID: {Multiplayer.GetUniqueId()}"
+		);
+
+		GameSession.Instance.SetState(
+			GameState.WaitingRoom
+		);
+
+		GetTree().ChangeSceneToFile(
+			"res://Scenes/Lobby/WaitingRoom.tscn"
 		);
 	}
 
@@ -373,5 +409,170 @@ public partial class NetworkManager : Node
 	private void OnServerDisconnected()
 	{
 		GD.Print("Disconnected from server.");
+	}
+
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceivePlayerList(string[] players)
+	{
+		GD.Print("Received player list:");
+
+		foreach (string player in players)
+		{
+			GD.Print(player);
+		}
+
+		GameSession.Instance.UpdatePlayerList(players);
+	}
+	private void SyncLobbyToAllPlayers()
+	{
+		if (!IsServer)
+			return;
+
+		var snapshot =
+			LobbyManager.Instance.CreateNetworkSnapshot();
+
+		Rpc(
+			nameof(ReceiveLobbySnapshot),
+			snapshot
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = true,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceiveLobbySnapshot(
+		Godot.Collections.Array<Godot.Collections.Dictionary> snapshot
+	)
+	{
+		LobbyManager.Instance.ApplyNetworkSnapshot(snapshot);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	
+	public void SetLocalReady(bool ready)
+	{
+		if (Multiplayer.MultiplayerPeer == null)
+			return;
+
+		// Host is already the server.
+		if (IsServer)
+		{
+			long hostPeerId = Multiplayer.GetUniqueId();
+
+			NetworkPlayer host =
+				LobbyManager.Instance.GetPlayer(hostPeerId);
+
+			if (host == null)
+				return;
+
+			host.SetReady(ready);
+
+			GD.Print(
+				$"Player {hostPeerId} ready: {ready}"
+			);
+
+			SyncLobbyToAllPlayers();
+
+			return;
+		}
+
+		// Client asks the server to change its ready state.
+		Rpc(
+			nameof(RequestReadyChangeRpc),
+			ready
+		);
+
+		GD.Print(
+			$"Sent ready request: {ready}"
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void RequestReadyChangeRpc(bool ready)
+	{
+		if (!IsServer)
+			return;
+
+		long peerId = Multiplayer.GetRemoteSenderId();
+
+		NetworkPlayer player =
+			LobbyManager.Instance.GetPlayer(peerId);
+
+		if (player == null)
+			return;
+
+		player.SetReady(ready);
+
+		GD.Print(
+			$"Player {peerId} ready: {ready}"
+		);
+
+		SyncLobbyToAllPlayers();
+	}
+	
+	public void RequestStartGame()
+	{
+		if (!IsServer)
+			return;
+
+		if (!LobbyManager.Instance.AreAllPlayersReady())
+		{
+			GD.Print(
+				"Cannot start: not all players are ready."
+			);
+
+			return;
+		}
+
+		StartGameForEveryone();
+	}
+	
+	private void StartGameForEveryone()
+	{
+		GD.Print("SERVER: Starting game for everyone.");
+
+		GameSession.Instance.SetState(
+			GameState.Playing
+		);
+
+		Rpc(
+			nameof(StartGameRpc)
+		);
+
+		GetTree().ChangeSceneToFile(
+			"res://Scenes/Game/game.tscn"
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void StartGameRpc()
+	{
+		GD.Print("GAME START received from server.");
+
+		GameSession.Instance.SetState(
+			GameState.Playing
+		);
+
+		GetTree().ChangeSceneToFile(
+			"res://Scenes/Game/game.tscn"
+		);
 	}
 }
