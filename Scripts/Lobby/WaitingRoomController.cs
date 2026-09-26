@@ -42,7 +42,8 @@ public partial class WaitingRoomController : Control
 
 	private void UpdateRoomUI()
 	{
-		roomCodeLabel.Text = "Room Code: LOCAL";
+		roomCodeLabel.Text =
+			$"Room Code: {GameSession.Instance.RoomCode}";
 
 		modeLabel.Text =
 			$"Mode: {GameSession.Instance.SelectedMode}";

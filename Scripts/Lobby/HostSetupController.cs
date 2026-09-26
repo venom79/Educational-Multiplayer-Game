@@ -26,7 +26,13 @@ public partial class HostSetupController : Control
 	{
 		GameSession.Instance.SetGameMode(mode);
 		GameSession.Instance.IsHost = true;
-
+		
+		GetNode<Button>("HostContainer/ScienceButton").Pressed += SelectScience;
+		GetNode<Button>("HostContainer/MathsButton").Pressed += SelectMaths;
+		GetNode<Button>("HostContainer/LanguageButton").Pressed += SelectLanguage;
+		
+		NetworkManager.Instance.HostGame();
+		
 		GetTree().ChangeSceneToFile(
             "res://Scenes/Lobby/WaitingRoom.tscn"
 		);

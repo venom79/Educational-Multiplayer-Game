@@ -1,12 +1,19 @@
 [gd_scene format=3 uid="uid://u8stl7rkpjab"]
 
+[ext_resource type="Script" uid="uid://ddbhiy73cu52o" path="res://Scripts/Lobby/JoinGameController.cs" id="1_jnisl"]
+
 [node name="JoinGame" type="Control" unique_id=397936545]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -2.0
+offset_right = 5.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jnisl")
 
 [node name="JoinContainer" type="VBoxContainer" parent="." unique_id=1985915948]
 custom_minimum_size = Vector2(350, 250)

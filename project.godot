@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameSession="*uid://dp3cq4d5dnobk"
+NetworkManager="*uid://b4t3esq8kdfnh"
 
 [display]
 

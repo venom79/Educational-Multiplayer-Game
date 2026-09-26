@@ -7,6 +7,10 @@ public partial class GameSession : Node
 	public GameMode SelectedMode { get; private set; } = GameMode.Science;
 
 	public string RoomCode { get; set; } = "";
+	
+	public string HostAddress { get; set; } = "";
+	
+	public int HostPort { get; set; } = 7777;
 
 	public bool IsHost { get; set; } = false;
 
