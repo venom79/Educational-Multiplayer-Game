@@ -575,4 +575,99 @@ public partial class NetworkManager : Node
 			"res://Scenes/Game/game.tscn"
 		);
 	}
+	
+	public void SendPlayerPosition(Vector2 position)
+	{	
+	
+		if (IsServer)
+		{
+			long peerId = Multiplayer.GetUniqueId();
+
+			BroadcastPlayerPosition(
+				peerId,
+				position
+			);
+
+			return;
+		}
+
+		Rpc(
+			nameof(ReceivePlayerPositionRpc),
+			position
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Unreliable
+	)]
+	private void ReceivePlayerPositionRpc(Vector2 position)
+	{
+		if (!IsServer)
+			return;
+
+		long peerId =
+			Multiplayer.GetRemoteSenderId();
+		
+		
+		BroadcastPlayerPosition(
+			peerId,
+			position
+		);
+	}
+	
+	private void BroadcastPlayerPosition(
+		long peerId,
+		Vector2 position
+	)
+	{
+		
+		Rpc(
+			nameof(UpdatePlayerPositionRpc),
+			peerId,
+			position
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = true,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Unreliable
+	)]
+	private void UpdatePlayerPositionRpc(
+		long peerId,
+		Vector2 position
+	)
+	{
+
+		if (PlayerManager.Instance == null)
+		{
+			GD.PrintErr(
+	            "PlayerManager.Instance is NULL"
+			);
+
+			return;
+		}
+
+		Player player =
+			PlayerManager.Instance.GetPlayer(peerId);
+
+		if (player == null)
+		{
+			GD.PrintErr(
+				$"NO PLAYER FOUND FOR PEER {peerId}"
+			);
+
+			return;
+		}
+
+
+		if (player.IsMultiplayerAuthority())
+		{
+			return;
+		}
+
+		player.GlobalPosition = position;
+	}
 }

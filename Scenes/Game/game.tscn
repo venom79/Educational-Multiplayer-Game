@@ -2,9 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bcvkb8x74odww" path="res://Assets/Maps/Exported/map.tscn" id="1_mv0hc"]
 [ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
+[ext_resource type="Script" uid="uid://t0bnmppxwq5a" path="res://Scripts/Player/PlayerManager.cs" id="3_qikps"]
 
 [node name="Game" type="Node2D" unique_id=411957723]
 script = ExtResource("1_qxfds")
 
 [node name="map" parent="." unique_id=455972878 instance=ExtResource("1_mv0hc")]
 position = Vector2(0, -2)
+
+[node name="PlayerManager" type="Node2D" parent="." unique_id=1206553064]
+script = ExtResource("3_qikps")
