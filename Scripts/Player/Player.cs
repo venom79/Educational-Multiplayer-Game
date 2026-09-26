@@ -12,7 +12,12 @@ public partial class Player : CharacterBody2D
 	private double networkUpdateTimer = 0.0;
 
 	private const double NetworkUpdateInterval = 0.05;
+	
+	private Vector2 networkTargetPosition;
+	private bool hasNetworkPosition = false;
 
+	private const float NetworkInterpolationSpeed = 12.0f;
+	
 	private Sprite2D sprite;
 	private Camera2D camera;
 
@@ -20,14 +25,26 @@ public partial class Player : CharacterBody2D
 	{
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		camera = GetNode<Camera2D>("Camera2D");
-
+		networkTargetPosition = GlobalPosition;
 		camera.Enabled = false;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!IsMultiplayerAuthority())
+		{
+			if (hasNetworkPosition)
+			{
+				GlobalPosition =
+					GlobalPosition.Lerp(
+						networkTargetPosition,
+						NetworkInterpolationSpeed *
+						(float)delta
+					);
+			}
+
 			return;
+		}
 
 		camera.Enabled = true;
 
@@ -35,7 +52,7 @@ public partial class Player : CharacterBody2D
 			"move_left",
 			"move_right",
 			"move_up",
-            "move_down"
+	        "move_down"
 		);
 
 		Velocity = direction * Speed;
@@ -55,7 +72,7 @@ public partial class Player : CharacterBody2D
 			);
 		}
 	}
-
+	
 	private void UpdateDirection(Vector2 direction)
 	{
 		if (direction.Y < 0)
@@ -66,5 +83,11 @@ public partial class Player : CharacterBody2D
 			sprite.Texture = LeftSprite;
 		else if (direction.X > 0)
 			sprite.Texture = RightSprite;
+	}
+		
+	public void SetNetworkPosition(Vector2 position)
+	{
+		networkTargetPosition = position;
+		hasNetworkPosition = true;
 	}
 }

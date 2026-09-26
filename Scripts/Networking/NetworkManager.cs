@@ -668,6 +668,6 @@ public partial class NetworkManager : Node
 			return;
 		}
 
-		player.GlobalPosition = position;
+		player.SetNetworkPosition(position);
 	}
 }

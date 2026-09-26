@@ -9,14 +9,26 @@ public partial class GameManager : Node
 	private const double GameDuration = 300.0;
 
 	private GameTimer gameTimer;
-
+	private double synchronizedTimeRemaining = GameDuration;
+	
 	private readonly HashSet<long> loadedPlayers =
 		new HashSet<long>();
 
 	public bool GameStarted { get; private set; }
 
-	public double TimeRemaining =>
-		gameTimer?.RemainingSeconds ?? GameDuration;
+	public double TimeRemaining
+	{
+		get
+		{
+			if (NetworkManager.Instance != null &&
+				NetworkManager.Instance.IsServer)
+			{
+				return gameTimer?.RemainingSeconds ?? GameDuration;
+			}
+
+			return synchronizedTimeRemaining;
+		}
+	}
 	
 	private int lastBroadcastSecond = -1;
 	
@@ -215,6 +227,8 @@ public partial class GameManager : Node
 	)]
 	private void SyncTimerRpc(double remaining)
 	{
+		synchronizedTimeRemaining = remaining;
+
 		GD.Print(
 			$"Time remaining: {remaining:F0}"
 		);
