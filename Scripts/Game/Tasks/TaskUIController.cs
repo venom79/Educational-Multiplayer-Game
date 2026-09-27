@@ -399,7 +399,19 @@ public partial class TaskUIController : CanvasLayer
 	private void OnTaskCompleted()
 	{
 		GD.Print("TASK COMPLETED!");
+		
+		// HOST completed a task locally.
+		if (NetworkManager.Instance.IsServer &&
+			currentTask != null)
+		{
+			long playerId =
+				Multiplayer.GetUniqueId();
 
+			GameManager.Instance.RegisterTaskCompletion(
+				playerId
+			);
+		}
+		
 		// Disable this station for this player.
 		if (currentStation != null)
 		{

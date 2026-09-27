@@ -18,7 +18,45 @@ public partial class GameManager : Node
 	private const int MaximumPlayers = 2;
 	
 	public bool GameStarted { get; private set; }
+	public bool GameEnded { get; private set; }
+	
+	private readonly Dictionary<long, int> completedTasks =
+		new Dictionary<long, int>();
 
+	private int teamCompletedTasks = 0;
+
+	public int TeamCompletedTasks =>
+		teamCompletedTasks;
+
+	public int TeamTotalTasks =>
+		LobbyManager.Instance.GetPlayerCount() * TasksPerPlayer;
+	
+	private int synchronizedPlayerCompletedTasks = 0;
+	private int synchronizedPlayerTotalTasks = 0;
+
+	private int synchronizedTeamCompletedTasks = 0;
+	private int synchronizedTeamTotalTasks = 0;
+
+	public int PlayerCompletedTasks =>
+		NetworkManager.Instance.IsServer
+			? GetPlayerCompletedTasks(Multiplayer.GetUniqueId())
+			: synchronizedPlayerCompletedTasks;
+
+	public int PlayerTotalTasks =>
+		NetworkManager.Instance.IsServer
+			? TasksPerPlayer
+			: synchronizedPlayerTotalTasks;
+
+	public int SynchronizedTeamCompletedTasks =>
+		NetworkManager.Instance.IsServer
+			? teamCompletedTasks
+			: synchronizedTeamCompletedTasks;
+
+	public int SynchronizedTeamTotalTasks =>
+		NetworkManager.Instance.IsServer
+			? TeamTotalTasks
+			: synchronizedTeamTotalTasks;
+			
 	public double TimeRemaining
 	{
 		get
@@ -61,6 +99,9 @@ public partial class GameManager : Node
 			return;
 
 		if (!GameStarted)
+			return;
+		
+		if (GameEnded)
 			return;
 
 		gameTimer.Update(delta);
@@ -145,14 +186,127 @@ public partial class GameManager : Node
 		return playerCount > 0 &&
 			loadedPlayers.Count >= playerCount;
 	}
+	
+	private void InitializeTaskProgress()
+	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
 
+		completedTasks.Clear();
+
+		foreach (
+			NetworkPlayer player
+			in LobbyManager.Instance.GetPlayers()
+		)
+		{
+			completedTasks[player.PeerId] = 0;
+		}
+
+		teamCompletedTasks = 0;
+		BroadcastProgress();
+		
+		GD.Print(
+			"Task progress initialized."
+		);
+
+		GD.Print(
+			$"Team progress: " +
+			$"{teamCompletedTasks} / " +
+			$"{TeamTotalTasks}"
+		);
+	}
+	
+	public void RegisterTaskCompletion(long playerId)
+	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
+
+		if (GameEnded)
+			return;
+
+		if (!completedTasks.ContainsKey(playerId))
+		{
+			GD.PrintErr(
+				$"Cannot register task completion. " +
+				$"Unknown player: {playerId}"
+			);
+
+			return;
+		}
+
+		completedTasks[playerId]++;
+
+		teamCompletedTasks++;
+		
+		BroadcastProgress();
+
+		GD.Print(
+			$"Player {playerId} completed a task."
+		);
+
+		GD.Print(
+			$"Player progress: " +
+			$"{completedTasks[playerId]} / " +
+			$"{TasksPerPlayer}"
+		);
+
+		GD.Print(
+			$"Team progress: " +
+			$"{teamCompletedTasks} / " +
+			$"{TeamTotalTasks}"
+		);
+
+		if (teamCompletedTasks >= TeamTotalTasks)
+		{
+			EndGame(GameState.Victory);
+		}
+	}
+	
+	public int GetPlayerCompletedTasks(long playerId)
+	{
+		if (completedTasks.TryGetValue(
+			playerId,
+			out int completed))
+		{
+			return completed;
+		}
+
+		return 0;
+	}
+
+	public int GetPlayerTotalTasks(long playerId)
+	{
+		if (!NetworkManager.Instance.IsServer)
+		{
+			return TaskManager.Instance
+				.GetNetworkTasks(playerId)
+				.Count;
+		}
+
+		return TaskManager.Instance
+			.GetTotalTaskCount(playerId);
+	}
+	
+	public int GetTeamCompletedTasks()
+	{
+		return teamCompletedTasks;
+	}
+
+	public int GetTeamTotalTasks()
+	{
+		return TeamTotalTasks;
+	}
+	
 	private void StartGameTimer()
 	{
 		if (GameStarted)
 			return;
 
+		InitializeTaskProgress();
+		
 		GameStarted = true;
-
+		GameEnded = false;
+		
 		GD.Print(
 			"================================"
 		);
@@ -213,14 +367,59 @@ public partial class GameManager : Node
 
 	private void OnTimerFinished()
 	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
+
+		if (GameEnded)
+			return;
+
 		GD.Print(
 			"GAME TIMER FINISHED."
 		);
 
-		// Later:
-		// GameState = AliensWin
-		// Check task completion
-		// Broadcast result
+		EndGame(GameState.AliensWin);
+	}
+	
+	private void EndGame(GameState result)
+	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
+
+		if (GameEnded)
+			return;
+
+		GameEnded = true;
+
+		gameTimer.Stop();
+
+		GameSession.Instance.SetState(result);
+
+		GD.Print("================================");
+		GD.Print("GAME ENDED");
+		GD.Print($"RESULT: {result}");
+		GD.Print($"FINAL TEAM PROGRESS: {teamCompletedTasks}/{TeamTotalTasks}");
+		GD.Print("================================");
+
+		Rpc(
+			nameof(ReceiveGameResultRpc),
+			(int)result
+		);
+	}
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = true,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceiveGameResultRpc(int result)
+	{
+		GameState gameResult =
+			(GameState)result;
+
+		GameSession.Instance.SetState(gameResult);
+
+		GD.Print(
+			$"Game result received: {gameResult}"
+		);
 	}
 	
 	[Rpc(
@@ -297,5 +496,63 @@ public partial class GameManager : Node
 		);
 
 		GD.Print("================================");
+	}
+	
+	public void BroadcastProgress()
+	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
+
+		foreach (
+			NetworkPlayer player
+			in LobbyManager.Instance.GetPlayers()
+		)
+		{
+			int playerCompleted =
+				GetPlayerCompletedTasks(player.PeerId);
+
+			int playerTotal =
+				GetPlayerTotalTasks(player.PeerId);
+
+			RpcId(
+				player.PeerId,
+				nameof(ReceiveProgressRpc),
+				playerCompleted,
+				playerTotal,
+				teamCompletedTasks,
+				TeamTotalTasks
+			);
+		}
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceiveProgressRpc(
+		int playerCompleted,
+		int playerTotal,
+		int teamCompleted,
+		int teamTotal
+	)
+	{
+		synchronizedPlayerCompletedTasks =
+			playerCompleted;
+
+		synchronizedPlayerTotalTasks =
+			playerTotal;
+
+		synchronizedTeamCompletedTasks =
+			teamCompleted;
+
+		synchronizedTeamTotalTasks =
+			teamTotal;
+
+		GD.Print(
+			$"Progress synchronized → " +
+			$"Player: {playerCompleted}/{playerTotal}, " +
+			$"Team: {teamCompleted}/{teamTotal}"
+		);
 	}
 }

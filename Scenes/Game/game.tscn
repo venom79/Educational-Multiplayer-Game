@@ -23,6 +23,42 @@ script = ExtResource("4_i1e5p")
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="PlayerProgressLabel" type="Label" parent="GameUI" unique_id=1130578775]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="PlayerProgressBar" type="ProgressBar" parent="GameUI" unique_id=259113242]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="TeamProgressLabel" type="Label" parent="GameUI" unique_id=585574694]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TeamProgressBar" type="ProgressBar" parent="GameUI" unique_id=279671081]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="ResultPanel" type="Panel" parent="GameUI" unique_id=1403104157]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ResultTitleLabel" type="Label" parent="GameUI/ResultPanel" unique_id=666209967]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ResultStatsLabel" type="Label" parent="GameUI/ResultPanel" unique_id=1885327440]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ContinueButton" type="Button" parent="GameUI/ResultPanel" unique_id=431392576]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
 [node name="TaskUI" type="CanvasLayer" parent="." unique_id=1334917936]
 script = ExtResource("5_flgk0")
 

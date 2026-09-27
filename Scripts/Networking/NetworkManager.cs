@@ -652,6 +652,13 @@ public partial class NetworkManager : Node
 
 		bool correct =
 			task.SubmitAnswer(answer);
+		
+		if (correct)
+		{
+			GameManager.Instance.RegisterTaskCompletion(
+				playerId
+			);
+		}
 
 		GD.Print(
 			$"Task {taskId} answer result: {correct}"
