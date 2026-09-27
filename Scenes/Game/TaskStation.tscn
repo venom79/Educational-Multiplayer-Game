@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ddogl8vpp8w86"]
+
+[ext_resource type="Script" uid="uid://f4uhpdspxam6" path="res://Scripts/Game/Tasks/TaskStation.cs" id="1_mev00"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_icmrp"]
+radius = 80.0
+
+[node name="TaskStation" type="Area2D" unique_id=704673815]
+script = ExtResource("1_mev00")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484308433]
+shape = SubResource("CircleShape2D_icmrp")
+debug_color = Color(0.11372549, 0, 0.49411765, 0.41960785)
+
+[node name="InteractionLabel" type="Label" parent="." unique_id=1170162283]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Press E to interact"

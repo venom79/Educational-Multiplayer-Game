@@ -41,6 +41,7 @@ public partial class WaitingRoomController : Control
 
 	public override void _Process(double delta)
 	{
+		UpdateRoomUI();
 		UpdatePlayerList();
 		UpdateReadyButton();
 		UpdateStartButton();

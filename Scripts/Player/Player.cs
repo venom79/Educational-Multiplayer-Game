@@ -48,6 +48,17 @@ public partial class Player : CharacterBody2D
 
 		camera.Enabled = true;
 
+		TaskUIController taskUI =
+			GetTree()
+				.CurrentScene
+				.GetNodeOrNull<TaskUIController>("TaskUI");
+				
+		if (taskUI != null && taskUI.IsTaskOpen)
+		{
+			Velocity = Vector2.Zero;
+			return;
+		}
+		
 		Vector2 direction = Input.GetVector(
 			"move_left",
 			"move_right",

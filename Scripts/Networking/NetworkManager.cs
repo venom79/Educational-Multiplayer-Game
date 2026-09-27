@@ -368,6 +368,7 @@ public partial class NetworkManager : Node
 		);
 
 		SyncLobbyToAllPlayers();
+		SyncGameModeToAllPlayers();
 	}
 
 	
@@ -441,6 +442,34 @@ public partial class NetworkManager : Node
 		);
 	}
 	
+	private void SyncGameModeToAllPlayers()
+	{
+		if (!IsServer)
+			return;
+
+		int mode = (int)GameSession.Instance.SelectedMode;
+
+		Rpc(
+			nameof(ReceiveGameModeRpc),
+			mode
+		);
+	}
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = true,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceiveGameModeRpc(int mode)
+	{
+		GameMode selectedMode = (GameMode)mode;
+
+		GameSession.Instance.SetGameMode(selectedMode);
+
+		GD.Print(
+			$"Game mode synchronized: {selectedMode}"
+		);
+	}
+
 	[Rpc(
 		MultiplayerApi.RpcMode.AnyPeer,
 		CallLocal = true,

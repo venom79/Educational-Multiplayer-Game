@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
 [ext_resource type="Script" uid="uid://t0bnmppxwq5a" path="res://Scripts/Player/PlayerManager.cs" id="3_qikps"]
 [ext_resource type="Script" uid="uid://dp1vdkc4a4u8c" path="res://Scripts/UI/GameUIController.cs" id="4_i1e5p"]
+[ext_resource type="Script" uid="uid://deuasldnyrlga" path="res://Scripts/Game/Tasks/TaskTest.cs" id="5_ciybh"]
+[ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="5_flgk0"]
+[ext_resource type="PackedScene" uid="uid://ddogl8vpp8w86" path="res://Scenes/Game/TaskStation.tscn" id="7_vifcx"]
 
 [node name="Game" type="Node2D" unique_id=411957723]
 script = ExtResource("1_qxfds")
@@ -20,3 +23,58 @@ script = ExtResource("4_i1e5p")
 [node name="TimerLabel" type="Label" parent="GameUI" unique_id=93609111]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="TaskUI" type="CanvasLayer" parent="." unique_id=1334917936]
+script = ExtResource("5_flgk0")
+
+[node name="Panel" type="Panel" parent="TaskUI" unique_id=1707642423]
+custom_minimum_size = Vector2(500, 300)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TaskUI/Panel" unique_id=712927786]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TitleLabel" type="Label" parent="TaskUI/Panel/VBoxContainer" unique_id=1175814058]
+layout_mode = 2
+text = "TASK"
+
+[node name="ProgressLabel" type="Label" parent="TaskUI/Panel/VBoxContainer" unique_id=102533846]
+layout_mode = 2
+text = "Task 0 / 0"
+
+[node name="QuestionLabel" type="Label" parent="TaskUI/Panel/VBoxContainer" unique_id=832960947]
+layout_mode = 2
+text = "Question"
+
+[node name="AnswerInput" type="LineEdit" parent="TaskUI/Panel/VBoxContainer" unique_id=39566097]
+layout_mode = 2
+placeholder_text = "Type your answer..."
+
+[node name="OptionsContainer" type="VBoxContainer" parent="TaskUI/Panel/VBoxContainer" unique_id=903334935]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="TaskUI/Panel/VBoxContainer" unique_id=1118775609]
+layout_mode = 2
+text = "SUBMIT"
+
+[node name="CloseButton" type="Button" parent="TaskUI/Panel/VBoxContainer" unique_id=687921653]
+layout_mode = 2
+text = "Close"
+
+[node name="TaskTest" type="Node" parent="." unique_id=1510801170]
+script = ExtResource("5_ciybh")
+
+[node name="TaskStation" parent="." unique_id=704673815 instance=ExtResource("7_vifcx")]
+position = Vector2(3331, 301)
