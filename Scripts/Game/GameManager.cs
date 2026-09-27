@@ -5,7 +5,7 @@ using System;
 public partial class GameManager : Node
 {
 	public static GameManager Instance { get; private set; }
-
+	
 	private const double GameDuration = 300.0;
 
 	private GameTimer gameTimer;
@@ -13,7 +13,10 @@ public partial class GameManager : Node
 	
 	private readonly HashSet<long> loadedPlayers =
 		new HashSet<long>();
-
+	
+	private const int TasksPerPlayer = 3;
+	private const int MaximumPlayers = 2;
+	
 	public bool GameStarted { get; private set; }
 
 	public double TimeRemaining
@@ -232,5 +235,67 @@ public partial class GameManager : Node
 		GD.Print(
 			$"Time remaining: {remaining:F0}"
 		);
+	}
+	
+	public void PrepareTaskPool()
+	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
+
+		GameMode mode =
+			GameSession.Instance.SelectedMode;
+
+		int requiredTasks =
+			MaximumPlayers * TasksPerPlayer;
+
+		GD.Print(
+			$"Preparing task pool for {mode}."
+		);
+
+		GD.Print(
+			$"Target pool size: {requiredTasks}"
+		);
+
+		TaskPoolManager.Instance.PreparePool(
+			mode,
+			requiredTasks
+		);
+
+		GD.Print(
+			$"Task pool ready: " +
+			$"{TaskPoolManager.Instance.GetAvailableTaskCount()} tasks."
+		);
+	}
+	
+	public void AssignTasksToAllPlayers()
+	{
+		if (!NetworkManager.Instance.IsServer)
+			return;
+
+		GD.Print("================================");
+		GD.Print("ASSIGNING TASKS TO PLAYERS");
+		GD.Print("================================");
+
+		foreach (
+			NetworkPlayer player
+			in LobbyManager.Instance.GetPlayers()
+		)
+		{
+			TaskManager.Instance.AssignTasksFromPool(
+				player.PeerId
+			);
+
+			GD.Print(
+				$"Tasks assigned to {player.PlayerName} " +
+				$"({player.PeerId})"
+			);
+		}
+
+		GD.Print(
+			$"Remaining pool tasks: " +
+			$"{TaskPoolManager.Instance.GetAvailableTaskCount()}"
+		);
+
+		GD.Print("================================");
 	}
 }

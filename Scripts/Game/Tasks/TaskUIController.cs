@@ -2,6 +2,8 @@ using Godot;
 
 public partial class TaskUIController : CanvasLayer
 {
+	public static TaskUIController Instance { get; private set; }
+	
 	public bool IsTaskOpen { get; private set; }
 	
 	private Label titleLabel;
@@ -17,11 +19,23 @@ public partial class TaskUIController : CanvasLayer
 
 	private GameTask currentTask;
 	private TaskStation currentStation;
+	
+	private NetworkTaskData currentNetworkTask;
+	private bool isNetworkTask;
 
 	private int selectedOption = -1;
+	private int networkSelectedOption = -1;
 
 	public override void _Ready()
 	{
+		if (Instance != null && Instance != this)
+		{
+			QueueFree();
+			return;
+		}
+
+		Instance = this;
+		
 		titleLabel =
 			GetNode<Label>(
                 "Panel/VBoxContainer/TitleLabel"
@@ -113,7 +127,56 @@ public partial class TaskUIController : CanvasLayer
 			$"Task UI opened: {currentTask.Question}"
 		);
 	}
+	
+	public void ShowTask(
+		NetworkTaskData task,
+		TaskStation station
+	)
+	{
+		if (task == null)
+		{
+			GD.PrintErr(
+				"Cannot display a null network task."
+			);
 
+			return;
+		}
+
+		currentTask = null;
+		currentNetworkTask = task;
+
+		currentStation = station;
+		isNetworkTask = true;
+
+		IsTaskOpen = true;
+		Visible = true;
+
+		titleLabel.Text = "TASK";
+
+		questionLabel.Text =
+			task.Question;
+
+		answerInput.Clear();
+
+		ClearOptions();
+
+		if (task.TaskType == TaskType.MultipleChoice &&
+			task.Options != null)
+		{
+			ShowNetworkMultipleChoiceTask(task);
+		}
+		else
+		{
+			ShowNetworkTextAnswerTask();
+		}
+
+		UpdateNetworkProgress();
+
+		GD.Print(
+			$"Network task UI opened: {task.Question}"
+		);
+	}
+	
 	private void ShowMultipleChoiceTask(
 		MultipleChoiceTask task
 	)
@@ -139,13 +202,76 @@ public partial class TaskUIController : CanvasLayer
 			);
 		}
 	}
+	
+	private void ShowNetworkMultipleChoiceTask(
+		NetworkTaskData task
+	)
+	{
+		answerInput.Visible = false;
+		optionsContainer.Visible = true;
+
+		for (int i = 0; i < task.Options.Length; i++)
+		{
+			int optionIndex = i;
+
+			Button optionButton = new Button();
+
+			optionButton.Text =
+				task.Options[i];
+
+			optionButton.Disabled = false;
+
+			optionButton.Pressed +=
+				() => OnNetworkOptionSelected(optionIndex);
+
+			optionsContainer.AddChild(
+				optionButton
+			);
+		}
+	}
 
 	private void ShowTextAnswerTask()
 	{
 		answerInput.Visible = true;
 		optionsContainer.Visible = false;
 	}
+	
+	private void ShowNetworkTextAnswerTask()
+	{
+		answerInput.Visible = true;
+		optionsContainer.Visible = false;
+	}
+	
+	private void OnNetworkOptionSelected(
+		int optionIndex
+	)
+	{
+		if (currentNetworkTask == null)
+			return;
 
+		networkSelectedOption = optionIndex;
+
+		Button selectedButton =
+			optionsContainer.GetChild<Button>(
+				optionIndex
+			);
+
+		SetButtonColor(
+			selectedButton,
+			Colors.Yellow
+		);
+
+		SetOptionButtonsDisabled(true);
+
+		GD.Print(
+			$"Client selected option: {optionIndex}"
+		);
+
+		SubmitNetworkAnswer(
+			optionIndex.ToString()
+		);
+	}
+	
 	private void SetOptionButtonsDisabled(bool disabled)
 	{
 		foreach (Node child in optionsContainer.GetChildren())
@@ -235,6 +361,12 @@ public partial class TaskUIController : CanvasLayer
 
 	private void OnSubmitPressed()
 	{
+		if (isNetworkTask)
+		{
+			SubmitNetworkTextAnswer();
+			return;
+		}
+		
 		if (currentTask == null)
 			return;
 
@@ -331,5 +463,136 @@ public partial class TaskUIController : CanvasLayer
 
 		progressLabel.Text =
 			$"Tasks: {completed} / {total}";
+	}
+	
+	private void UpdateNetworkProgress()
+	{
+		if (currentNetworkTask == null)
+			return;
+
+		long playerId =
+			Multiplayer.GetUniqueId();
+
+		int total =
+			TaskManager.Instance
+				.GetNetworkTasks(playerId)
+				.Count;
+
+		progressLabel.Text =
+			$"Tasks: 0 / {total}";
+	}
+	
+	public async void HandleNetworkAnswerResult(
+		int taskId,
+		bool correct
+	)
+	{
+		if (currentNetworkTask == null)
+			return;
+
+		if (currentNetworkTask.TaskId != taskId)
+			return;
+
+		if (networkSelectedOption < 0)
+			return;
+
+		Button selectedButton =
+			optionsContainer.GetChild<Button>(
+				networkSelectedOption
+			);
+
+		if (correct)
+		{
+			SetButtonColor(
+				selectedButton,
+				Colors.Green
+			);
+
+			GD.Print(
+				"NETWORK TASK CORRECT!"
+			);
+
+			await ToSignal(
+				GetTree().CreateTimer(1.0),
+				SceneTreeTimer.SignalName.Timeout
+			);
+
+			long playerId =
+				Multiplayer.GetUniqueId();
+
+			TaskManager.Instance.MarkNetworkTaskCompleted(
+				playerId,
+				taskId
+			);
+
+			OnTaskCompleted();
+		}
+		else
+		{
+			SetButtonColor(
+				selectedButton,
+				Colors.Red
+			);
+
+			GD.Print(
+				"NETWORK TASK INCORRECT!"
+			);
+
+			await ToSignal(
+				GetTree().CreateTimer(0.7),
+				SceneTreeTimer.SignalName.Timeout
+			);
+
+			SetButtonColor(
+				selectedButton,
+				Colors.White
+			);
+
+			SetOptionButtonsDisabled(false);
+
+			networkSelectedOption = -1;
+		}
+	}
+	
+	private void SubmitNetworkAnswer(string answer)
+	{
+		if (currentNetworkTask == null)
+			return;
+
+		if (NetworkManager.Instance == null)
+		{
+			GD.PrintErr("NetworkManager not found.");
+			return;
+		}
+
+		GD.Print(
+			$"Sending answer for network task " +
+			$"{currentNetworkTask.TaskId}"
+		);
+
+		NetworkManager.Instance.SubmitTaskAnswer(
+			currentNetworkTask.TaskId,
+			answer
+		);
+	}
+	
+	private void SubmitNetworkTextAnswer()
+	{
+		if (currentNetworkTask == null)
+			return;
+
+		string answer =
+			answerInput.Text.Trim();
+
+		if (string.IsNullOrEmpty(answer))
+		{
+			GD.Print(
+				"Please enter an answer first."
+			);
+
+			return;
+		}
+
+		SubmitNetworkAnswer(answer);
 	}
 }

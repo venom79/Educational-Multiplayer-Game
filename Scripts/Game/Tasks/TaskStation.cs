@@ -63,41 +63,107 @@ public partial class TaskStation : Area2D
 	{
 		long playerId = Multiplayer.GetUniqueId();
 
-		PlayerTask playerTask =
-			TaskManager.Instance.GetTaskAtStation(
+		// HOST / SERVER
+		if (NetworkManager.Instance.IsServer)
+		{
+			PlayerTask playerTask =
+				TaskManager.Instance.GetTaskAtStation(
+					playerId,
+					StationId
+				);
+
+			if (playerTask == null)
+			{
+				GD.Print(
+					$"No task assigned at {StationId}"
+				);
+
+				return;
+			}
+
+			if (playerTask.Task.IsCompleted)
+			{
+				GD.Print(
+					$"Task at {StationId} is already completed."
+				);
+
+				return;
+			}
+
+			GD.Print(
+				$"Interacting with {StationId}"
+			);
+
+			GD.Print(
+				$"Opening task: {playerTask.Task.Question}"
+			);
+
+			TaskUIController taskUI =
+				GetTree()
+					.CurrentScene
+					.GetNodeOrNull<TaskUIController>(
+						"TaskUI"
+					);
+
+			if (taskUI == null)
+			{
+				GD.PrintErr(
+					"TaskUIController not found."
+				);
+
+				return;
+			}
+
+			taskUI.ShowTask(
+				playerTask.Task,
+				this
+			);
+
+			return;
+		}
+
+		// CLIENT
+		NetworkTaskData networkTask =
+			TaskManager.Instance.GetNetworkTaskAtStation(
 				playerId,
 				StationId
 			);
 
-		if (playerTask == null)
+		if (networkTask == null)
 		{
-			GD.Print($"No task assigned at {StationId}");
+			GD.Print(
+				$"No network task assigned at {StationId}"
+			);
+
 			return;
 		}
 
-		// Do not allow a completed task to be opened again.
-		if (playerTask.Task.IsCompleted)
-		{
-			GD.Print($"Task at {StationId} is already completed.");
-			return;
-		}
+		GD.Print(
+			$"Client interacting with {StationId}"
+		);
 
-		GD.Print($"Interacting with {StationId}");
-		GD.Print($"Opening task: {playerTask.Task.Question}");
+		GD.Print(
+			$"Opening network task: {networkTask.Question}"
+		);
 
-		TaskUIController taskUI =
+		TaskUIController clientTaskUI =
 			GetTree()
 				.CurrentScene
-				.GetNodeOrNull<TaskUIController>("TaskUI");
+				.GetNodeOrNull<TaskUIController>(
+					"TaskUI"
+				);
 
-		if (taskUI == null)
+		if (clientTaskUI == null)
 		{
-			GD.PrintErr("TaskUIController not found.");
+			GD.PrintErr(
+				"TaskUIController not found."
+			);
+
 			return;
 		}
 
-		taskUI.ShowTask(
-			playerTask.Task,
+		clientTaskUI.ShowTask(
+			networkTask,
 			this
 		);
 	}
@@ -114,19 +180,41 @@ public partial class TaskStation : Area2D
 	{
 		long playerId = Multiplayer.GetUniqueId();
 
-		PlayerTask playerTask =
-			TaskManager.Instance.GetTaskAtStation(
+		// HOST / SERVER
+		if (NetworkManager.Instance.IsServer)
+		{
+			PlayerTask playerTask =
+				TaskManager.Instance.GetTaskAtStation(
+					playerId,
+					StationId
+				);
+
+			if (playerTask == null)
+			{
+				interactionLabel.Visible = false;
+				return;
+			}
+
+			if (playerTask.Task.IsCompleted)
+			{
+				interactionLabel.Visible = false;
+				return;
+			}
+
+			interactionLabel.Text = "Press E to interact";
+			interactionLabel.Visible = true;
+
+			return;
+		}
+
+		// CLIENT
+		NetworkTaskData networkTask =
+			TaskManager.Instance.GetNetworkTaskAtStation(
 				playerId,
 				StationId
 			);
 
-		if (playerTask == null)
-		{
-			interactionLabel.Visible = false;
-			return;
-		}
-
-		if (playerTask.Task.IsCompleted)
+		if (networkTask == null)
 		{
 			interactionLabel.Visible = false;
 			return;

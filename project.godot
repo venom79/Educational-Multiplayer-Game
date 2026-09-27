@@ -22,6 +22,7 @@ NetworkManager="*uid://b4t3esq8kdfnh"
 LobbyManager="*uid://brsjtckuesb6x"
 GameManager="*uid://5pofy0s8gajj"
 TaskManager="*uid://pbrf00t2r4og"
+TaskPoolManager="*uid://d3m530b0e5osc"
 
 [display]
 

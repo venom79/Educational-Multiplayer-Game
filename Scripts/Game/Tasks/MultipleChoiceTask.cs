@@ -1,5 +1,8 @@
 public class MultipleChoiceTask : GameTask
 {
+	public override TaskType Type =>
+		TaskType.MultipleChoice;
+		
 	public string[] Options { get; }
 
 	private readonly int correctOptionIndex;

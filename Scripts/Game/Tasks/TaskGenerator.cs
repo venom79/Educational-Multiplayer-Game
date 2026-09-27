@@ -123,7 +123,7 @@ public class TaskGenerator
 
 	private GameTask GenerateScienceTask(int taskId)
 	{
-		int questionNumber = random.Next(0, 5);
+		int questionNumber = random.Next(0, 10);
 
 		switch (questionNumber)
 		{
@@ -136,7 +136,7 @@ public class TaskGenerator
 						"Oxygen",
 						"Helium",
 						"Hydrogen",
-                        "Carbon Dioxide"
+						"Carbon Dioxide"
 					},
 					0
 				);
@@ -150,7 +150,7 @@ public class TaskGenerator
 						"Oxygen",
 						"Water",
 						"Hydrogen",
-                        "Carbon Dioxide"
+						"Carbon Dioxide"
 					},
 					1
 				);
@@ -164,7 +164,7 @@ public class TaskGenerator
 						"Earth",
 						"Mars",
 						"Jupiter",
-                        "Venus"
+						"Venus"
 					},
 					1
 				);
@@ -178,12 +178,12 @@ public class TaskGenerator
 						"Magnetism",
 						"Friction",
 						"Gravity",
-                        "Electricity"
+						"Electricity"
 					},
 					2
 				);
 
-			default:
+			case 4:
 				return new MultipleChoiceTask(
 					taskId,
 					"Which organ pumps blood through the human body?",
@@ -192,9 +192,79 @@ public class TaskGenerator
 						"Lungs",
 						"Brain",
 						"Heart",
-                        "Kidneys"
+						"Kidneys"
 					},
 					2
+				);
+
+			case 5:
+				return new MultipleChoiceTask(
+					taskId,
+					"Which part of a plant absorbs water from the soil?",
+					new string[]
+					{
+						"Flower",
+						"Leaf",
+						"Root",
+						"Fruit"
+					},
+					2
+				);
+
+			case 6:
+				return new MultipleChoiceTask(
+					taskId,
+					"How many planets are in our Solar System?",
+					new string[]
+					{
+						"7",
+						"8",
+						"9",
+						"10"
+					},
+					1
+				);
+
+			case 7:
+				return new MultipleChoiceTask(
+					taskId,
+					"Which star is closest to Earth?",
+					new string[]
+					{
+						"Sirius",
+						"Polaris",
+						"The Sun",
+						"Betelgeuse"
+					},
+					2
+				);
+
+			case 8:
+				return new MultipleChoiceTask(
+					taskId,
+					"Which state of matter has a fixed shape?",
+					new string[]
+					{
+						"Solid",
+						"Liquid",
+						"Gas",
+						"Plasma"
+					},
+					0
+				);
+
+			default:
+				return new MultipleChoiceTask(
+					taskId,
+					"What do plants use to make food?",
+					new string[]
+					{
+						"Photosynthesis",
+						"Digestion",
+						"Respiration",
+						"Fermentation"
+					},
+					0
 				);
 		}
 	}

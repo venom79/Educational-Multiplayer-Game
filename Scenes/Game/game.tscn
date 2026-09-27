@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
 [ext_resource type="Script" uid="uid://t0bnmppxwq5a" path="res://Scripts/Player/PlayerManager.cs" id="3_qikps"]
 [ext_resource type="Script" uid="uid://dp1vdkc4a4u8c" path="res://Scripts/UI/GameUIController.cs" id="4_i1e5p"]
-[ext_resource type="Script" uid="uid://deuasldnyrlga" path="res://Scripts/Game/Tasks/TaskTest.cs" id="5_ciybh"]
 [ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="5_flgk0"]
 [ext_resource type="PackedScene" uid="uid://ddogl8vpp8w86" path="res://Scenes/Game/TaskStation.tscn" id="7_vifcx"]
 
@@ -73,8 +72,13 @@ text = "SUBMIT"
 layout_mode = 2
 text = "Close"
 
-[node name="TaskTest" type="Node" parent="." unique_id=1510801170]
-script = ExtResource("5_ciybh")
-
 [node name="TaskStation" parent="." unique_id=704673815 instance=ExtResource("7_vifcx")]
 position = Vector2(3331, 301)
+
+[node name="TaskStation2" parent="." unique_id=978730931 instance=ExtResource("7_vifcx")]
+position = Vector2(2963, 727)
+StationId = "station_02"
+
+[node name="TaskStation3" parent="." unique_id=395453437 instance=ExtResource("7_vifcx")]
+position = Vector2(3709, 668)
+StationId = "station_03"

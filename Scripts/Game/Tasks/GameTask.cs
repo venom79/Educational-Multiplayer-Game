@@ -4,6 +4,8 @@ public abstract class GameTask
 
 	public string Question { get; }
 
+	public abstract TaskType Type { get; }
+	
 	public bool IsCompleted { get; private set; }
 
 	protected GameTask(

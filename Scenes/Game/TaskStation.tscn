@@ -2,15 +2,30 @@
 
 [ext_resource type="Script" uid="uid://f4uhpdspxam6" path="res://Scripts/Game/Tasks/TaskStation.cs" id="1_mev00"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_icmrp"]
-radius = 80.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_mev00"]
+radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cekx0"]
+size = Vector2(34, 46)
 
 [node name="TaskStation" type="Area2D" unique_id=704673815]
 script = ExtResource("1_mev00")
 
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=878550755]
+position = Vector2(-2.3841858e-07, -1.1920929e-07)
+scale = Vector2(0.7083333, 0.4693877)
+color = Color(0.9538931, 0.16342604, 0.3191919, 1)
+polygon = PackedVector2Array(-24, -49, -24, 48.000015, 24, 49.000015, 23.999998, -48.999996)
+uv = PackedVector2Array(-71, -96, -72, 97, 73, 96, 73, -98)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484308433]
-shape = SubResource("CircleShape2D_icmrp")
+shape = SubResource("CircleShape2D_mev00")
 debug_color = Color(0.11372549, 0, 0.49411765, 0.41960785)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=767063696]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1194163185]
+shape = SubResource("RectangleShape2D_cekx0")
 
 [node name="InteractionLabel" type="Label" parent="." unique_id=1170162283]
 visible = false

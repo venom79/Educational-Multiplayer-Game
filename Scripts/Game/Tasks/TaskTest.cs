@@ -6,55 +6,91 @@ public partial class TaskTest : Node
 	public override void _Ready()
 	{
 		GD.Print("==============================");
-		GD.Print("TASK STATION TEST");
+		GD.Print("TASK POOL → TASK MANAGER TEST");
 		GD.Print("==============================");
 
-		if (TaskManager.Instance == null)
+		if (TaskPoolManager.Instance == null)
 		{
 			GD.PrintErr(
-				"ERROR: TaskManager.Instance is NULL!"
+                "ERROR: TaskPoolManager.Instance is NULL!"
 			);
 
 			return;
 		}
 
-		long localPlayerId =
-			Multiplayer.GetUniqueId();
+		if (TaskManager.Instance == null)
+		{
+			GD.PrintErr(
+                "ERROR: TaskManager.Instance is NULL!"
+			);
 
-		GD.Print(
-			$"Local player ID: {localPlayerId}"
-		);
+			return;
+		}
+
+		long playerId =
+			Multiplayer.GetUniqueId();
 
 		GameMode mode =
 			GameSession.Instance.SelectedMode;
 
 		GD.Print(
+			$"Local player ID: {playerId}"
+		);
+
+		GD.Print(
 			$"Selected mode: {mode}"
 		);
 
-		// Temporary test station.
-		string[] stationIds =
-		{
-			"station_01"
-		};
-
-		// Generate exactly one task for this station.
-		TaskManager.Instance.GenerateAndAssignStationTasks(
-			localPlayerId,
+		// Prepare the room's task pool.
+		TaskPoolManager.Instance.PreparePool(
 			mode,
-			stationIds
+			5
 		);
 
-		List<PlayerTask> tasks =
-			TaskManager.Instance.GetPlayerTasks(
-				localPlayerId
+		GD.Print(
+			$"Tasks available in pool: " +
+			$"{TaskPoolManager.Instance.GetAvailableTaskCount()}"
+		);
+
+		// Let TaskManager take tasks from the pool
+		// and assign them to the player's stations.
+		TaskManager.Instance.AssignTasksFromPool(
+			playerId
+		);
+	
+		List<NetworkTaskData> networkTasks =
+			TaskManager.Instance.CreateNetworkTaskData(
+				playerId
 			);
 
 		GD.Print(
-			$"Tasks assigned to local player: {tasks.Count}"
+			$"Network task data count: {networkTasks.Count}"
 		);
 
-		foreach (PlayerTask playerTask in tasks)
+		foreach (NetworkTaskData networkTask in networkTasks)
+		{
+			GD.Print(
+				$"Network Task → " +
+				$"Station: {networkTask.StationId}, " +
+				$"Type: {networkTask.TaskType}, " +
+				$"ID: {networkTask.TaskId}"
+			);
+		}
+
+		// Verify the assignments.
+		List<PlayerTask> playerTasks =
+			TaskManager.Instance.GetPlayerTasks(
+				playerId
+			);
+
+		GD.Print(
+			$"Tasks assigned to player: " +
+			$"{playerTasks.Count}"
+		);
+
+		GD.Print("------------------------------");
+
+		foreach (PlayerTask playerTask in playerTasks)
 		{
 			GD.Print(
 				$"Station: {playerTask.StationId}"
@@ -71,27 +107,15 @@ public partial class TaskTest : Node
 			GD.Print("------------------------------");
 		}
 
-		if (tasks.Count == 0)
-		{
-			GD.PrintErr(
-				"ERROR: No station tasks were generated!"
-			);
-
-			return;
-		}
-
 		GD.Print(
-			"Task assignment successful."
-		);
-
-		GD.Print(
-			"Task UI will NOT open automatically."
-		);
-
-		GD.Print(
-			"Walk to station_01 and press E."
+			$"Remaining tasks in pool: " +
+			$"{TaskPoolManager.Instance.GetAvailableTaskCount()}"
 		);
 
 		GD.Print("==============================");
+		GD.Print("TASK POOL → TASK MANAGER TEST COMPLETE");
+		GD.Print("==============================");
 	}
+	
+	
 }

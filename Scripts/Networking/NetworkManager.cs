@@ -1,5 +1,5 @@
 using Godot;
-
+using System.Collections.Generic;	
 
 public partial class NetworkManager : Node
 {
@@ -442,6 +442,253 @@ public partial class NetworkManager : Node
 		);
 	}
 	
+	private void SendTaskAssignmentsToPlayer(
+		long playerId,
+		List<NetworkTaskData> tasks
+	)
+	{
+		if (!IsServer)
+			return;
+
+		Godot.Collections.Array<
+			Godot.Collections.Dictionary
+		> networkTasks =
+			new Godot.Collections.Array<
+				Godot.Collections.Dictionary
+			>();
+
+		foreach (NetworkTaskData task in tasks)
+		{
+			Godot.Collections.Array options =
+				new Godot.Collections.Array();
+
+			if (task.Options != null)
+			{
+				foreach (string option in task.Options)
+				{
+					options.Add(option);
+				}
+			}
+
+			Godot.Collections.Dictionary taskData =
+				new Godot.Collections.Dictionary
+				{
+					{ "task_id", task.TaskId },
+					{ "station_id", task.StationId },
+					{ "task_type", (int)task.TaskType },
+					{ "question", task.Question },
+					{ "options", options }
+				};
+
+			networkTasks.Add(taskData);
+		}
+
+		RpcId(
+			playerId,
+			nameof(ReceiveTaskAssignmentsRpc),
+			networkTasks
+		);
+
+		GD.Print(
+			$"Sent {tasks.Count} tasks to player {playerId}."
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceiveTaskAssignmentsRpc(
+		Godot.Collections.Array<Godot.Collections.Dictionary> networkTasks
+	)
+	{
+		long localPlayerId =
+			Multiplayer.GetUniqueId();
+
+		List<NetworkTaskData> tasks =
+			new List<NetworkTaskData>();
+
+		foreach (
+			Godot.Collections.Dictionary data
+			in networkTasks
+		)
+		{
+			int taskId =
+				(int)data["task_id"];
+
+			string stationId =
+				(string)data["station_id"];
+
+			TaskType taskType =
+				(TaskType)(int)data["task_type"];
+
+			string question =
+				(string)data["question"];
+
+			string[] options = null;
+
+			Godot.Collections.Array receivedOptions =
+				data["options"].AsGodotArray();
+
+			if (receivedOptions.Count > 0)
+			{
+				options =
+					new string[receivedOptions.Count];
+
+				for (int i = 0;
+					i < receivedOptions.Count;
+					i++)
+				{
+					options[i] =
+						(string)receivedOptions[i];
+				}
+			}
+			tasks.Add(
+				new NetworkTaskData(
+					taskId,
+					stationId,
+					taskType,
+					question,
+					options
+				)
+			);
+		}
+
+		TaskManager.Instance.ApplyNetworkTasks(
+			localPlayerId,
+			tasks
+		);
+
+		GD.Print(
+			$"Received {tasks.Count} task assignments from server."
+		);
+	}
+	
+	public void SubmitTaskAnswer(
+		int taskId,
+		string answer
+	)
+	{
+		if (IsServer)
+		{
+			GD.Print(
+				"Server cannot submit a network answer " +
+				"through the client RPC."
+			);
+
+			return;
+		}
+
+		Rpc(
+			nameof(RequestTaskAnswerRpc),
+			taskId,
+			answer
+		);
+
+		GD.Print(
+			$"Submitted task answer: Task {taskId}"
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void RequestTaskAnswerRpc(
+		int taskId,
+		string answer
+	)
+	{
+		if (!IsServer)
+			return;
+
+		long playerId =
+			Multiplayer.GetRemoteSenderId();
+
+		GD.Print(
+			$"Task answer received from {playerId}: " +
+			$"Task {taskId}"
+		);
+
+		GameTask task =
+			TaskManager.Instance.GetTask(
+				playerId,
+				taskId
+			);
+
+		if (task == null)
+		{
+			GD.PrintErr(
+				$"Task {taskId} not found for player {playerId}."
+			);
+
+			RpcId(
+				playerId,
+				nameof(ReceiveTaskAnswerResultRpc),
+				taskId,
+				false
+			);
+
+			return;
+		}
+
+		if (task.IsCompleted)
+		{
+			GD.Print(
+				$"Task {taskId} is already completed."
+			);
+
+			RpcId(
+				playerId,
+				nameof(ReceiveTaskAnswerResultRpc),
+				taskId,
+				false
+			);
+
+			return;
+		}
+
+		bool correct =
+			task.SubmitAnswer(answer);
+
+		GD.Print(
+			$"Task {taskId} answer result: {correct}"
+		);
+
+		RpcId(
+			playerId,
+			nameof(ReceiveTaskAnswerResultRpc),
+			taskId,
+			correct
+		);
+	}
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ReceiveTaskAnswerResultRpc(
+		int taskId,
+		bool correct
+	)
+	{
+		GD.Print(
+			$"Task {taskId} result received: {correct}"
+		);
+
+		if (TaskUIController.Instance != null)
+		{
+			TaskUIController.Instance
+				.HandleNetworkAnswerResult(
+					taskId,
+					correct
+				);
+		}
+	}
+	
 	private void SyncGameModeToAllPlayers()
 	{
 		if (!IsServer)
@@ -572,7 +819,62 @@ public partial class NetworkManager : Node
 	
 	private void StartGameForEveryone()
 	{
-		GD.Print("SERVER: Starting game for everyone.");
+		if (!IsServer)
+			return;
+
+		GD.Print("================================");
+		GD.Print("SERVER: PREPARING GAME");
+		GD.Print("================================");
+
+		// ---------------------------------------------
+		// 1. Prepare the room's task pool
+		// ---------------------------------------------
+
+		GameManager.Instance.PrepareTaskPool();
+
+		// ---------------------------------------------
+		// 2. Assign tasks to every player
+		// ---------------------------------------------
+
+		GameManager.Instance.AssignTasksToAllPlayers();
+
+		// ---------------------------------------------
+		// 3. Prepare network task data
+		// ---------------------------------------------
+
+		foreach (
+			NetworkPlayer player
+			in LobbyManager.Instance.GetPlayers()
+		)
+		{
+			List<NetworkTaskData> networkTasks =
+				TaskManager.Instance.CreateNetworkTaskData(
+					player.PeerId
+				);
+
+			if (player.PeerId == Multiplayer.GetUniqueId())
+			{
+				TaskManager.Instance.ApplyNetworkTasks(
+					player.PeerId,
+					networkTasks
+				);
+			}
+			else
+			{
+				SendTaskAssignmentsToPlayer(
+					player.PeerId,
+					networkTasks
+				);
+			}
+		}
+
+		GD.Print("================================");
+		GD.Print("TASK ASSIGNMENT COMPLETE");
+		GD.Print("================================");
+
+		// ---------------------------------------------
+		// 4. Start the game for everyone
+		// ---------------------------------------------
 
 		GameSession.Instance.SetState(
 			GameState.Playing
@@ -699,4 +1001,6 @@ public partial class NetworkManager : Node
 
 		player.SetNetworkPosition(position);
 	}
+	
+	
 }

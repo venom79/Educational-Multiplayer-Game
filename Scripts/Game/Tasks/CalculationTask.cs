@@ -1,5 +1,8 @@
 public class CalculationTask : GameTask
 {
+	public override TaskType Type =>
+		TaskType.Calculation;
+	
 	private readonly string correctAnswer;
 
 	public CalculationTask(
