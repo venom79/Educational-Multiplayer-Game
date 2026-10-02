@@ -144,13 +144,6 @@ public partial class ResultScreenController : Control
 			22
 		);
 	}
-
-	private void OnContinuePressed()
-	{
-		GD.Print(
-			"Continue button pressed."
-		);
-	}
 	
 	private void DisplayResult()
 	{
@@ -176,6 +169,22 @@ public partial class ResultScreenController : Control
 
 		GD.Print(
 			$"Result screen loaded with state: {result}"
+		);
+	}
+	
+	private void OnContinuePressed()
+	{
+		GD.Print(
+			"Returning to Main Menu..."
+		);
+		NetworkManager.Instance.Disconnect();
+		
+		GameSession.Instance.SetState(
+			GameState.MainMenu
+		);
+
+		GetTree().ChangeSceneToFile(
+			"res://Scenes/MainMenu/MainMenu.tscn"
 		);
 	}
 }

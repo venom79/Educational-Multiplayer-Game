@@ -172,4 +172,11 @@ public partial class LobbyManager : Node
 
 		return true;
 	}
+	
+	public void ClearPlayers()
+	{
+		players.Clear();
+
+		GD.Print("Lobby players cleared.");
+	}
 }

@@ -16,7 +16,8 @@ public partial class NetworkManager : Node
 	private string searchingRoomCode = "";
 
 	public bool IsServer { get; private set; }
-
+	public bool RoomClosed { get; private set; }
+	
 	public override void _Ready()
 	{
 		if (Instance != null && Instance != this)
@@ -66,6 +67,8 @@ public partial class NetworkManager : Node
 
 	public void HostGame()
 	{
+		LobbyManager.Instance.ClearPlayers();
+		
 		ENetMultiplayerPeer peer = new ENetMultiplayerPeer();
 
 		Error error = peer.CreateServer(Port);
@@ -79,7 +82,8 @@ public partial class NetworkManager : Node
 		Multiplayer.MultiplayerPeer = peer;
 
 		IsServer = true;
-
+		RoomClosed = false;
+		
 		LobbyManager.Instance.AddPlayer(
 			Multiplayer.GetUniqueId(),
 			"Host",
@@ -213,7 +217,10 @@ public partial class NetworkManager : Node
 	{
 		if (!IsServer)
 			return;
-
+	
+		if (RoomClosed)
+			return;
+		
 		if (parts.Length < 2)
 			return;
 
@@ -350,8 +357,14 @@ public partial class NetworkManager : Node
 
 		discoveryRunning = false;
 		IsServer = false;
+		RoomClosed = false;
 
-		GD.Print("Disconnected.");
+		LobbyManager.Instance.ClearPlayers();
+
+		GameSession.Instance.RoomCode = "";
+		GameSession.Instance.HostAddress = "";
+
+		GD.Print("Disconnected and local lobby state cleared.");
 	}
 
 	private void OnPeerConnected(long peerId)
@@ -360,7 +373,20 @@ public partial class NetworkManager : Node
 
 		if (!IsServer)
 			return;
+		
+		if (RoomClosed)
+		{
+			GD.Print(
+				$"Rejected peer {peerId}: room is already closed."
+			);
 
+			Multiplayer.MultiplayerPeer.DisconnectPeer(
+				(int)peerId
+			);
+
+			return;
+		}
+		
 		LobbyManager.Instance.AddPlayer(
 			peerId,
 			$"Player {peerId}",
@@ -882,7 +908,13 @@ public partial class NetworkManager : Node
 		// ---------------------------------------------
 		// 4. Start the game for everyone
 		// ---------------------------------------------
+	
+		// The lobby is now closed.
+		RoomClosed = true;
 
+		// Stop advertising the room.
+		StopHostDiscovery();
+		
 		GameSession.Instance.SetState(
 			GameState.Playing
 		);
@@ -895,6 +927,23 @@ public partial class NetworkManager : Node
 			"res://Scenes/Game/game.tscn"
 		);
 	}
+	
+	private void StopHostDiscovery()
+	{
+		if (!discoveryRunning)
+			return;
+
+		discoveryRunning = false;
+
+		if (discoverySocket != null)
+		{
+			discoverySocket.Close();
+			discoverySocket = null;
+		}
+
+		GD.Print("Room discovery stopped. Room is closed.");
+	}
+	
 	
 	[Rpc(
 		MultiplayerApi.RpcMode.Authority,
