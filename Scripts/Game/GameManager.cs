@@ -20,6 +20,9 @@ public partial class GameManager : Node
 	public bool GameStarted { get; private set; }
 	public bool GameEnded { get; private set; }
 	
+	private const string ResultScenePath =
+	"res://Scenes/Results/ResultScreen.tscn";
+	
 	private readonly Dictionary<long, int> completedTasks =
 		new Dictionary<long, int>();
 
@@ -397,17 +400,34 @@ public partial class GameManager : Node
 		GD.Print("================================");
 		GD.Print("GAME ENDED");
 		GD.Print($"RESULT: {result}");
-		GD.Print($"FINAL TEAM PROGRESS: {teamCompletedTasks}/{TeamTotalTasks}");
+		GD.Print(
+			$"FINAL TEAM PROGRESS: " +
+			$"{teamCompletedTasks}/{TeamTotalTasks}"
+		);
 		GD.Print("================================");
 
 		Rpc(
 			nameof(ReceiveGameResultRpc),
 			(int)result
 		);
+
+		ChangeToResultScreen();
 	}
+	
+	private void ChangeToResultScreen()
+	{
+		GD.Print(
+			"Changing to Result Screen..."
+		);
+
+		GetTree().ChangeSceneToFile(
+			ResultScenePath
+		);
+	}
+	
 	[Rpc(
 		MultiplayerApi.RpcMode.Authority,
-		CallLocal = true,
+		CallLocal = false,
 		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
 	)]
 	private void ReceiveGameResultRpc(int result)
@@ -420,6 +440,8 @@ public partial class GameManager : Node
 		GD.Print(
 			$"Game result received: {gameResult}"
 		);
+
+		ChangeToResultScreen();
 	}
 	
 	[Rpc(

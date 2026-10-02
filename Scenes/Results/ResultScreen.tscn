@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://4ko1i8l3scpt"]
+
+[ext_resource type="Script" uid="uid://dsepx0huwi7ga" path="res://Scripts/UI/ResultScreenController.cs" id="1_gdggs"]
+
+[node name="ResultScreen" type="Control" unique_id=665551133]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gdggs")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1971339997]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.12632424, 0.32529104, 1)
+
+[node name="ResultTitle" type="Label" parent="." unique_id=905672941]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ResultMessage" type="Label" parent="." unique_id=1465014200]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TeamProgress" type="Label" parent="." unique_id=1197213877]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TimeResult" type="Label" parent="." unique_id=1856988471]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ContinueButton" type="Button" parent="." unique_id=939024368]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
