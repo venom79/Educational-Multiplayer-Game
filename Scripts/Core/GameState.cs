@@ -1,3 +1,4 @@
+
 public enum GameState
 {
 	MainMenu,
@@ -5,7 +6,14 @@ public enum GameState
 	JoinGame,
 	WaitingRoom,
 	Playing,
+
+	BlueVictory,
+	RedVictory,
+	Draw,
+
+	// Retained temporarily so older references still compile.
 	Victory,
 	AliensWin,
+
 	Results
 }

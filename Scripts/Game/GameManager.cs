@@ -1,6 +1,7 @@
 using Godot;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class GameManager : Node
 {
@@ -26,11 +27,38 @@ public partial class GameManager : Node
 	private readonly Dictionary<long, int> completedTasks =
 		new Dictionary<long, int>();
 
-	private int teamCompletedTasks = 0;
+	
+	private int blueCompletedTasks = 0;
+	private int redCompletedTasks = 0;
 
+	private int synchronizedBlueCompletedTasks = 0;
+	private int synchronizedRedCompletedTasks = 0;
+
+	public int BlueCompletedTasks =>
+		NetworkManager.Instance.IsServer
+			? blueCompletedTasks
+			: synchronizedBlueCompletedTasks;
+
+	public int RedCompletedTasks =>
+		NetworkManager.Instance.IsServer
+			? redCompletedTasks
+			: synchronizedRedCompletedTasks;
+
+	public int BlueTotalTasks =>
+		LobbyManager.Instance.GetPlayers()
+			.Count(p => p.Team == PlayerTeam.Blue)
+			* TasksPerPlayer;
+
+	public int RedTotalTasks =>
+		LobbyManager.Instance.GetPlayers()
+			.Count(p => p.Team == PlayerTeam.Red)
+			* TasksPerPlayer;
+
+	// Retain these properties for any existing UI that uses them.
 	public int TeamCompletedTasks =>
-		teamCompletedTasks;
+		blueCompletedTasks + redCompletedTasks;
 
+	
 	public int TeamTotalTasks =>
 		LobbyManager.Instance.GetPlayerCount() * TasksPerPlayer;
 	
@@ -52,7 +80,7 @@ public partial class GameManager : Node
 
 	public int SynchronizedTeamCompletedTasks =>
 		NetworkManager.Instance.IsServer
-			? teamCompletedTasks
+			? blueCompletedTasks + redCompletedTasks
 			: synchronizedTeamCompletedTasks;
 
 	public int SynchronizedTeamTotalTasks =>
@@ -189,7 +217,7 @@ public partial class GameManager : Node
 		return playerCount > 0 &&
 			loadedPlayers.Count >= playerCount;
 	}
-	
+		
 	private void InitializeTaskProgress()
 	{
 		if (!NetworkManager.Instance.IsServer)
@@ -197,73 +225,73 @@ public partial class GameManager : Node
 
 		completedTasks.Clear();
 
-		foreach (
-			NetworkPlayer player
-			in LobbyManager.Instance.GetPlayers()
-		)
+		foreach (NetworkPlayer player in LobbyManager.Instance.GetPlayers())
 		{
 			completedTasks[player.PeerId] = 0;
 		}
 
-		teamCompletedTasks = 0;
-		BroadcastProgress();
-		
-		GD.Print(
-			"Task progress initialized."
-		);
+		blueCompletedTasks = 0;
+		redCompletedTasks = 0;
 
-		GD.Print(
-			$"Team progress: " +
-			$"{teamCompletedTasks} / " +
-			$"{TeamTotalTasks}"
-		);
+		BroadcastProgress();
+
+		GD.Print("Task progress initialized.");
+		GD.Print($"Blue: 0/{BlueTotalTasks}");
+		GD.Print($"Red: 0/{RedTotalTasks}");
 	}
+
+	
 	
 	public void RegisterTaskCompletion(long playerId)
 	{
-		if (!NetworkManager.Instance.IsServer)
-			return;
-
-		if (GameEnded)
+		if (!NetworkManager.Instance.IsServer || GameEnded)
 			return;
 
 		if (!completedTasks.ContainsKey(playerId))
 		{
-			GD.PrintErr(
-				$"Cannot register task completion. " +
-				$"Unknown player: {playerId}"
-			);
-
+			GD.PrintErr($"Unknown player: {playerId}");
 			return;
 		}
 
+		NetworkPlayer player =
+			LobbyManager.Instance.GetPlayer(playerId);
+
+		if (player == null)
+			return;
+
 		completedTasks[playerId]++;
 
-		teamCompletedTasks++;
-		
+		if (player.Team == PlayerTeam.Blue)
+			blueCompletedTasks++;
+		else
+			redCompletedTasks++;
+
+		GD.Print(
+			$"{player.PlayerName} completed a task for Team {player.Team}."
+		);
+
+		GD.Print(
+			$"Blue: {blueCompletedTasks}/{BlueTotalTasks} | " +
+			$"Red: {redCompletedTasks}/{RedTotalTasks}"
+		);
+
 		BroadcastProgress();
 
-		GD.Print(
-			$"Player {playerId} completed a task."
-		);
-
-		GD.Print(
-			$"Player progress: " +
-			$"{completedTasks[playerId]} / " +
-			$"{TasksPerPlayer}"
-		);
-
-		GD.Print(
-			$"Team progress: " +
-			$"{teamCompletedTasks} / " +
-			$"{TeamTotalTasks}"
-		);
-
-		if (teamCompletedTasks >= TeamTotalTasks)
+		// A team wins as soon as it completes all its required tasks.
+		if (BlueTotalTasks > 0 &&
+			blueCompletedTasks >= BlueTotalTasks)
 		{
-			EndGame(GameState.Victory);
+			EndGame(GameState.BlueVictory);
+			return;
+		}
+
+		if (RedTotalTasks > 0 &&
+			redCompletedTasks >= RedTotalTasks)
+		{
+			EndGame(GameState.RedVictory);
 		}
 	}
+
 	
 	public int GetPlayerCompletedTasks(long playerId)
 	{
@@ -292,7 +320,7 @@ public partial class GameManager : Node
 	
 	public int GetTeamCompletedTasks()
 	{
-		return teamCompletedTasks;
+		return blueCompletedTasks + redCompletedTasks;
 	}
 
 	public int GetTeamTotalTasks()
@@ -368,20 +396,28 @@ public partial class GameManager : Node
 		);
 	}
 
+	
 	private void OnTimerFinished()
 	{
-		if (!NetworkManager.Instance.IsServer)
+		if (!NetworkManager.Instance.IsServer || GameEnded)
 			return;
 
-		if (GameEnded)
-			return;
+		GD.Print("GAME TIMER FINISHED.");
 
-		GD.Print(
-			"GAME TIMER FINISHED."
-		);
-
-		EndGame(GameState.AliensWin);
+		if (blueCompletedTasks > redCompletedTasks)
+		{
+			EndGame(GameState.BlueVictory);
+		}
+		else if (redCompletedTasks > blueCompletedTasks)
+		{
+			EndGame(GameState.RedVictory);
+		}
+		else
+		{
+			EndGame(GameState.Draw);
+		}
 	}
+
 	
 	private void EndGame(GameState result)
 	{
@@ -401,8 +437,9 @@ public partial class GameManager : Node
 		GD.Print("GAME ENDED");
 		GD.Print($"RESULT: {result}");
 		GD.Print(
-			$"FINAL TEAM PROGRESS: " +
-			$"{teamCompletedTasks}/{TeamTotalTasks}"
+			$"FINAL TEAM PROGRESS → " +
+			$"Blue: {blueCompletedTasks}/{BlueTotalTasks} | " +
+			$"Red: {redCompletedTasks}/{RedTotalTasks}"
 		);
 		GD.Print("================================");
 
@@ -467,7 +504,8 @@ public partial class GameManager : Node
 			GameSession.Instance.SelectedMode;
 
 		int requiredTasks =
-			MaximumPlayers * TasksPerPlayer;
+			LobbyManager.Instance.GetPlayerCount()
+			* TasksPerPlayer;
 
 		GD.Print(
 			$"Preparing task pool for {mode}."
@@ -520,33 +558,27 @@ public partial class GameManager : Node
 		GD.Print("================================");
 	}
 	
+	
 	public void BroadcastProgress()
 	{
 		if (!NetworkManager.Instance.IsServer)
 			return;
 
-		foreach (
-			NetworkPlayer player
-			in LobbyManager.Instance.GetPlayers()
-		)
+		foreach (NetworkPlayer player in LobbyManager.Instance.GetPlayers())
 		{
-			int playerCompleted =
-				GetPlayerCompletedTasks(player.PeerId);
-
-			int playerTotal =
-				GetPlayerTotalTasks(player.PeerId);
-
 			RpcId(
 				player.PeerId,
 				nameof(ReceiveProgressRpc),
-				playerCompleted,
-				playerTotal,
-				teamCompletedTasks,
-				TeamTotalTasks
+				GetPlayerCompletedTasks(player.PeerId),
+				GetPlayerTotalTasks(player.PeerId),
+				blueCompletedTasks,
+				BlueTotalTasks,
+				redCompletedTasks,
+				RedTotalTasks
 			);
 		}
 	}
-	
+
 	[Rpc(
 		MultiplayerApi.RpcMode.Authority,
 		CallLocal = false,
@@ -555,26 +587,26 @@ public partial class GameManager : Node
 	private void ReceiveProgressRpc(
 		int playerCompleted,
 		int playerTotal,
-		int teamCompleted,
-		int teamTotal
+		int blueCompleted,
+		int blueTotal,
+		int redCompleted,
+		int redTotal
 	)
 	{
-		synchronizedPlayerCompletedTasks =
-			playerCompleted;
+		synchronizedPlayerCompletedTasks = playerCompleted;
+		synchronizedPlayerTotalTasks = playerTotal;
 
-		synchronizedPlayerTotalTasks =
-			playerTotal;
+		synchronizedBlueCompletedTasks = blueCompleted;
+		synchronizedRedCompletedTasks = redCompleted;
 
-		synchronizedTeamCompletedTasks =
-			teamCompleted;
-
-		synchronizedTeamTotalTasks =
-			teamTotal;
+		synchronizedTeamCompletedTasks = blueCompleted + redCompleted;
+		synchronizedTeamTotalTasks = blueTotal + redTotal;
 
 		GD.Print(
-			$"Progress synchronized → " +
-			$"Player: {playerCompleted}/{playerTotal}, " +
-			$"Team: {teamCompleted}/{teamTotal}"
+			$"Progress → Player {playerCompleted}/{playerTotal} | " +
+			$"Blue {blueCompleted}/{blueTotal} | " +
+			$"Red {redCompleted}/{redTotal}"
 		);
 	}
+
 }

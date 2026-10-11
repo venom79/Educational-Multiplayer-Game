@@ -39,6 +39,22 @@ offset_bottom = 23.0
 offset_right = 4.0
 offset_bottom = 27.0
 
+[node name="BlueProgressLabel" type="Label" parent="GameUI" unique_id=11169500]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="BlueProgressBar" type="ProgressBar" parent="GameUI" unique_id=663253004]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="RedProgressLabel" type="Label" parent="GameUI" unique_id=1336608604]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RedProgressBar" type="ProgressBar" parent="GameUI" unique_id=29322269]
+offset_right = 4.0
+offset_bottom = 27.0
+
 [node name="TaskUI" type="CanvasLayer" parent="." unique_id=1334917936]
 script = ExtResource("5_flgk0")
 

@@ -1,3 +1,4 @@
+
 using Godot;
 
 public partial class GameUIController : CanvasLayer
@@ -7,13 +8,15 @@ public partial class GameUIController : CanvasLayer
 	private Label playerProgressLabel;
 	private ProgressBar playerProgressBar;
 
-	private Label teamProgressLabel;
-	private ProgressBar teamProgressBar;
+	private Label blueProgressLabel;
+	private ProgressBar blueProgressBar;
+
+	private Label redProgressLabel;
+	private ProgressBar redProgressBar;
 
 	public override void _Ready()
 	{
-		timerLabel =
-			GetNode<Label>("TimerLabel");
+		timerLabel = GetNode<Label>("TimerLabel");
 
 		playerProgressLabel =
 			GetNode<Label>("PlayerProgressLabel");
@@ -21,11 +24,17 @@ public partial class GameUIController : CanvasLayer
 		playerProgressBar =
 			GetNode<ProgressBar>("PlayerProgressBar");
 
-		teamProgressLabel =
-			GetNode<Label>("TeamProgressLabel");
+		blueProgressLabel =
+			GetNode<Label>("BlueProgressLabel");
 
-		teamProgressBar =
-			GetNode<ProgressBar>("TeamProgressBar");
+		blueProgressBar =
+			GetNode<ProgressBar>("BlueProgressBar");
+
+		redProgressLabel =
+			GetNode<Label>("RedProgressLabel");
+
+		redProgressBar =
+			GetNode<ProgressBar>("RedProgressBar");
 
 		SetupUI();
 
@@ -41,55 +50,40 @@ public partial class GameUIController : CanvasLayer
 
 	private void SetupUI()
 	{
-		// -------------------------
-		// TIMER
-		// -------------------------
+		timerLabel.Position = new Vector2(40, 30);
+		timerLabel.AddThemeFontSizeOverride("font_size", 32);
 
-		timerLabel.Position =
-			new Vector2(40, 30);
-
-		timerLabel.AddThemeFontSizeOverride(
-			"font_size",
-			32
-		);
-
-
-		// -------------------------
-		// PLAYER PROGRESS
-		// -------------------------
-
-		playerProgressLabel.Position =
-			new Vector2(40, 85);
-
+		playerProgressLabel.Position = new Vector2(40, 85);
 		playerProgressLabel.AddThemeFontSizeOverride(
-			"font_size",
-			20
+			"font_size", 20
 		);
 
-		playerProgressBar.Position =
-			new Vector2(40, 115);
+		playerProgressBar.Position = new Vector2(40, 115);
+		playerProgressBar.Size = new Vector2(250, 22);
 
-		playerProgressBar.Size =
-			new Vector2(250, 25);
-
-
-		// -------------------------
-		// TEAM PROGRESS
-		// -------------------------
-
-		teamProgressLabel.Position =
-			new Vector2(40, 155);
-
-		teamProgressLabel.AddThemeFontSizeOverride(
-			"font_size",
-			20
+		blueProgressLabel.Position = new Vector2(40, 155);
+		blueProgressLabel.AddThemeFontSizeOverride(
+			"font_size", 20
+		);
+		blueProgressLabel.AddThemeColorOverride(
+			"font_color", new Color("#3987FF")
 		);
 
-		teamProgressBar.Position =
-			new Vector2(40, 185);
+		blueProgressBar.Position = new Vector2(40, 185);
+		blueProgressBar.Size = new Vector2(250, 22);
+		blueProgressBar.Modulate = new Color("#3987FF");
 
-		teamProgressBar.Size =
-			new Vector2(250, 25);
+		redProgressLabel.Position = new Vector2(40, 220);
+		redProgressLabel.AddThemeFontSizeOverride(
+			"font_size", 20
+		);
+		redProgressLabel.AddThemeColorOverride(
+			"font_color", new Color("#FF6262")
+		);
+
+		redProgressBar.Position = new Vector2(40, 250);
+		redProgressBar.Size = new Vector2(250, 22);
+		redProgressBar.Modulate = new Color("#FF6262");
 	}
 
 	private void UpdateTimer()
@@ -97,20 +91,15 @@ public partial class GameUIController : CanvasLayer
 		if (GameManager.Instance == null)
 			return;
 
-		double remaining =
-			GameManager.Instance.TimeRemaining;
+		double remaining = GameManager.Instance.TimeRemaining;
 
 		int totalSeconds =
-			Mathf.CeilToInt((float)remaining);
+			Mathf.Max(0, Mathf.CeilToInt((float)remaining));
 
-		int minutes =
-			totalSeconds / 60;
+		int minutes = totalSeconds / 60;
+		int seconds = totalSeconds % 60;
 
-		int seconds =
-			totalSeconds % 60;
-
-		timerLabel.Text =
-			$"{minutes:00}:{seconds:00}";
+		timerLabel.Text = $"{minutes:00}:{seconds:00}";
 	}
 
 	private void UpdateProgress()
@@ -118,36 +107,39 @@ public partial class GameUIController : CanvasLayer
 		if (GameManager.Instance == null)
 			return;
 
-		int playerCompleted =
-			GameManager.Instance.PlayerCompletedTasks;
+		GameManager game = GameManager.Instance;
 
-		int playerTotal =
-			GameManager.Instance.PlayerTotalTasks;
+		int playerCompleted = game.PlayerCompletedTasks;
+		int playerTotal = game.PlayerTotalTasks;
 
-		int teamCompleted =
-			GameManager.Instance.SynchronizedTeamCompletedTasks;
+		int blueCompleted = game.BlueCompletedTasks;
+		int blueTotal = game.BlueTotalTasks;
 
-		int teamTotal =
-			GameManager.Instance.SynchronizedTeamTotalTasks;
-
+		int redCompleted = game.RedCompletedTasks;
+		int redTotal = game.RedTotalTasks;
 
 		playerProgressLabel.Text =
 			$"YOUR TASKS  {playerCompleted} / {playerTotal}";
 
-		playerProgressBar.MaxValue =
-			playerTotal;
+		SetProgress(playerProgressBar, playerCompleted, playerTotal);
 
-		playerProgressBar.Value =
-			playerCompleted;
+		blueProgressLabel.Text =
+			$"TEAM BLUE  {blueCompleted} / {blueTotal}";
 
+		SetProgress(blueProgressBar, blueCompleted, blueTotal);
 
-		teamProgressLabel.Text =
-			$"TEAM PROGRESS  {teamCompleted} / {teamTotal}";
+		redProgressLabel.Text =
+			$"TEAM RED  {redCompleted} / {redTotal}";
 
-		teamProgressBar.MaxValue =
-			teamTotal;
+		SetProgress(redProgressBar, redCompleted, redTotal);
+	}
 
-		teamProgressBar.Value =
-			teamCompleted;
+	private void SetProgress(
+		ProgressBar bar,
+		int completed,
+		int total)
+	{
+		bar.MaxValue = total > 0 ? total : 1;
+		bar.Value = completed;
 	}
 }

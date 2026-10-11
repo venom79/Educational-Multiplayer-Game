@@ -144,33 +144,49 @@ public partial class ResultScreenController : Control
 			22
 		);
 	}
-	
+		
 	private void DisplayResult()
 	{
-		GameState result =
-			GameSession.Instance.CurrentState;
+		GameState result = GameSession.Instance.CurrentState;
 
-		if (result == GameState.Victory)
+		switch (result)
 		{
-			resultTitle.Text =
-				"TEAM VICTORY!";
+			case GameState.BlueVictory:
+				resultTitle.Text = "TEAM BLUE WINS!";
+				resultMessage.Text = "Team Blue completed its tasks first!";
+				break;
 
-			resultMessage.Text =
-				"All tasks completed!";
+			case GameState.RedVictory:
+				resultTitle.Text = "TEAM RED WINS!";
+				resultMessage.Text = "Team Red completed its tasks first!";
+				break;
+
+			case GameState.Draw:
+				resultTitle.Text = "IT'S A DRAW!";
+				resultMessage.Text = "Both teams finished with the same score.";
+				break;
+
+			default:
+				resultTitle.Text = "GAME OVER";
+				resultMessage.Text = "The game has ended.";
+				break;
 		}
-		else if (result == GameState.AliensWin)
+
+		if (GameManager.Instance != null)
 		{
-			resultTitle.Text =
-				"ALIENS WIN!";
-
-			resultMessage.Text =
-				"The aliens have taken over.";
+			teamProgress.Text =
+				$"BLUE: {GameManager.Instance.BlueCompletedTasks}/" +
+				$"{GameManager.Instance.BlueTotalTasks}     " +
+				$"RED: {GameManager.Instance.RedCompletedTasks}/" +
+				$"{GameManager.Instance.RedTotalTasks}";
 		}
 
-		GD.Print(
-			$"Result screen loaded with state: {result}"
-		);
+		timeResult.Text =
+			$"Time remaining: {GameManager.Instance?.TimeRemaining ?? 0:F0}s";
+
+		GD.Print($"Result screen loaded with state: {result}");
 	}
+
 	
 	private void OnContinuePressed()
 	{
