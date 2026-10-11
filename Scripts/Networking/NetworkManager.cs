@@ -86,7 +86,7 @@ public partial class NetworkManager : Node
 		
 		LobbyManager.Instance.AddPlayer(
 			Multiplayer.GetUniqueId(),
-			"Host",
+			GameSession.Instance.PlayerName,
 			true
 		);
 
@@ -418,7 +418,12 @@ public partial class NetworkManager : Node
 		GD.Print(
 			$"My peer ID: {Multiplayer.GetUniqueId()}"
 		);
-
+	
+		Rpc(
+			nameof(RequestPlayerNameRpc),
+			GameSession.Instance.PlayerName
+		);
+		
 		GameSession.Instance.SetState(
 			GameState.WaitingRoom
 		);
@@ -1058,5 +1063,117 @@ public partial class NetworkManager : Node
 		player.SetNetworkPosition(position);
 	}
 	
+	
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void RequestPlayerNameRpc(string requestedName)
+	{
+		if (!IsServer)
+			return;
+
+		long peerId = Multiplayer.GetRemoteSenderId();
+
+		NetworkPlayer player =
+			LobbyManager.Instance.GetPlayer(peerId);
+
+		if (player == null)
+			return;
+
+		string cleanName = requestedName.Trim();
+
+		if (string.IsNullOrWhiteSpace(cleanName))
+			cleanName = $"Player {peerId}";
+
+		if (cleanName.Length > 16)
+			cleanName = cleanName[..16];
+
+		player.SetPlayerName(cleanName);
+
+		GD.Print($"Player {peerId} chose name: {cleanName}");
+
+		SyncLobbyToAllPlayers();
+	}
+
+	
+	public void RequestSwitchTeam()
+	{
+		if (Multiplayer.MultiplayerPeer == null)
+			return;
+
+		if (GameSession.Instance.CurrentState != GameState.WaitingRoom)
+			return;
+
+		if (IsServer)
+		{
+			SwitchPlayerTeam(Multiplayer.GetUniqueId());
+			return;
+		}
+
+		Rpc(nameof(RequestSwitchTeamRpc));
+	}
+
+	[Rpc(
+		MultiplayerApi.RpcMode.AnyPeer,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void RequestSwitchTeamRpc()
+	{
+		if (!IsServer)
+			return;
+
+		long peerId = Multiplayer.GetRemoteSenderId();
+
+		SwitchPlayerTeam(peerId);
+	}
+
+	private void SwitchPlayerTeam(long peerId)
+	{
+		if (!IsServer)
+			return;
+
+		if (RoomClosed)
+			return;
+
+		NetworkPlayer player =
+			LobbyManager.Instance.GetPlayer(peerId);
+
+		if (player == null)
+			return;
+
+		PlayerTeam targetTeam =
+			player.Team == PlayerTeam.Blue
+				? PlayerTeam.Red
+				: PlayerTeam.Blue;
+
+		int targetTeamCount =
+			System.Linq.Enumerable.Count(
+				LobbyManager.Instance.GetPlayers(),
+				p => p.Team == targetTeam
+			);
+
+		if (targetTeamCount >= 4)
+		{
+			GD.Print(
+				$"Cannot switch {player.PlayerName}: Team {targetTeam} is full."
+			);
+			return;
+		}
+
+		player.SetTeam(targetTeam);
+
+		// Switching teams requires the player to ready up again.
+		player.SetReady(false);
+
+		GD.Print(
+			$"{player.PlayerName} switched to Team {targetTeam}"
+		);
+
+		SyncLobbyToAllPlayers();
+	}
+
 	
 }

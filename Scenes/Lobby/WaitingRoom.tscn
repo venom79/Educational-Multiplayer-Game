@@ -39,10 +39,55 @@ text = "Room Code: ------"
 layout_mode = 2
 text = "Mode: ---"
 
-[node name="PlayerList" type="Label" parent="WaitingRoomContainer" unique_id=1893295538]
+[node name="TeamsContainer" type="HBoxContainer" parent="WaitingRoomContainer" unique_id=269637203]
 layout_mode = 2
-text = "Players:
-1. Host"
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="BlueTeamPanel" type="PanelContainer" parent="WaitingRoomContainer/TeamsContainer" unique_id=358223358]
+layout_mode = 2
+
+[node name="BlueTeamContent" type="VBoxContainer" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel" unique_id=550643771]
+layout_mode = 2
+
+[node name="BlueTeamTitle" type="Label" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent" unique_id=918788744]
+layout_mode = 2
+text = "TEAM BLUE"
+horizontal_alignment = 1
+
+[node name="BlueTeamCount" type="Label" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent" unique_id=1778017158]
+layout_mode = 2
+text = "Players: 0/4"
+horizontal_alignment = 1
+
+[node name="BluePlayerList" type="VBoxContainer" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent" unique_id=1591940588]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RedTeamPanel" type="PanelContainer" parent="WaitingRoomContainer/TeamsContainer" unique_id=776669022]
+layout_mode = 2
+
+[node name="RedTeamContent" type="VBoxContainer" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel" unique_id=1662177460]
+layout_mode = 2
+
+[node name="RedTeamTitle" type="Label" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent" unique_id=1610760613]
+layout_mode = 2
+text = "TEAM RED"
+horizontal_alignment = 1
+
+[node name="RedTeamCount" type="Label" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent" unique_id=736358564]
+layout_mode = 2
+text = "Players: 0/4"
+horizontal_alignment = 1
+
+[node name="RedPlayerList" type="VBoxContainer" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent" unique_id=311434626]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SwitchTeamButton" type="Button" parent="WaitingRoomContainer" unique_id=421641495]
+layout_mode = 2
+size_flags_vertical = 3
+text = "SWITCH TEAM"
 
 [node name="ReadyButton" type="Button" parent="WaitingRoomContainer" unique_id=1701833957]
 layout_mode = 2
@@ -52,5 +97,6 @@ text = "READY"
 layout_mode = 2
 text = "START GAME"
 
+[connection signal="pressed" from="WaitingRoomContainer/SwitchTeamButton" to="." method="OnSwitchTeamPressed"]
 [connection signal="pressed" from="WaitingRoomContainer/ReadyButton" to="." method="OnReadyPressed"]
 [connection signal="pressed" from="WaitingRoomContainer/StartButton" to="." method="OnStartPressed"]

@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class LobbyManager : Node
 {
@@ -21,6 +22,7 @@ public partial class LobbyManager : Node
 		ProcessMode = ProcessModeEnum.Always;
 	}
 
+	
 	public void AddPlayer(
 		long peerId,
 		string playerName,
@@ -30,18 +32,52 @@ public partial class LobbyManager : Node
 		if (players.ContainsKey(peerId))
 			return;
 
+		int blueCount = players.Values.Count(
+			player => player.Team == PlayerTeam.Blue
+		);
+
+		int redCount = players.Values.Count(
+			player => player.Team == PlayerTeam.Red
+		);
+
+		if (blueCount >= 4 && redCount >= 4)
+		{
+			GD.PrintErr("Cannot add player: both teams are full.");
+			return;
+		}
+
+		PlayerTeam assignedTeam;
+
+		if (blueCount >= 4)
+		{
+			assignedTeam = PlayerTeam.Red;
+		}
+		else if (redCount >= 4)
+		{
+			assignedTeam = PlayerTeam.Blue;
+		}
+		else
+		{
+			// Equal counts choose Blue; otherwise choose the smaller team.
+			assignedTeam = blueCount <= redCount
+				? PlayerTeam.Blue
+				: PlayerTeam.Red;
+		}
+
 		NetworkPlayer player = new NetworkPlayer(
 			peerId,
 			playerName,
-			isHost
+			isHost,
+			assignedTeam
 		);
 
 		players.Add(peerId, player);
 
 		GD.Print(
-			$"Player added: {playerName} ({peerId})"
+			$"Player added: {playerName} ({peerId}) - Team {assignedTeam}"
 		);
 	}
+
 
 	public void RemovePlayer(long peerId)
 	{
@@ -97,6 +133,7 @@ public partial class LobbyManager : Node
 		return snapshot;
 	}
 	
+	
 	public Godot.Collections.Array<Godot.Collections.Dictionary>
 		CreateNetworkSnapshot()
 	{
@@ -105,19 +142,21 @@ public partial class LobbyManager : Node
 
 		foreach (NetworkPlayer player in players.Values)
 		{
-			var data =
-				new Godot.Collections.Dictionary();
+			var data = new Godot.Collections.Dictionary();
 
 			data["peer_id"] = player.PeerId;
 			data["name"] = player.PlayerName;
 			data["is_host"] = player.IsHost;
 			data["is_ready"] = player.IsReady;
+			data["team"] = (int)player.Team;
 
 			snapshot.Add(data);
 		}
 
 		return snapshot;
 	}
+
+	
 	
 	public void ApplyNetworkSnapshot(
 		Godot.Collections.Array<Godot.Collections.Dictionary> snapshot
@@ -130,20 +169,25 @@ public partial class LobbyManager : Node
 			long peerId = (long)data["peer_id"];
 			string playerName = (string)data["name"];
 			bool isHost = (bool)data["is_host"];
+			bool isReady = (bool)data["is_ready"];
+
+			PlayerTeam team = data.ContainsKey("team")
+				? (PlayerTeam)(int)data["team"]
+				: PlayerTeam.Blue;
 
 			NetworkPlayer player = new NetworkPlayer(
 				peerId,
 				playerName,
-				isHost
+				isHost,
+				team
 			);
 
-			player.SetReady(
-				(bool)data["is_ready"]
-			);
+			player.SetReady(isReady);
 
 			players.Add(peerId, player);
+
 			GD.Print(
-				$"Player {playerName} | Ready: {player.IsReady}"
+				$"{player.PlayerName} | Team: {player.Team} | Ready: {player.IsReady}"
 			);
 		}
 
@@ -151,6 +195,7 @@ public partial class LobbyManager : Node
 			$"Lobby snapshot applied. Players: {players.Count}"
 		);
 	}
+
 	
 	public NetworkPlayer GetLocalPlayer()
 	{

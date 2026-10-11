@@ -1,3 +1,4 @@
+
 using Godot;
 using System.Linq;
 
@@ -5,36 +6,59 @@ public partial class WaitingRoomController : Control
 {
 	private Label roomCodeLabel;
 	private Label modeLabel;
-	private Label playerListLabel;
+
+	private Label blueTeamCountLabel;
+	private Label redTeamCountLabel;
+
+	private VBoxContainer bluePlayerList;
+	private VBoxContainer redPlayerList;
 
 	private Button readyButton;
 	private Button startButton;
+	private Button switchTeamButton;
 
 	public override void _Ready()
 	{
 		GameSession.Instance.SetState(GameState.WaitingRoom);
 
 		roomCodeLabel = GetNode<Label>(
-			"WaitingRoomContainer/RoomCode"
+            "WaitingRoomContainer/RoomCode"
 		);
 
 		modeLabel = GetNode<Label>(
-			"WaitingRoomContainer/SelectedMode"
+            "WaitingRoomContainer/SelectedMode"
 		);
 
-		playerListLabel = GetNode<Label>(
-			"WaitingRoomContainer/PlayerList"
+		blueTeamCountLabel = GetNode<Label>(
+            "WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent/BlueTeamCount"
+		);
+
+		redTeamCountLabel = GetNode<Label>(
+            "WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent/RedTeamCount"
+		);
+
+		bluePlayerList = GetNode<VBoxContainer>(
+            "WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent/BluePlayerList"
+		);
+
+		redPlayerList = GetNode<VBoxContainer>(
+            "WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent/RedPlayerList"
 		);
 
 		readyButton = GetNode<Button>(
-			"WaitingRoomContainer/ReadyButton"
+            "WaitingRoomContainer/ReadyButton"
 		);
 
 		startButton = GetNode<Button>(
-			"WaitingRoomContainer/StartButton"
+            "WaitingRoomContainer/StartButton"
+		);
+		
+		switchTeamButton = GetNode<Button>(
+		    "WaitingRoomContainer/SwitchTeamButton"
 		);
 
 		UpdateRoomUI();
+		UpdatePlayerLists();
 		UpdateReadyButton();
 		UpdateStartButton();
 	}
@@ -42,7 +66,7 @@ public partial class WaitingRoomController : Control
 	public override void _Process(double delta)
 	{
 		UpdateRoomUI();
-		UpdatePlayerList();
+		UpdatePlayerLists();
 		UpdateReadyButton();
 		UpdateStartButton();
 	}
@@ -56,30 +80,61 @@ public partial class WaitingRoomController : Control
 			$"Mode: {GameSession.Instance.SelectedMode}";
 	}
 
-	private void UpdatePlayerList()
+	
+	private void UpdatePlayerLists()
 	{
 		NetworkPlayer[] players =
 			LobbyManager.Instance.GetPlayers().ToArray();
 
-		string text = "Players:\n";
+		foreach (Node child in bluePlayerList.GetChildren())
+			child.QueueFree();
 
-		int number = 1;
+		foreach (Node child in redPlayerList.GetChildren())
+			child.QueueFree();
+
+		int blueCount = 0;
+		int redCount = 0;
 
 		foreach (NetworkPlayer player in players)
 		{
-			string readyStatus =
-				player.IsReady ? "READY" : "NOT READY";
+			string hostLabel = player.IsHost ? " (Host)" : "";
+			string readyStatus = player.IsReady ? "READY" : "NOT READY";
 
-			string hostLabel =
-				player.IsHost ? " (Host)" : "";
+			Label playerLabel = new Label
+			{
+				Text = $"{player.PlayerName}{hostLabel} - {readyStatus}"
+			};
 
-			text +=
-				$"{number}. {player.PlayerName}{hostLabel} - {readyStatus}\n";
-
-			number++;
+			if (player.Team == PlayerTeam.Blue)
+			{
+				bluePlayerList.AddChild(playerLabel);
+				blueCount++;
+			}
+			else
+			{
+				redPlayerList.AddChild(playerLabel);
+				redCount++;
+			}
 		}
 
-		playerListLabel.Text = text;
+		blueTeamCountLabel.Text = $"Players: {blueCount}/4";
+		redTeamCountLabel.Text = $"Players: {redCount}/4";
+	}
+
+
+	private void TrimPlayerList(
+		VBoxContainer list,
+		int requiredCount)
+	{
+		while (list.GetChildCount() > requiredCount)
+		{
+			Node child = list.GetChild(
+				list.GetChildCount() - 1
+			);
+
+			list.RemoveChild(child);
+			child.QueueFree();
+		}
 	}
 
 	private void UpdateReadyButton()
@@ -91,9 +146,7 @@ public partial class WaitingRoomController : Control
 			return;
 
 		readyButton.Text =
-			localPlayer.IsReady
-				? "UNREADY"
-				: "READY";
+			localPlayer.IsReady ? "UNREADY" : "READY";
 	}
 
 	private void UpdateStartButton()
@@ -101,25 +154,16 @@ public partial class WaitingRoomController : Control
 		NetworkPlayer localPlayer =
 			LobbyManager.Instance.GetLocalPlayer();
 
-		// Until our player exists, hide Start.
-		if (localPlayer == null)
+		if (localPlayer == null || !localPlayer.IsHost)
 		{
 			startButton.Visible = false;
 			return;
 		}
 
-		// Only the host can see the Start button.
-		if (!localPlayer.IsHost)
-		{
-			startButton.Visible = false;
-			return;
-		}
-
-		// Host can see it.
 		startButton.Visible = true;
 
-		// Everyone must be ready.
 		startButton.Disabled =
+			!localPlayer.IsReady ||
 			!LobbyManager.Instance.AreAllPlayersReady();
 	}
 
@@ -131,16 +175,11 @@ public partial class WaitingRoomController : Control
 		if (localPlayer == null)
 			return;
 
-		bool newReadyState =
-			!localPlayer.IsReady;
+		bool newReadyState = !localPlayer.IsReady;
 
-		NetworkManager.Instance.SetLocalReady(
-			newReadyState
-		);
+		NetworkManager.Instance.SetLocalReady(newReadyState);
 
-		GD.Print(
-			$"Local ready requested: {newReadyState}"
-		);
+		GD.Print($"Local ready requested: {newReadyState}");
 	}
 
 	public void OnStartPressed()
@@ -153,35 +192,28 @@ public partial class WaitingRoomController : Control
 
 		if (!localPlayer.IsHost)
 		{
-			GD.Print(
-				"Only the host can start the game."
-			);
-
+			GD.Print("Only the host can start the game.");
 			return;
 		}
 
 		if (!localPlayer.IsReady)
 		{
-			GD.Print(
-				"Host must be ready before starting."
-			);
-
+			GD.Print("Host must be ready before starting.");
 			return;
 		}
 
 		if (!LobbyManager.Instance.AreAllPlayersReady())
 		{
-			GD.Print(
-				"Cannot start: not all players are ready."
-			);
-
+			GD.Print("Cannot start: not all players are ready.");
 			return;
 		}
 
-		GD.Print(
-			"Requesting game start..."
-		);
-
+		GD.Print("Requesting game start...");
 		NetworkManager.Instance.RequestStartGame();
+	}
+	
+	public void OnSwitchTeamPressed()
+	{
+		NetworkManager.Instance.RequestSwitchTeam();
 	}
 }
