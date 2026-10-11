@@ -15,4 +15,11 @@ public partial class MainMenuController : Control
             "res://Scenes/Lobby/JoinGame.tscn"
 		);
 	}
+	
+	public void OnSettingsPressed()
+	{
+		GetTree().ChangeSceneToFile(
+	        "res://Scenes/MainMenu/Settings.tscn"
+		);
+	}
 }

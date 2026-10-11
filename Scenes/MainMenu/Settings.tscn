@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bcjy1o3jyduyy"]
+
+[ext_resource type="Script" uid="uid://8hl67riq4so8" path="res://Scripts/UI/SettingsController.cs" id="1_r2fek"]
+
+[node name="Settings" type="Control" unique_id=1173848917]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r2fek")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=583786500]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsPanel" type="PanelContainer" parent="CenterContainer" unique_id=1818707068]
+custom_minimum_size = Vector2(420, 320)
+layout_mode = 2
+
+[node name="SettingsContainer" type="VBoxContainer" parent="CenterContainer/SettingsPanel" unique_id=1125023991]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=815950198]
+layout_mode = 2
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="NameLabel" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=1796324640]
+layout_mode = 2
+text = "PLAYER NAME"
+
+[node name="NameInput" type="LineEdit" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=1838045515]
+layout_mode = 2
+placeholder_text = "Enter your name"
+max_length = 16
+
+[node name="SaveButton" type="Button" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=735446932]
+layout_mode = 2
+text = "SAVE"
+
+[node name="BackButton" type="Button" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=695698460]
+layout_mode = 2
+text = "BACK TO MENU"
+
+[connection signal="pressed" from="CenterContainer/SettingsPanel/SettingsContainer/SaveButton" to="." method="OnSavePressed"]
+[connection signal="pressed" from="CenterContainer/SettingsPanel/SettingsContainer/BackButton" to="." method="OnBackPressed"]
