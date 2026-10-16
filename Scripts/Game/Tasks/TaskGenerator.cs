@@ -38,7 +38,16 @@ public class TaskGenerator
 			usedQuestions.Add(task.Question);
 			tasks.Add(task);
 		}
+	
+		// Fallback: reuse questions if the unique question bank is exhausted.
+		while (tasks.Count < taskCount)
+		{
+			GameTask task = GenerateTask(gameMode);
 
+			if (task != null)
+				tasks.Add(task);
+		}
+		
 		return tasks;
 	}
 

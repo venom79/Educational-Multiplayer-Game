@@ -20,6 +20,7 @@ public partial class TaskUIController : CanvasLayer
 	private GameTask currentTask;
 	private TaskStation currentStation;
 	
+	private bool awaitingNetworkResult = false;
 	private NetworkTaskData currentNetworkTask;
 	private bool isNetworkTask;
 
@@ -147,7 +148,9 @@ public partial class TaskUIController : CanvasLayer
 
 		currentStation = station;
 		isNetworkTask = true;
-
+		networkSelectedOption = -1;
+		awaitingNetworkResult = false;
+		
 		IsTaskOpen = true;
 		Visible = true;
 
@@ -242,34 +245,29 @@ public partial class TaskUIController : CanvasLayer
 		optionsContainer.Visible = false;
 	}
 	
-	private void OnNetworkOptionSelected(
-		int optionIndex
-	)
+	private void OnNetworkOptionSelected(int optionIndex)
 	{
-		if (currentNetworkTask == null)
+		if (currentNetworkTask == null ||
+			awaitingNetworkResult ||
+			!IsTaskOpen)
 			return;
 
+		if (optionIndex < 0 ||
+			optionIndex >= optionsContainer.GetChildCount())
+			return;
+
+		awaitingNetworkResult = true;
 		networkSelectedOption = optionIndex;
 
 		Button selectedButton =
-			optionsContainer.GetChild<Button>(
-				optionIndex
-			);
+			optionsContainer.GetChild<Button>(optionIndex);
 
-		SetButtonColor(
-			selectedButton,
-			Colors.Yellow
-		);
-
+		SetButtonColor(selectedButton, Colors.Yellow);
 		SetOptionButtonsDisabled(true);
 
-		GD.Print(
-			$"Client selected option: {optionIndex}"
-		);
+		GD.Print($"Client selected option: {optionIndex}");
 
-		SubmitNetworkAnswer(
-			optionIndex.ToString()
-		);
+		SubmitNetworkAnswer(optionIndex.ToString());
 	}
 	
 	private void SetOptionButtonsDisabled(bool disabled)
@@ -438,14 +436,18 @@ public partial class TaskUIController : CanvasLayer
 		Visible = false;
 
 		currentTask = null;
+		currentNetworkTask = null;
 		currentStation = null;
 
+		isNetworkTask = false;
+
 		selectedOption = -1;
+		networkSelectedOption = -1;
+		awaitingNetworkResult = false;
 
 		answerInput.Clear();
 		ClearOptions();
 	}
-
 	private void ClearOptions()
 	{
 		selectedOption = -1;
@@ -479,90 +481,81 @@ public partial class TaskUIController : CanvasLayer
 	
 	private void UpdateNetworkProgress()
 	{
-		if (currentNetworkTask == null)
-			return;
+		long playerId = Multiplayer.GetUniqueId();
 
-		long playerId =
-			Multiplayer.GetUniqueId();
+		int completed =
+			TaskManager.Instance.GetNetworkCompletedTaskCount(playerId);
 
 		int total =
-			TaskManager.Instance
-				.GetNetworkTasks(playerId)
-				.Count;
+			TaskManager.Instance.GetNetworkTotalTaskCount(playerId);
 
-		progressLabel.Text =
-			$"Tasks: 0 / {total}";
+		progressLabel.Text = $"Tasks: {completed} / {total}";
 	}
 	
 	public async void HandleNetworkAnswerResult(
 		int taskId,
-		bool correct
-	)
+		bool correct)
 	{
-		if (currentNetworkTask == null)
+		if (currentNetworkTask == null ||
+			currentNetworkTask.TaskId != taskId ||
+			networkSelectedOption < 0 ||
+			!awaitingNetworkResult ||
+			!IsTaskOpen)
 			return;
 
-		if (currentNetworkTask.TaskId != taskId)
-			return;
+		int selectedIndex = networkSelectedOption;
 
-		if (networkSelectedOption < 0)
+		if (selectedIndex >= optionsContainer.GetChildCount())
 			return;
 
 		Button selectedButton =
-			optionsContainer.GetChild<Button>(
-				networkSelectedOption
-			);
+			optionsContainer.GetChild<Button>(selectedIndex);
 
 		if (correct)
 		{
-			SetButtonColor(
-				selectedButton,
-				Colors.Green
-			);
+			SetButtonColor(selectedButton, Colors.Green);
 
-			GD.Print(
-				"NETWORK TASK CORRECT!"
-			);
+			GD.Print("NETWORK TASK CORRECT!");
 
 			await ToSignal(
 				GetTree().CreateTimer(1.0),
-				SceneTreeTimer.SignalName.Timeout
-			);
+				SceneTreeTimer.SignalName.Timeout);
 
-			long playerId =
-				Multiplayer.GetUniqueId();
+			// The player may have closed the panel during the delay.
+			if (!IsTaskOpen ||
+				currentNetworkTask == null ||
+				currentNetworkTask.TaskId != taskId)
+				return;
+
+			long playerId = Multiplayer.GetUniqueId();
 
 			TaskManager.Instance.MarkNetworkTaskCompleted(
 				playerId,
-				taskId
-			);
+				taskId);
 
 			OnTaskCompleted();
 		}
 		else
 		{
-			SetButtonColor(
-				selectedButton,
-				Colors.Red
-			);
+			SetButtonColor(selectedButton, Colors.Red);
 
-			GD.Print(
-				"NETWORK TASK INCORRECT!"
-			);
+			GD.Print("NETWORK TASK INCORRECT!");
 
 			await ToSignal(
 				GetTree().CreateTimer(0.7),
-				SceneTreeTimer.SignalName.Timeout
-			);
+				SceneTreeTimer.SignalName.Timeout);
 
-			SetButtonColor(
-				selectedButton,
-				Colors.White
-			);
+			if (!IsTaskOpen ||
+				currentNetworkTask == null ||
+				currentNetworkTask.TaskId != taskId)
+				return;
 
-			SetOptionButtonsDisabled(false);
+			SetButtonColor(selectedButton, Colors.White);
 
 			networkSelectedOption = -1;
+			awaitingNetworkResult = false;
+
+			SetOptionButtonsDisabled(false);
 		}
 	}
 	

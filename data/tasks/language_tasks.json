@@ -1,0 +1,305 @@
+{
+  "mode": "Language",
+  "questions": [
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Water' to Hindi.",
+      "correctAnswer": "पानी"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Book' to Hindi.",
+      "correctAnswer": "किताब"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Sun' to Hindi.",
+      "correctAnswer": "सूरज"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Moon' to Hindi.",
+      "correctAnswer": "चाँद"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'House' to Hindi.",
+      "correctAnswer": "घर"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Friend' to Hindi.",
+      "correctAnswer": "दोस्त"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'School' to Hindi.",
+      "correctAnswer": "विद्यालय"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Tree' to Hindi.",
+      "correctAnswer": "पेड़"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Flower' to Hindi.",
+      "correctAnswer": "फूल"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Milk' to Hindi.",
+      "correctAnswer": "दूध"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Food' to Hindi.",
+      "correctAnswer": "खाना"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Mother' to Hindi.",
+      "correctAnswer": "माँ"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Father' to Hindi.",
+      "correctAnswer": "पिता"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Child' to Hindi.",
+      "correctAnswer": "बच्चा"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'River' to Hindi.",
+      "correctAnswer": "नदी"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Mountain' to Hindi.",
+      "correctAnswer": "पहाड़"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Road' to Hindi.",
+      "correctAnswer": "सड़क"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Window' to Hindi.",
+      "correctAnswer": "खिड़की"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Door' to Hindi.",
+      "correctAnswer": "दरवाज़ा"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Rain' to Hindi.",
+      "correctAnswer": "बारिश"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Today' to Hindi.",
+      "correctAnswer": "आज"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Easy",
+      "question": "Translate 'Tomorrow' to Hindi.",
+      "correctAnswer": "कल"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Beautiful' to Hindi.",
+      "correctAnswer": "सुंदर"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Courage' to Hindi.",
+      "correctAnswer": "साहस"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Knowledge' to Hindi.",
+      "correctAnswer": "ज्ञान"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Freedom' to Hindi.",
+      "correctAnswer": "स्वतंत्रता"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Kindness' to Hindi.",
+      "correctAnswer": "दयालुता"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Honesty' to Hindi.",
+      "correctAnswer": "ईमानदारी"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Success' to Hindi.",
+      "correctAnswer": "सफलता"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Question' to Hindi.",
+      "correctAnswer": "प्रश्न"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Answer' to Hindi.",
+      "correctAnswer": "उत्तर"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Environment' to Hindi.",
+      "correctAnswer": "पर्यावरण"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Responsibility' to Hindi.",
+      "correctAnswer": "ज़िम्मेदारी"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Opportunity' to Hindi.",
+      "correctAnswer": "अवसर"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Experience' to Hindi.",
+      "correctAnswer": "अनुभव"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Improvement' to Hindi.",
+      "correctAnswer": "सुधार"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Decision' to Hindi.",
+      "correctAnswer": "निर्णय"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Peace' to Hindi.",
+      "correctAnswer": "शांति"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Health' to Hindi.",
+      "correctAnswer": "स्वास्थ्य"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Patience' to Hindi.",
+      "correctAnswer": "धैर्य"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Ancient' to Hindi.",
+      "correctAnswer": "प्राचीन"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Tradition' to Hindi.",
+      "correctAnswer": "परंपरा"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Possibility' to Hindi.",
+      "correctAnswer": "संभावना"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Achievement' to Hindi.",
+      "correctAnswer": "उपलब्धि"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Confidence' to Hindi.",
+      "correctAnswer": "आत्मविश्वास"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Curiosity' to Hindi.",
+      "correctAnswer": "जिज्ञासा"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Creativity' to Hindi.",
+      "correctAnswer": "रचनात्मकता"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Medium",
+      "question": "Translate 'Equality' to Hindi.",
+      "correctAnswer": "समानता"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Compassion' to Hindi.",
+      "correctAnswer": "करुणा"
+    },
+    {
+      "taskType": "Translation",
+      "difficulty": "Hard",
+      "question": "Translate 'Determination' to Hindi.",
+      "correctAnswer": "दृढ़ संकल्प"
+    }
+  ]
+}

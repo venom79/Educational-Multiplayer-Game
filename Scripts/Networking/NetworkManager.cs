@@ -6,7 +6,8 @@ public partial class NetworkManager : Node
 	public static NetworkManager Instance { get; private set; }
 	public const int Port = 7777;
 	private const int DiscoveryPort = 7778;
-
+	
+	private bool isStartingGame = false;
 	private const string RoomCharacters =
 		"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
@@ -838,100 +839,140 @@ public partial class NetworkManager : Node
 		SyncLobbyToAllPlayers();
 	}
 	
+	
 	public void RequestStartGame()
 	{
-		if (!IsServer)
+		if (!IsServer || RoomClosed || isStartingGame)
 			return;
 
 		if (!LobbyManager.Instance.AreAllPlayersReady())
 		{
-			GD.Print(
-				"Cannot start: not all players are ready."
+			GD.Print("Cannot start: not all players are ready.");
+			return;
+		}
+
+		_ = StartGameForEveryoneAsync();
+	}
+
+	private async System.Threading.Tasks.Task StartGameForEveryoneAsync()
+	{
+		if (!IsServer || isStartingGame || RoomClosed)
+			return;
+
+		isStartingGame = true;
+
+		try
+		{
+			var players = LobbyManager.Instance.GetPlayers();
+
+			if (players.Count == 0 || players.Count > 8)
+			{
+				GD.PrintErr(
+					$"Invalid player count: {players.Count}. Expected 1–8."
+				);
+				return;
+			}
+
+			if (!LobbyManager.Instance.AreAllPlayersReady())
+			{
+				GD.PrintErr("Players are no longer all ready.");
+				return;
+			}
+
+			GameMode mode = GameSession.Instance.SelectedMode;
+			int requiredTasks = players.Count * TaskManager.TasksPerPlayer;
+
+			GD.Print("================================");
+			GD.Print("SERVER: GENERATING TASKS");
+			GD.Print($"Mode: {mode}");
+			GD.Print($"Players: {players.Count}");
+			GD.Print($"Required tasks: {requiredTasks}");
+			GD.Print("================================");
+
+			await TaskPoolManager.Instance.PreparePoolAsync(
+				mode,
+				requiredTasks
 			);
 
-			return;
+			// Recheck the lobby after waiting for the AI response.
+			players = LobbyManager.Instance.GetPlayers();
+
+			if (players.Count == 0 ||
+				players.Count > 8 ||
+				!LobbyManager.Instance.AreAllPlayersReady() ||
+				TaskPoolManager.Instance.GetAvailableTaskCount()
+					!= players.Count * TaskManager.TasksPerPlayer)
+			{
+				GD.PrintErr(
+					"Lobby or task pool changed while generating tasks. " +
+	                "Returning to the waiting room."
+				);
+				return;
+			}
+
+			// Assign four tasks to each player.
+			foreach (NetworkPlayer player in players)
+			{
+				TaskManager.Instance.AssignTasksFromPool(player.PeerId);
+
+				if (TaskManager.Instance.GetTotalTaskCount(player.PeerId)
+					!= TaskManager.TasksPerPlayer)
+				{
+					throw new System.InvalidOperationException(
+						$"Could not assign four tasks to player {player.PeerId}."
+					);
+				}
+			}
+
+			// Send only display-safe task data to each client.
+			foreach (NetworkPlayer player in players)
+			{
+				List<NetworkTaskData> networkTasks =
+					TaskManager.Instance.CreateNetworkTaskData(player.PeerId);
+
+				if (player.PeerId == Multiplayer.GetUniqueId())
+				{
+					TaskManager.Instance.ApplyNetworkTasks(
+						player.PeerId,
+						networkTasks
+					);
+				}
+				else
+				{
+					SendTaskAssignmentsToPlayer(
+						player.PeerId,
+						networkTasks
+					);
+				}
+			}
+
+			GD.Print("================================");
+			GD.Print("TASK ASSIGNMENT COMPLETE");
+			GD.Print("================================");
+
+			RoomClosed = true;
+			StopHostDiscovery();
+
+			GameSession.Instance.SetState(GameState.Playing);
+
+			Rpc(nameof(StartGameRpc));
+
+			GetTree().ChangeSceneToFile(
+	            "res://Scenes/Game/game.tscn"
+			);
 		}
-
-		StartGameForEveryone();
-	}
-	
-	private void StartGameForEveryone()
-	{
-		if (!IsServer)
-			return;
-
-		GD.Print("================================");
-		GD.Print("SERVER: PREPARING GAME");
-		GD.Print("================================");
-
-		// ---------------------------------------------
-		// 1. Prepare the room's task pool
-		// ---------------------------------------------
-
-		GameManager.Instance.PrepareTaskPool();
-
-		// ---------------------------------------------
-		// 2. Assign tasks to every player
-		// ---------------------------------------------
-
-		GameManager.Instance.AssignTasksToAllPlayers();
-
-		// ---------------------------------------------
-		// 3. Prepare network task data
-		// ---------------------------------------------
-
-		foreach (
-			NetworkPlayer player
-			in LobbyManager.Instance.GetPlayers()
-		)
+		catch (System.Exception exception)
 		{
-			List<NetworkTaskData> networkTasks =
-				TaskManager.Instance.CreateNetworkTaskData(
-					player.PeerId
-				);
-
-			if (player.PeerId == Multiplayer.GetUniqueId())
-			{
-				TaskManager.Instance.ApplyNetworkTasks(
-					player.PeerId,
-					networkTasks
-				);
-			}
-			else
-			{
-				SendTaskAssignmentsToPlayer(
-					player.PeerId,
-					networkTasks
-				);
-			}
+			GD.PrintErr(
+				$"Failed to prepare the game: {exception}"
+			);
 		}
-
-		GD.Print("================================");
-		GD.Print("TASK ASSIGNMENT COMPLETE");
-		GD.Print("================================");
-
-		// ---------------------------------------------
-		// 4. Start the game for everyone
-		// ---------------------------------------------
-	
-		// The lobby is now closed.
-		RoomClosed = true;
-
-		// Stop advertising the room.
-		StopHostDiscovery();
-		
-		GameSession.Instance.SetState(
-			GameState.Playing
-		);
-
-		Rpc(
-			nameof(StartGameRpc)
-		);
-
-		GetTree().ChangeSceneToFile(
-			"res://Scenes/Game/game.tscn"
-		);
+		finally
+		{
+			isStartingGame = false;
+		}
 	}
+
 	
 	private void StopHostDiscovery()
 	{

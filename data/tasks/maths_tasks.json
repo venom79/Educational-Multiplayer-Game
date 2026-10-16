@@ -1,0 +1,305 @@
+{
+  "mode": "Maths",
+  "questions": [
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 7 + 8?",
+      "correctAnswer": "15"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 19 - 6?",
+      "correctAnswer": "13"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 6 × 4?",
+      "correctAnswer": "24"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 36 ÷ 6?",
+      "correctAnswer": "6"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 25 + 37?",
+      "correctAnswer": "62"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 80 - 29?",
+      "correctAnswer": "51"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "What is 9 × 7?",
+      "correctAnswer": "63"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 144 ÷ 12?",
+      "correctAnswer": "12"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 15 × 8?",
+      "correctAnswer": "120"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 125 + 275?",
+      "correctAnswer": "400"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 250 - 86?",
+      "correctAnswer": "164"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 18 × 12?",
+      "correctAnswer": "216"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 225 ÷ 15?",
+      "correctAnswer": "15"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 3² + 4²?",
+      "correctAnswer": "25"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 20% of 150?",
+      "correctAnswer": "30"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 5/8 of 64?",
+      "correctAnswer": "40"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 2.5 + 3.75?",
+      "correctAnswer": "6.25"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 7.2 - 2.85?",
+      "correctAnswer": "4.35"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 14 × 15?",
+      "correctAnswer": "210"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 1000 ÷ 25?",
+      "correctAnswer": "40"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Solve: 3x = 27. What is x?",
+      "correctAnswer": "9"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Solve: x + 17 = 42. What is x?",
+      "correctAnswer": "25"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Perimeter of a square with side 9 cm, in cm?",
+      "correctAnswer": "36"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Area of an 8 cm by 5 cm rectangle, in cm²?",
+      "correctAnswer": "40"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Average of 6, 10, and 14?",
+      "correctAnswer": "10"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "What is 15% of 240?",
+      "correctAnswer": "36"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "What is 3/4 + 2/3 as a fraction?",
+      "correctAnswer": "17/12"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "What is 5/6 - 1/4 as a fraction?",
+      "correctAnswer": "7/12"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "What is 17²?",
+      "correctAnswer": "289"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Square root of 2025",
+      "correctAnswer": "45"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Solve: 4x - 7 = 29",
+      "correctAnswer": "9"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Solve: 5(x + 2) = 45",
+      "correctAnswer": "7"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "136 divided by 8",
+      "correctAnswer": "17"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Least common multiple of 12 and 18",
+      "correctAnswer": "36"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Greatest common divisor of 48 and 60",
+      "correctAnswer": "12"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Sale price of an ₹800 item after a 25% discount, in rupees",
+      "correctAnswer": "600"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "A car travels 180 km in 3 hours. Average speed in km/h?",
+      "correctAnswer": "60"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "5 notebooks cost ₹175. Cost of one notebook in rupees?",
+      "correctAnswer": "35"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "What is 2⁵ × 2³?",
+      "correctAnswer": "256"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 3(4 + 5) - 7?",
+      "correctAnswer": "20"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 0.6 × 0.5?",
+      "correctAnswer": "0.3"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "What is 7.5 ÷ 0.5?",
+      "correctAnswer": "15"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Easy",
+      "question": "Sum of the interior angles of a triangle, in degrees",
+      "correctAnswer": "180"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "A triangle has angles 50° and 60°. Find the third angle in degrees",
+      "correctAnswer": "70"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Area of a triangle with base 10 cm and height 6 cm, in cm²",
+      "correctAnswer": "30"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "1.2 as a fraction in simplest form",
+      "correctAnswer": "6/5"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "If x = 4, find 2x² + 3",
+      "correctAnswer": "35"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "Median of 3, 9, 5, 11, 7",
+      "correctAnswer": "7"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Hard",
+      "question": "Probability of red: 3 red and 7 blue balls",
+      "correctAnswer": "3/10"
+    },
+    {
+      "taskType": "Calculation",
+      "difficulty": "Medium",
+      "question": "What is 40% of 85?",
+      "correctAnswer": "34"
+    }
+  ]
+}

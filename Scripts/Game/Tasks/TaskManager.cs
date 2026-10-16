@@ -1,20 +1,26 @@
+
 using Godot;
 using System.Collections.Generic;
 
 public partial class TaskManager : Node
 {
 	public static TaskManager Instance { get; private set; }
-	
-	public const int TasksPerPlayer = 3;
-	
+
+	public const int TasksPerPlayer = 4;
+
 	private readonly Dictionary<long, List<PlayerTask>> playerTasks =
 		new Dictionary<long, List<PlayerTask>>();
 
 	private readonly TaskGenerator taskGenerator =
 		new TaskGenerator();
+
 	private readonly Dictionary<long, List<NetworkTaskData>> networkPlayerTasks =
 		new Dictionary<long, List<NetworkTaskData>>();
-	
+
+	// Completed network task IDs, tracked separately for each player.
+	private readonly Dictionary<long, HashSet<int>> completedNetworkTaskIds =
+		new Dictionary<long, HashSet<int>>();
+
 	public override void _Ready()
 	{
 		if (Instance != null && Instance != this)
@@ -24,7 +30,6 @@ public partial class TaskManager : Node
 		}
 
 		Instance = this;
-
 		GD.Print("TaskManager initialized.");
 	}
 
@@ -32,26 +37,17 @@ public partial class TaskManager : Node
 	// TASK ASSIGNMENT
 	// --------------------------------------------------
 
-	public void AssignTasks(
-		long playerId,
-		List<PlayerTask> tasks
-	)
+	public void AssignTasks(long playerId, List<PlayerTask> tasks)
 	{
 		playerTasks[playerId] = tasks;
 
-		GD.Print(
-			$"Assigned {tasks.Count} tasks to player {playerId}."
-		);
+		GD.Print($"Assigned {tasks.Count} tasks to player {playerId}.");
 	}
 
 	public List<PlayerTask> GetPlayerTasks(long playerId)
 	{
-		if (playerTasks.TryGetValue(
-				playerId,
-				out List<PlayerTask> tasks))
-		{
+		if (playerTasks.TryGetValue(playerId, out List<PlayerTask> tasks))
 			return tasks;
-		}
 
 		return new List<PlayerTask>();
 	}
@@ -60,13 +56,9 @@ public partial class TaskManager : Node
 	// TASK LOOKUP
 	// --------------------------------------------------
 
-	public GameTask GetTask(
-		long playerId,
-		int taskId
-	)
+	public GameTask GetTask(long playerId, int taskId)
 	{
-		List<PlayerTask> tasks =
-			GetPlayerTasks(playerId);
+		List<PlayerTask> tasks = GetPlayerTasks(playerId);
 
 		foreach (PlayerTask playerTask in tasks)
 		{
@@ -77,13 +69,9 @@ public partial class TaskManager : Node
 		return null;
 	}
 
-	public PlayerTask GetTaskAtStation(
-		long playerId,
-		string stationId
-	)
+	public PlayerTask GetTaskAtStation(long playerId, string stationId)
 	{
-		List<PlayerTask> tasks =
-			GetPlayerTasks(playerId);
+		List<PlayerTask> tasks = GetPlayerTasks(playerId);
 
 		foreach (PlayerTask playerTask in tasks)
 		{
@@ -93,27 +81,25 @@ public partial class TaskManager : Node
 
 		return null;
 	}
-	
-	public List<NetworkTaskData> CreateNetworkTaskData(
-		long playerId
-	)
+
+	// --------------------------------------------------
+	// NETWORK TASK DATA
+	// --------------------------------------------------
+
+	public List<NetworkTaskData> CreateNetworkTaskData(long playerId)
 	{
 		List<NetworkTaskData> networkTasks =
 			new List<NetworkTaskData>();
 
-		List<PlayerTask> tasks =
-			GetPlayerTasks(playerId);
+		List<PlayerTask> tasks = GetPlayerTasks(playerId);
 
 		foreach (PlayerTask playerTask in tasks)
 		{
 			GameTask task = playerTask.Task;
-
 			string[] options = null;
 
 			if (task is MultipleChoiceTask multipleChoiceTask)
-			{
 				options = multipleChoiceTask.Options;
-			}
 
 			networkTasks.Add(
 				new NetworkTaskData(
@@ -128,16 +114,14 @@ public partial class TaskManager : Node
 
 		return networkTasks;
 	}
-	
+
 	// --------------------------------------------------
-	// TASK COUNTS
+	// LOCAL TASK COUNTS
 	// --------------------------------------------------
 
 	public int GetCompletedTaskCount(long playerId)
 	{
-		List<PlayerTask> tasks =
-			GetPlayerTasks(playerId);
-
+		List<PlayerTask> tasks = GetPlayerTasks(playerId);
 		int completed = 0;
 
 		foreach (PlayerTask playerTask in tasks)
@@ -175,11 +159,37 @@ public partial class TaskManager : Node
 		int total = 0;
 
 		foreach (List<PlayerTask> tasks in playerTasks.Values)
-		{
 			total += tasks.Count;
-		}
 
 		return total;
+	}
+
+	// --------------------------------------------------
+	// NETWORK TASK COUNTS
+	// --------------------------------------------------
+
+	public int GetNetworkCompletedTaskCount(long playerId)
+	{
+		if (completedNetworkTaskIds.TryGetValue(
+			playerId,
+			out HashSet<int> completedTasks))
+		{
+			return completedTasks.Count;
+		}
+
+		return 0;
+	}
+
+	public int GetNetworkTotalTaskCount(long playerId)
+	{
+		if (networkPlayerTasks.TryGetValue(
+			playerId,
+			out List<NetworkTaskData> tasks))
+		{
+			return tasks.Count;
+		}
+
+		return 0;
 	}
 
 	// --------------------------------------------------
@@ -210,17 +220,12 @@ public partial class TaskManager : Node
 	public void GenerateAndAssignTasks(
 		long playerId,
 		GameMode gameMode,
-		int taskCount
-	)
+		int taskCount)
 	{
 		List<GameTask> generatedTasks =
-			taskGenerator.GenerateTasks(
-				gameMode,
-				taskCount
-			);
+			taskGenerator.GenerateTasks(gameMode, taskCount);
 
-		List<PlayerTask> assignments =
-			new List<PlayerTask>();
+		List<PlayerTask> assignments = new List<PlayerTask>();
 
 		for (int i = 0; i < generatedTasks.Count; i++)
 		{
@@ -232,10 +237,7 @@ public partial class TaskManager : Node
 			);
 		}
 
-		AssignTasks(
-			playerId,
-			assignments
-		);
+		AssignTasks(playerId, assignments);
 	}
 
 	// --------------------------------------------------
@@ -245,129 +247,93 @@ public partial class TaskManager : Node
 	public void GenerateAndAssignStationTasks(
 		long playerId,
 		GameMode gameMode,
-		string[] stationIds
-	)
+		string[] stationIds)
 	{
 		List<GameTask> generatedTasks =
-			taskGenerator.GenerateTasks(
-				gameMode,
-				stationIds.Length
-			);
+			taskGenerator.GenerateTasks(gameMode, stationIds.Length);
 
-		List<PlayerTask> assignments =
-			new List<PlayerTask>();
+		List<PlayerTask> assignments = new List<PlayerTask>();
 
-		int count =
-			Mathf.Min(
-				generatedTasks.Count,
-				stationIds.Length
-			);
+		int count = Mathf.Min(generatedTasks.Count, stationIds.Length);
 
 		for (int i = 0; i < count; i++)
 		{
 			assignments.Add(
-				new PlayerTask(
-					stationIds[i],
-					generatedTasks[i]
-				)
+				new PlayerTask(stationIds[i], generatedTasks[i])
 			);
 		}
 
-		AssignTasks(
-			playerId,
-			assignments
-		);
+		AssignTasks(playerId, assignments);
 	}
-	
+
 	public void AssignTasksFromPool(
 		long playerId,
-		string[] stationIds
-	)
+		string[] stationIds)
 	{
 		List<GameTask> generatedTasks =
-			TaskPoolManager.Instance.TakeTasks(
-				stationIds.Length
-			);
+			TaskPoolManager.Instance.TakeTasks(stationIds.Length);
 
-		List<PlayerTask> assignments =
-			new List<PlayerTask>();
+		List<PlayerTask> assignments = new List<PlayerTask>();
 
-		int count =
-			Mathf.Min(
-				generatedTasks.Count,
-				stationIds.Length
-			);
+		int count = Mathf.Min(generatedTasks.Count, stationIds.Length);
 
 		for (int i = 0; i < count; i++)
 		{
 			assignments.Add(
-				new PlayerTask(
-					stationIds[i],
-					generatedTasks[i]
-				)
+				new PlayerTask(stationIds[i], generatedTasks[i])
 			);
 		}
 
-		AssignTasks(
-			playerId,
-			assignments
-		);
+		AssignTasks(playerId, assignments);
 	}
-	
+
 	public void AssignTasksFromPool(long playerId)
 	{
 		string[] stationIds =
 		{
 			"station_01",
 			"station_02",
-	        "station_03"
+			"station_03",
+            "station_04"
 		};
 
 		List<GameTask> generatedTasks =
-			TaskPoolManager.Instance.TakeTasks(
-				TasksPerPlayer
-			);
+			TaskPoolManager.Instance.TakeTasks(TasksPerPlayer);
 
-		List<PlayerTask> assignments =
-			new List<PlayerTask>();
+		List<PlayerTask> assignments = new List<PlayerTask>();
 
-		int count =
-			Mathf.Min(
-				generatedTasks.Count,
-				stationIds.Length
-			);
+		int count = Mathf.Min(generatedTasks.Count, stationIds.Length);
 
 		for (int i = 0; i < count; i++)
 		{
 			assignments.Add(
-				new PlayerTask(
-					stationIds[i],
-					generatedTasks[i]
-				)
+				new PlayerTask(stationIds[i], generatedTasks[i])
 			);
 		}
 
-		AssignTasks(
-			playerId,
-			assignments
-		);
+		AssignTasks(playerId, assignments);
 
 		GD.Print(
-			$"Assigned {assignments.Count} pooled tasks " +
-			$"to player {playerId}."
+			$"Assigned {assignments.Count} pooled tasks to player {playerId}."
 		);
 	}
-	
+
+	// --------------------------------------------------
+	// NETWORK TASK ASSIGNMENT
+	// --------------------------------------------------
+
 	public void ApplyNetworkTasks(
 		long playerId,
-		List<NetworkTaskData> tasks
-	)
+		List<NetworkTaskData> tasks)
 	{
+		// Keep the complete assignment list; do not remove completed tasks.
 		networkPlayerTasks[playerId] = tasks;
 
+		// Reset progress when a new assignment is received.
+		completedNetworkTaskIds[playerId] = new HashSet<int>();
+
 		GD.Print(
-			$"Received {tasks.Count} network tasks " +
-			$"for player {playerId}."
+			$"Received {tasks.Count} network tasks for player {playerId}."
 		);
 
 		foreach (NetworkTaskData task in tasks)
@@ -380,9 +346,8 @@ public partial class TaskManager : Node
 			);
 		}
 	}
-	public List<NetworkTaskData> GetNetworkTasks(
-		long playerId
-	)
+
+	public List<NetworkTaskData> GetNetworkTasks(long playerId)
 	{
 		if (networkPlayerTasks.TryGetValue(
 			playerId,
@@ -393,11 +358,10 @@ public partial class TaskManager : Node
 
 		return new List<NetworkTaskData>();
 	}
-	
+
 	public NetworkTaskData GetNetworkTaskAtStation(
 		long playerId,
-		string stationId
-	)
+		string stationId)
 	{
 		if (!networkPlayerTasks.TryGetValue(
 			playerId,
@@ -413,35 +377,61 @@ public partial class TaskManager : Node
 		}
 
 		return null;
-
 	}
-	
-	public void MarkNetworkTaskCompleted(
-		long playerId,
-		int taskId
-	)
+
+	// --------------------------------------------------
+	// NETWORK TASK COMPLETION
+	// --------------------------------------------------
+
+	public void MarkNetworkTaskCompleted(long playerId, int taskId)
 	{
 		if (!networkPlayerTasks.TryGetValue(
 			playerId,
 			out List<NetworkTaskData> tasks))
 		{
+			GD.PrintErr(
+				$"Cannot complete network task {taskId}: " +
+				$"no tasks found for player {playerId}."
+			);
 			return;
 		}
 
-		for (int i = 0; i < tasks.Count; i++)
+		// Confirm the task belongs to this player's assignment.
+		bool taskExists = false;
+
+		foreach (NetworkTaskData task in tasks)
 		{
-			NetworkTaskData task = tasks[i];
+			if (task.TaskId == taskId)
+			{
+				taskExists = true;
+				break;
+			}
+		}
 
-			if (task.TaskId != taskId)
-				continue;
-
-			tasks.RemoveAt(i);
-
-			GD.Print(
-				$"Network task {taskId} completed for player {playerId}."
+		if (!taskExists)
+		{
+			GD.PrintErr(
+				$"Network task {taskId} was not assigned to player {playerId}."
 			);
-
 			return;
+		}
+
+		if (!completedNetworkTaskIds.ContainsKey(playerId))
+		{
+			completedNetworkTaskIds[playerId] = new HashSet<int>();
+		}
+
+		// HashSet prevents the same task from being counted twice.
+		bool newlyCompleted =
+			completedNetworkTaskIds[playerId].Add(taskId);
+
+		if (newlyCompleted)
+		{
+			GD.Print(
+				$"Network task {taskId} completed for player {playerId}. " +
+				$"Progress: {GetNetworkCompletedTaskCount(playerId)}/" +
+				$"{GetNetworkTotalTaskCount(playerId)}"
+			);
 		}
 	}
 }
