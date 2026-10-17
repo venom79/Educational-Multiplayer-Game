@@ -80,11 +80,11 @@ public partial class PlayerManager : Node2D
 	{
 		Vector2[] spawnPositions =
 		{
-			new Vector2(3270, 625),
-			new Vector2(3410, 625),
-			new Vector2(3340, 675),
-			new Vector2(3270, 725),
-			new Vector2(3410, 725)
+			new Vector2(2600, 2420),
+			new Vector2(2700, 2420),
+			new Vector2(2650, 2470),
+			new Vector2(2600, 2520),
+			new Vector2(2700, 2520)
 		};
 
 		if (index < spawnPositions.Length)
