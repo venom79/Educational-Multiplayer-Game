@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cxn5gsp3oi6l"]
 
-[ext_resource type="PackedScene" uid="uid://bcvkb8x74odww" path="res://Assets/Maps/Exported/map.tscn" id="1_mv0hc"]
 [ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
+[ext_resource type="PackedScene" uid="uid://xo8twki4lxlo" path="res://Assets/Maps/mainMap/game_map.tscn" id="2_flgk0"]
 [ext_resource type="Script" uid="uid://t0bnmppxwq5a" path="res://Scripts/Player/PlayerManager.cs" id="3_qikps"]
 [ext_resource type="Script" uid="uid://dp1vdkc4a4u8c" path="res://Scripts/UI/GameUIController.cs" id="4_i1e5p"]
 [ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="5_flgk0"]
@@ -10,8 +10,7 @@
 [node name="Game" type="Node2D" unique_id=411957723]
 script = ExtResource("1_qxfds")
 
-[node name="map" parent="." unique_id=455972878 instance=ExtResource("1_mv0hc")]
-position = Vector2(0, -2)
+[node name="GameMap" parent="." unique_id=191271109 instance=ExtResource("2_flgk0")]
 
 [node name="PlayerManager" type="Node2D" parent="." unique_id=1206553064]
 script = ExtResource("3_qikps")
