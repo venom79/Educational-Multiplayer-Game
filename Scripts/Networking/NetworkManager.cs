@@ -42,27 +42,27 @@ public partial class NetworkManager : Node
 
 	public override void _Process(double delta)
 	{
-		if (!discoveryRunning || discoverySocket == null)
+		PacketPeerUdp socket = discoverySocket;
+
+		if (!discoveryRunning || socket == null)
 			return;
 
-		while (discoverySocket.GetAvailablePacketCount() > 0)
+		while (discoveryRunning &&
+			   socket != null &&
+			   socket == discoverySocket &&
+			   socket.GetAvailablePacketCount() > 0)
 		{
-			byte[] packet = discoverySocket.GetPacket();
+			byte[] packet = socket.GetPacket();
 
 			string message = packet.GetStringFromUtf8();
-
-			string senderIp = discoverySocket.GetPacketIP();
-			int senderPort = discoverySocket.GetPacketPort();
+			string senderIp = socket.GetPacketIP();
+			int senderPort = socket.GetPacketPort();
 
 			GD.Print(
 				$"Discovery packet from {senderIp}:{senderPort}: {message}"
 			);
 
-			HandleDiscoveryMessage(
-				message,
-				senderIp,
-				senderPort
-			);
+			HandleDiscoveryMessage(message, senderIp, senderPort);
 		}
 	}
 
