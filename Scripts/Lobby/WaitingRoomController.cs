@@ -16,11 +16,14 @@ public partial class WaitingRoomController : Control
 	private Button readyButton;
 	private Button startButton;
 	private Button switchTeamButton;
+	
+	private Font playerFont;
+	private const int PlayerFontSize = 16;
 
 	public override void _Ready()
 	{
 		GameSession.Instance.SetState(GameState.WaitingRoom);
-
+		GameManager.Instance.PreloadGameScene();
 		roomCodeLabel = GetNode<Label>(
             "WaitingRoomContainer/RoomCode"
 		);
@@ -46,7 +49,7 @@ public partial class WaitingRoomController : Control
 		);
 
 		readyButton = GetNode<Button>(
-            "WaitingRoomContainer/ReadyButton"
+            "WaitingRoomContainer/ActionRow/ReadyButton"
 		);
 
 		startButton = GetNode<Button>(
@@ -54,9 +57,13 @@ public partial class WaitingRoomController : Control
 		);
 		
 		switchTeamButton = GetNode<Button>(
-		    "WaitingRoomContainer/SwitchTeamButton"
+		    "WaitingRoomContainer/ActionRow/SwitchTeamButton"
 		);
-
+		
+		playerFont = GD.Load<Font>(
+		    "res://Assets/Fonts/Silkscreen-Regular.ttf"
+		);
+		
 		UpdateRoomUI();
 		UpdatePlayerLists();
 		UpdateReadyButton();
@@ -80,7 +87,7 @@ public partial class WaitingRoomController : Control
 			$"Mode: {GameSession.Instance.SelectedMode}";
 	}
 
-	
+
 	private void UpdatePlayerLists()
 	{
 		NetworkPlayer[] players =
@@ -97,13 +104,35 @@ public partial class WaitingRoomController : Control
 
 		foreach (NetworkPlayer player in players)
 		{
-			string hostLabel = player.IsHost ? " (Host)" : "";
+			string hostLabel = player.IsHost ? " (HOST)" : "";
 			string readyStatus = player.IsReady ? "READY" : "NOT READY";
 
 			Label playerLabel = new Label
 			{
-				Text = $"{player.PlayerName}{hostLabel} - {readyStatus}"
+				Text = $"{player.PlayerName}{hostLabel}  |  {readyStatus}",
+				HorizontalAlignment = HorizontalAlignment.Center,
+				VerticalAlignment = VerticalAlignment.Center,
+				AutowrapMode = TextServer.AutowrapMode.Off,
+				SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
 			};
+
+			if (playerFont != null)
+				playerLabel.AddThemeFontOverride("font", playerFont);
+
+			playerLabel.AddThemeFontSizeOverride(
+				"font_size", PlayerFontSize
+			);
+
+			playerLabel.AddThemeColorOverride(
+				"font_color",
+				player.IsReady
+					? new Color("#91E6AD")
+					: new Color("#F5D77B")
+			);
+
+			playerLabel.AddThemeConstantOverride(
+				"line_spacing", 6
+			);
 
 			if (player.Team == PlayerTeam.Blue)
 			{
@@ -117,8 +146,8 @@ public partial class WaitingRoomController : Control
 			}
 		}
 
-		blueTeamCountLabel.Text = $"Players: {blueCount}/4";
-		redTeamCountLabel.Text = $"Players: {redCount}/4";
+		blueTeamCountLabel.Text = $"PLAYERS: {blueCount}/4";
+		redTeamCountLabel.Text = $"PLAYERS: {redCount}/4";
 	}
 
 
@@ -215,5 +244,11 @@ public partial class WaitingRoomController : Control
 	public void OnSwitchTeamPressed()
 	{
 		NetworkManager.Instance.RequestSwitchTeam();
+	}
+	public void OnBackPressed()
+	{
+		GetTree().ChangeSceneToFile(
+            "res://Scenes/MainMenu/MainMenu.tscn"
+		);
 	}
 }

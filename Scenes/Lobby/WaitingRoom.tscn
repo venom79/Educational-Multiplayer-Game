@@ -1,6 +1,150 @@
 [gd_scene format=3 uid="uid://c48guob310qn5"]
 
 [ext_resource type="Script" uid="uid://cuuveyto5juif" path="res://Scripts/Lobby/WaitingRoomController.cs" id="1_1yqdp"]
+[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="2_ydqgx"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="3_y8xfw"]
+[ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="4_ar1tk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jkeg"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8k6h"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.8509804, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydqgx"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.1254902, 0.24705882, 0.40784314, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4117647, 0.6627451, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8xfw"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.35686275, 0.16078432, 0.17254902, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.46666667, 0.46666667, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar1tk"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.8806456, 0.7591168, 3.85046e-06, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6jh7"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9999997, 0.8690322, 0.1558052, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32pmf"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.09411765, 0.13333334, 0.20784314, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrrp8"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.20784314, 0.27450982, 0.3882353, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa5kh"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 0.9529412, 0.7372549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anwea"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 0.9098039, 0.49019608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cohg8"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.77803904, 0.74017316, 0.5920321, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="WaitingRoom" type="Control" unique_id=237562341]
 layout_mode = 3
@@ -11,6 +155,31 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1yqdp")
 
+[node name="background" type="TextureRect" parent="." unique_id=2129262609]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ydqgx")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BackButton" type="Button" parent="." unique_id=494105878]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 58.0
+offset_right = 179.0
+offset_bottom = 103.0
+theme_override_colors/font_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_colors/font_hover_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_fonts/font = ExtResource("3_y8xfw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jkeg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x8k6h")
+text = "BACK
+"
+
 [node name="WaitingRoomContainer" type="VBoxContainer" parent="." unique_id=267014399]
 custom_minimum_size = Vector2(350, 250)
 layout_mode = 1
@@ -19,44 +188,58 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -61.5
-offset_top = -20.0
-offset_right = 61.5
-offset_bottom = 20.0
+offset_left = -380.0
+offset_top = -270.0
+offset_right = 380.0
+offset_bottom = 206.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="Title" type="Label" parent="WaitingRoomContainer" unique_id=560629704]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_y8xfw")
 theme_override_font_sizes/font_size = 40
 text = "WAITING ROOM"
+horizontal_alignment = 1
 
 [node name="RoomCode" type="Label" parent="WaitingRoomContainer" unique_id=1511606419]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ar1tk")
 text = "Room Code: ------"
+horizontal_alignment = 1
 
 [node name="SelectedMode" type="Label" parent="WaitingRoomContainer" unique_id=1788914706]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ar1tk")
 text = "Mode: ---"
+horizontal_alignment = 1
 
 [node name="TeamsContainer" type="HBoxContainer" parent="WaitingRoomContainer" unique_id=269637203]
+custom_minimum_size = Vector2(760, 300)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
+alignment = 1
 
 [node name="BlueTeamPanel" type="PanelContainer" parent="WaitingRoomContainer/TeamsContainer" unique_id=358223358]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ydqgx")
 
 [node name="BlueTeamContent" type="VBoxContainer" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel" unique_id=550643771]
 layout_mode = 2
 
 [node name="BlueTeamTitle" type="Label" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent" unique_id=918788744]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_y8xfw")
+theme_override_font_sizes/font_size = 20
 text = "TEAM BLUE"
 horizontal_alignment = 1
 
 [node name="BlueTeamCount" type="Label" parent="WaitingRoomContainer/TeamsContainer/BlueTeamPanel/BlueTeamContent" unique_id=1778017158]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ar1tk")
 text = "Players: 0/4"
 horizontal_alignment = 1
 
@@ -66,17 +249,22 @@ theme_override_constants/separation = 8
 
 [node name="RedTeamPanel" type="PanelContainer" parent="WaitingRoomContainer/TeamsContainer" unique_id=776669022]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8xfw")
 
 [node name="RedTeamContent" type="VBoxContainer" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel" unique_id=1662177460]
 layout_mode = 2
 
 [node name="RedTeamTitle" type="Label" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent" unique_id=1610760613]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_y8xfw")
+theme_override_font_sizes/font_size = 20
 text = "TEAM RED"
 horizontal_alignment = 1
 
 [node name="RedTeamCount" type="Label" parent="WaitingRoomContainer/TeamsContainer/RedTeamPanel/RedTeamContent" unique_id=736358564]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ar1tk")
 text = "Players: 0/4"
 horizontal_alignment = 1
 
@@ -84,19 +272,43 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="SwitchTeamButton" type="Button" parent="WaitingRoomContainer" unique_id=421641495]
+[node name="ActionRow" type="HBoxContainer" parent="WaitingRoomContainer" unique_id=1855114453]
 layout_mode = 2
-size_flags_vertical = 3
-text = "SWITCH TEAM"
+theme_override_constants/separation = 12
+alignment = 1
 
-[node name="ReadyButton" type="Button" parent="WaitingRoomContainer" unique_id=1701833957]
+[node name="ReadyButton" type="Button" parent="WaitingRoomContainer/ActionRow" unique_id=1701833957]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.06666667, 0.20784314, 0.09019608, 1)
+theme_override_colors/font_hover_color = Color(0.06666667, 0.20784314, 0.09019608, 1)
+theme_override_fonts/font = ExtResource("3_y8xfw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar1tk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_e6jh7")
 text = "READY"
+
+[node name="SwitchTeamButton" type="Button" parent="WaitingRoomContainer/ActionRow" unique_id=421641495]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_y8xfw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_32pmf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mrrp8")
+text = "SWITCH TEAM"
 
 [node name="StartButton" type="Button" parent="WaitingRoomContainer" unique_id=44191305]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.06666667, 0.20784314, 0.09019608, 1)
+theme_override_colors/font_hover_color = Color(0.06666667, 0.20784314, 0.09019608, 1)
+theme_override_fonts/font = ExtResource("3_y8xfw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_oa5kh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_anwea")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cohg8")
 text = "START GAME"
 
-[connection signal="pressed" from="WaitingRoomContainer/SwitchTeamButton" to="." method="OnSwitchTeamPressed"]
-[connection signal="pressed" from="WaitingRoomContainer/ReadyButton" to="." method="OnReadyPressed"]
+[connection signal="pressed" from="BackButton" to="." method="OnBackPressed"]
+[connection signal="pressed" from="WaitingRoomContainer/ActionRow/ReadyButton" to="." method="OnReadyPressed"]
+[connection signal="pressed" from="WaitingRoomContainer/ActionRow/SwitchTeamButton" to="." method="OnSwitchTeamPressed"]
 [connection signal="pressed" from="WaitingRoomContainer/StartButton" to="." method="OnStartPressed"]

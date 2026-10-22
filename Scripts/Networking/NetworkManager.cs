@@ -343,6 +343,8 @@ public partial class NetworkManager : Node
 
 	public void Disconnect()
 	{
+		GD.PrintErr("DEBUG: NetworkManager.Disconnect() was called!");
+		GD.PrintErr(System.Environment.StackTrace);
 		if (Multiplayer.MultiplayerPeer != null)
 		{
 			Multiplayer.MultiplayerPeer.Close();
@@ -380,7 +382,9 @@ public partial class NetworkManager : Node
 			GD.Print(
 				$"Rejected peer {peerId}: room is already closed."
 			);
-
+			GD.PrintErr(
+				$"DEBUG: Rejecting peer {peerId} because RoomClosed is true."
+			);
 			Multiplayer.MultiplayerPeer.DisconnectPeer(
 				(int)peerId
 			);
@@ -403,7 +407,17 @@ public partial class NetworkManager : Node
 	private void OnPeerDisconnected(long peerId)
 	{
 		GD.Print($"Peer disconnected: {peerId}");
+		GD.PrintErr(
+			$"DEBUG: IsServer={IsServer}, " +
+			$"ConnectionStatus={Multiplayer.MultiplayerPeer.GetConnectionStatus()}"
+		);
 
+		if (Multiplayer.MultiplayerPeer is ENetMultiplayerPeer enetPeer)
+		{
+			GD.PrintErr(
+				$"DEBUG: ENet connection status: {enetPeer.GetConnectionStatus()}"
+			);
+		}
 		if (!IsServer)
 			return;
 
@@ -957,8 +971,15 @@ public partial class NetworkManager : Node
 
 			Rpc(nameof(StartGameRpc));
 
-			GetTree().ChangeSceneToFile(
-	            "res://Scenes/Game/game.tscn"
+			GD.Print($"[TIMING] Host changing scene: {Time.GetTicksMsec()}");
+
+			Error error = GetTree().ChangeSceneToFile(
+			    "res://Scenes/Game/game.tscn"
+			);
+
+			GD.Print(
+				$"[TIMING] Host ChangeSceneToFile returned: " +
+				$"{Time.GetTicksMsec()} ms, Error: {error}"
 			);
 		}
 		catch (System.Exception exception)
@@ -1004,8 +1025,15 @@ public partial class NetworkManager : Node
 			GameState.Playing
 		);
 
-		GetTree().ChangeSceneToFile(
-			"res://Scenes/Game/game.tscn"
+		GD.Print($"[TIMING] Client changing scene: {Time.GetTicksMsec()}");
+
+		Error error = GetTree().ChangeSceneToFile(
+		    "res://Scenes/Game/game.tscn"
+		);
+
+		GD.Print(
+			$"[TIMING] Client ChangeSceneToFile returned: " +
+			$"{Time.GetTicksMsec()} ms, Error: {error}"
 		);
 	}
 	
@@ -1214,6 +1242,31 @@ public partial class NetworkManager : Node
 		);
 
 		SyncLobbyToAllPlayers();
+	}
+	
+	
+	private async void ChangeToPreloadedGameScene()
+	{
+		GD.Print("[SCENE] Waiting for background game scene load...");
+
+		while (!GameManager.Instance.IsGameSceneReady())
+		{
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		}
+
+		PackedScene scene = GameManager.Instance.GetPreloadedGameScene();
+
+		if (scene == null)
+		{
+			GD.PrintErr("[SCENE] Preloaded game scene is null. Cannot start game.");
+			return;
+		}
+
+		GD.Print("[SCENE] Background load complete. Switching scene...");
+
+		Error error = GetTree().ChangeSceneToPacked(scene);
+
+		GD.Print($"[SCENE] ChangeSceneToPacked returned: {error}");
 	}
 
 	

@@ -8,7 +8,7 @@ public partial class SettingsController : Control
 	public override void _Ready()
 	{
 		nameInput = GetNode<LineEdit>(
-            "CenterContainer/SettingsPanel/SettingsContainer/NameInput"
+            "CenterContainer/SettingsPanel/SettingsContainer/NameRow/NameInput"
 		);
 
 		nameInput.MaxLength = 16;

@@ -45,4 +45,11 @@ public partial class JoinGameController : Control
 			roomCode
 		);
 	}
+	
+	public void OnBackPressed()
+	{
+		GetTree().ChangeSceneToFile(
+            "res://Scenes/MainMenu/MainMenu.tscn"
+		);
+	}
 }
