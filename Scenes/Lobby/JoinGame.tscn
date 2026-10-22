@@ -1,6 +1,104 @@
 [gd_scene format=3 uid="uid://u8stl7rkpjab"]
 
 [ext_resource type="Script" uid="uid://ddbhiy73cu52o" path="res://Scripts/Lobby/JoinGameController.cs" id="1_jnisl"]
+[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="2_ugays"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="3_0ee7r"]
+[ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="4_u21bx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u21bx"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7921569, 0.6509804, 0.09803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mky1g"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.09760975, 0.27603075, 0.12729055, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7921569, 0.6509804, 0.09803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgmsx"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9019608, 0.7411765, 0.13725491, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf053"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9760755, 0.814219, 0.2528133, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2pwe4"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 0.95148534, 0.7387613, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfb5b"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9999996, 0.90837383, 0.49171168, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="JoinGame" type="Control" unique_id=397936545]
 layout_mode = 3
@@ -14,6 +112,17 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jnisl")
+
+[node name="background" type="TextureRect" parent="." unique_id=1298340280]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ugays")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="JoinContainer" type="VBoxContainer" parent="." unique_id=1985915948]
 custom_minimum_size = Vector2(350, 250)
@@ -29,20 +138,46 @@ offset_right = 175.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="JoinContainer" unique_id=2057987927]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_0ee7r")
 theme_override_font_sizes/font_size = 40
 text = "JOIN GAME"
+horizontal_alignment = 1
+
+[node name="TitleSpacer" type="Control" parent="JoinContainer" unique_id=224285675]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
 
 [node name="RoomCodeInput" type="LineEdit" parent="JoinContainer" unique_id=308798367]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_u21bx")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_u21bx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mky1g")
 placeholder_text = "ENTER ROOM CODE"
+alignment = 1
 
 [node name="JoinButton" type="Button" parent="JoinContainer" unique_id=1313968545]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+theme_override_colors/font_hover_color = Color(0.09760975, 0.27603075, 0.12729055, 1)
+theme_override_fonts/font = ExtResource("3_0ee7r")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_qgmsx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yf053")
 text = "JOIN"
 
 [node name="BackButton" type="Button" parent="JoinContainer" unique_id=1853677976]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.06666667, 0.20784314, 0.09019608, 1)
+theme_override_colors/font_hover_color = Color(0.06666667, 0.20784314, 0.09019608, 1)
+theme_override_fonts/font = ExtResource("3_0ee7r")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_2pwe4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kfb5b")
 text = "BACK"
+
+[connection signal="pressed" from="JoinContainer/BackButton" to="." method="OnBackPressed"]

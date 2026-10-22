@@ -1,6 +1,62 @@
 [gd_scene format=3 uid="uid://bnovoxmawicw2"]
 
 [ext_resource type="Script" uid="uid://sh17t6jjrciw" path="res://Scripts/Lobby/HostSetupController.cs" id="1_n61bt"]
+[ext_resource type="FontFile" uid="uid://dgag2gjjwongr" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_d0s8q"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="2_ptpmn"]
+[ext_resource type="Texture2D" uid="uid://bjtuwg6pbsiu0" path="res://Assets/Backgrounds/SubjectCards/science_card.png" id="3_46re0"]
+[ext_resource type="Texture2D" uid="uid://cy6rgbsf20c2s" path="res://Assets/Backgrounds/SubjectCards/maths_card.png" id="3_cfpbg"]
+[ext_resource type="Texture2D" uid="uid://bdsky4jjrwo02" path="res://Assets/Backgrounds/SubjectCards/language_card.png" id="5_mqpuq"]
+[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="7_1nfrl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mqpuq"]
+texture = ExtResource("3_46re0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ptpmn"]
+texture = ExtResource("3_46re0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cfpbg"]
+texture = ExtResource("3_cfpbg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1nfrl"]
+texture = ExtResource("3_cfpbg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_46re0"]
+texture = ExtResource("5_mqpuq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vbsq"]
+texture = ExtResource("5_mqpuq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nfrl"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vbsq"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.8509804, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="HostSetup" type="Control" unique_id=1799505841]
 layout_mode = 3
@@ -10,6 +66,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n61bt")
+
+[node name="background" type="TextureRect" parent="." unique_id=1968161262]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_1nfrl")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="HostContainer" type="VBoxContainer" parent="." unique_id=658551964]
 custom_minimum_size = Vector2(350, 250)
@@ -25,24 +92,60 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
 
 [node name="Title" type="Label" parent="HostContainer" unique_id=257775655]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ptpmn")
 theme_override_font_sizes/font_size = 40
 text = "SELECT GAME MODE"
+horizontal_alignment = 1
 
-[node name="ScienceButton" type="Button" parent="HostContainer" unique_id=1003514769]
+[node name="ModeCards" type="HBoxContainer" parent="HostContainer" unique_id=86338033]
 layout_mode = 2
-text = "SCIENCE"
+theme_override_constants/separation = 28
+alignment = 1
 
-[node name="MathsButton" type="Button" parent="HostContainer" unique_id=610954112]
+[node name="ScienceButton" type="Button" parent="HostContainer/ModeCards" unique_id=1003514769]
+custom_minimum_size = Vector2(280, 250)
 layout_mode = 2
-text = "MATHS"
+theme_override_fonts/font = ExtResource("2_d0s8q")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_mqpuq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ptpmn")
 
-[node name="LanguageButton" type="Button" parent="HostContainer" unique_id=1945501287]
+[node name="MathsButton" type="Button" parent="HostContainer/ModeCards" unique_id=610954112]
+custom_minimum_size = Vector2(280, 250)
 layout_mode = 2
-text = "LANGUAGE"
+theme_override_fonts/font = ExtResource("2_d0s8q")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_cfpbg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1nfrl")
 
-[connection signal="pressed" from="HostContainer/ScienceButton" to="." method="SelectScience"]
-[connection signal="pressed" from="HostContainer/MathsButton" to="." method="SelectMaths"]
-[connection signal="pressed" from="HostContainer/LanguageButton" to="." method="SelectLanguage"]
+[node name="LanguageButton" type="Button" parent="HostContainer/ModeCards" unique_id=1945501287]
+custom_minimum_size = Vector2(280, 250)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_d0s8q")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_46re0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7vbsq")
+
+[node name="BackButton" type="Button" parent="." unique_id=1900595923]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 58.0
+offset_right = 172.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_colors/font_hover_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_fonts/font = ExtResource("2_ptpmn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1nfrl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7vbsq")
+text = "BACK
+"
+
+[connection signal="pressed" from="HostContainer/ModeCards/ScienceButton" to="." method="SelectScience"]
+[connection signal="pressed" from="HostContainer/ModeCards/MathsButton" to="." method="SelectMaths"]
+[connection signal="pressed" from="HostContainer/ModeCards/LanguageButton" to="." method="SelectLanguage"]
+[connection signal="pressed" from="BackButton" to="." method="OnBackPressed"]

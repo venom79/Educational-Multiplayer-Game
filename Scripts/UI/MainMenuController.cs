@@ -1,3 +1,4 @@
+
 using Godot;
 
 public partial class MainMenuController : Control
@@ -15,11 +16,16 @@ public partial class MainMenuController : Control
             "res://Scenes/Lobby/JoinGame.tscn"
 		);
 	}
-	
+
 	public void OnSettingsPressed()
 	{
 		GetTree().ChangeSceneToFile(
-	        "res://Scenes/MainMenu/Settings.tscn"
+            "res://Scenes/MainMenu/Settings.tscn"
 		);
+	}
+
+	public void OnExitPressed()
+	{
+		GetTree().Quit();
 	}
 }

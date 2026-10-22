@@ -21,8 +21,16 @@ public partial class GameManager : Node
 	public bool GameStarted { get; private set; }
 	public bool GameEnded { get; private set; }
 	
+	private const string GameScenePath =
+		"res://Scenes/Game/game.tscn";
+		
+	private PackedScene preloadedGameScene;
+	private bool gameSceneLoadRequested;
+	private bool gameSceneLoadFailed;
+
 	private const string ResultScenePath =
 	"res://Scenes/Results/ResultScreen.tscn";
+	
 	
 	private readonly Dictionary<long, int> completedTasks =
 		new Dictionary<long, int>();
@@ -120,10 +128,13 @@ public partial class GameManager : Node
 
 		gameTimer.TimeChanged += OnTimeChanged;
 		gameTimer.TimerFinished += OnTimerFinished;
-
+		CallDeferred(nameof(BeginGameScenePreload));
+		
 		GD.Print("GameManager initialized.");
 	}
-
+	
+	
+	
 	public override void _Process(double delta)
 	{
 		if (!NetworkManager.Instance.IsServer)
@@ -170,10 +181,10 @@ public partial class GameManager : Node
 				"Local player is a CLIENT. " +
 				"Reporting to server..."
 			);
-
-			Rpc(
-				nameof(ReportGameLoadedRpc)
-			);
+			GD.Print("CLIENT: Sending game-loaded RPC to server...");
+			Rpc(nameof(ReportGameLoadedRpc));
+			GD.Print("CLIENT: Game-loaded RPC call completed.");
+	
 		}
 	}
 
@@ -184,6 +195,11 @@ public partial class GameManager : Node
 	)]
 	private void ReportGameLoadedRpc()
 	{
+		GD.Print(
+			$"REPORT GAME LOADED RPC RECEIVED. " +
+			$"IsServer={Multiplayer.IsServer()}, " +
+			$"Sender={Multiplayer.GetRemoteSenderId()}"
+		);
 		if (!NetworkManager.Instance.IsServer)
 			return;
 
@@ -607,6 +623,88 @@ public partial class GameManager : Node
 			$"Blue {blueCompleted}/{blueTotal} | " +
 			$"Red {redCompleted}/{redTotal}"
 		);
+	}
+	
+	public Error PreloadGameScene()
+	{
+		if (preloadedGameScene != null ||
+			gameSceneLoadRequested)
+		{
+			return Error.Ok;
+		}
+
+		GD.Print("[PRELOAD] Starting background load...");
+
+		Error error = ResourceLoader.LoadThreadedRequest(
+			GameScenePath,
+			"PackedScene",
+			true
+		);
+
+		if (error != Error.Ok)
+		{
+			GD.PrintErr(
+				$"[PRELOAD] Failed to start: {error}"
+			);
+			return error;
+		}
+
+		gameSceneLoadRequested = true;
+		return Error.Ok;
+	}
+	
+	private void BeginGameScenePreload()
+	{
+		PreloadGameScene();
+	}
+	
+	public bool IsGameSceneReady()
+	{
+		if (preloadedGameScene != null)
+			return true;
+
+		if (!gameSceneLoadRequested || gameSceneLoadFailed)
+			return false;
+
+		var status = ResourceLoader.LoadThreadedGetStatus(
+			GameScenePath
+		);
+
+		if (status == ResourceLoader.ThreadLoadStatus.Loaded)
+		{
+			preloadedGameScene =
+				ResourceLoader.LoadThreadedGet(
+					GameScenePath
+				) as PackedScene;
+
+			if (preloadedGameScene == null)
+			{
+				gameSceneLoadFailed = true;
+				GD.PrintErr("[PRELOAD] Loaded scene is null.");
+				return false;
+			}
+
+			GD.Print("[PRELOAD] Game scene resources are ready.");
+			return true;
+		}
+
+		if (status == ResourceLoader.ThreadLoadStatus.Failed ||
+			status == ResourceLoader.ThreadLoadStatus.InvalidResource)
+		{
+			gameSceneLoadFailed = true;
+			GD.PrintErr("[PRELOAD] Background loading failed.");
+		}
+
+		return false;
+	}
+	
+	
+	public PackedScene GetPreloadedGameScene()
+	{
+		if (!IsGameSceneReady())
+			return null;
+
+		return preloadedGameScene;
 	}
 
 }

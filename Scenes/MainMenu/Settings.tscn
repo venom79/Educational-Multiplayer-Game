@@ -1,6 +1,107 @@
 [gd_scene format=3 uid="uid://bcjy1o3jyduyy"]
 
 [ext_resource type="Script" uid="uid://8hl67riq4so8" path="res://Scripts/UI/SettingsController.cs" id="1_r2fek"]
+[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="2_28jca"]
+[ext_resource type="FontFile" uid="uid://dgag2gjjwongr" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="3_1w7rt"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="4_wrsdo"]
+[ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="5_bbwig"]
+[ext_resource type="Texture2D" uid="uid://4e3fekyajto" path="res://Assets/UI/slider_grabber.png" id="6_6sctf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrsdo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_je4h0"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.14878976, 0.3077212, 0.19524226, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.13706881, 0.33310202, 0.19730553, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7hn0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7gr0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrsdo"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(11.708, 11.708, 11.708, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbwig"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.8507859, 1, 0.99957055, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sctf"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ie33"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.8509804, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9607843, 0.72156864, 0.18039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Settings" type="Control" unique_id=1173848917]
 layout_mode = 3
@@ -11,43 +112,145 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r2fek")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=583786500]
+[node name="background" type="TextureRect" parent="." unique_id=286489175]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_28jca")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=583786500]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SettingsPanel" type="PanelContainer" parent="CenterContainer" unique_id=1818707068]
-custom_minimum_size = Vector2(420, 320)
+custom_minimum_size = Vector2(750, 450)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrsdo")
 
 [node name="SettingsContainer" type="VBoxContainer" parent="CenterContainer/SettingsPanel" unique_id=1125023991]
+custom_minimum_size = Vector2(760, 0)
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 30
 
 [node name="Title" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=815950198]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1w7rt")
+theme_override_font_sizes/font_size = 28
 text = "SETTINGS"
 horizontal_alignment = 1
 
-[node name="NameLabel" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=1796324640]
+[node name="NameRow" type="HBoxContainer" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=394627426]
 layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer/NameRow" unique_id=1796324640]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_font_sizes/font_size = 18
 text = "PLAYER NAME"
 
-[node name="NameInput" type="LineEdit" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=1838045515]
+[node name="NameInput" type="LineEdit" parent="CenterContainer/SettingsPanel/SettingsContainer/NameRow" unique_id=1838045515]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("5_bbwig")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_je4h0")
 placeholder_text = "Enter your name"
 max_length = 16
 
+[node name="AudioTitle" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=824835856]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_font_sizes/font_size = 18
+text = "AUDIO SETTINGS"
+
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=289007426]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer/MusicRow" unique_id=444377146]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_font_sizes/font_size = 18
+text = "MUSIC VOLUME"
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/SettingsPanel/SettingsContainer/MusicRow" unique_id=943810878]
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("6_6sctf")
+theme_override_icons/grabber_highlight = ExtResource("6_6sctf")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_p7hn0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_r7gr0")
+value = 100.0
+
+[node name="MusicValue" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer/MusicRow" unique_id=1825112828]
+custom_minimum_size = Vector2(55, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_font_sizes/font_size = 18
+text = "100%"
+
+[node name="SfxRow" type="HBoxContainer" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=1719819876]
+layout_mode = 2
+
+[node name="SfxLabel" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer/SfxRow" unique_id=1985241413]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_font_sizes/font_size = 18
+text = "SOUND EFFECTS"
+
+[node name="SfxSlider" type="HSlider" parent="CenterContainer/SettingsPanel/SettingsContainer/SfxRow" unique_id=2109505999]
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("6_6sctf")
+theme_override_icons/grabber_highlight = ExtResource("6_6sctf")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_p7hn0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_r7gr0")
+value = 100.0
+
+[node name="SfxValue" type="Label" parent="CenterContainer/SettingsPanel/SettingsContainer/SfxRow" unique_id=616910964]
+custom_minimum_size = Vector2(55, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_font_sizes/font_size = 18
+text = "100%"
+
 [node name="SaveButton" type="Button" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=735446932]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_colors/font_hover_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wrsdo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bbwig")
 text = "SAVE"
 
-[node name="BackButton" type="Button" parent="CenterContainer/SettingsPanel/SettingsContainer" unique_id=695698460]
-layout_mode = 2
-text = "BACK TO MENU"
+[node name="BackButton" type="Button" parent="." unique_id=695698460]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 58.0
+offset_right = 172.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_colors/font_hover_color = Color(0.09019608, 0.23137255, 0.16862746, 1)
+theme_override_fonts/font = ExtResource("4_wrsdo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6sctf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6ie33")
+text = "BACK
+"
 
 [connection signal="pressed" from="CenterContainer/SettingsPanel/SettingsContainer/SaveButton" to="." method="OnSavePressed"]
-[connection signal="pressed" from="CenterContainer/SettingsPanel/SettingsContainer/BackButton" to="." method="OnBackPressed"]
+[connection signal="pressed" from="BackButton" to="." method="OnBackPressed"]

@@ -4,6 +4,10 @@ public partial class GameController : Node2D
 {
 	public override void _Ready()
 	{
+		
+		ulong start = Time.GetTicksMsec();
+		GD.Print($"[TIMING] Game root _Ready START: {start}");
+	
 		GameSession.Instance.SetState(
 			GameState.Playing
 		);
@@ -26,5 +30,9 @@ public partial class GameController : Node2D
 		);
 
 		GameManager.Instance.MarkLocalGameLoaded();
+		GD.Print(
+			$"[TIMING] Game root _Ready END: " +
+			$"{Time.GetTicksMsec() - start} ms"
+		);
 	}
 }
