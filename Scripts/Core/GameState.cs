@@ -5,15 +5,12 @@ public enum GameState
 	HostSetup,
 	JoinGame,
 	WaitingRoom,
+	Loading,
 	Playing,
 
 	BlueVictory,
 	RedVictory,
 	Draw,
-
-	// Retained temporarily so older references still compile.
-	Victory,
-	AliensWin,
 
 	Results
 }

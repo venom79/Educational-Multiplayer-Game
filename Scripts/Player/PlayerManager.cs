@@ -80,13 +80,13 @@ public partial class PlayerManager : Node2D
 	{
 		Vector2[] spawnPositions =
 		{
-			new Vector2(2600, 2350)
+			new Vector2(2500, 2000)
 		};
 
 		if (index < spawnPositions.Length)
 			return spawnPositions[index];
 
-		return new Vector2(3340, 675);
+		return new Vector2(2800, 2200);
 	}
 	
 	public Player GetPlayer(long peerId)

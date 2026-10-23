@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c008i8hidpw70"]
+
+[ext_resource type="Script" uid="uid://cywmyiewbsree" path="res://Scripts/UI/LoadingScreen.cs" id="1_qregr"]
+
+[node name="LoadingScreen" type="Control" unique_id=834290886]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qregr")
+
+[node name="Label" type="Label" parent="." unique_id=1479532682]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "LOADING..."

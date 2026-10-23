@@ -8,9 +8,6 @@ public partial class GameController : Node2D
 		ulong start = Time.GetTicksMsec();
 		GD.Print($"[TIMING] Game root _Ready START: {start}");
 	
-		GameSession.Instance.SetState(
-			GameState.Playing
-		);
 
 		GD.Print(
 			"Game scene loaded."

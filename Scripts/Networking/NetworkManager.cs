@@ -892,7 +892,20 @@ public partial class NetworkManager : Node
 				GD.PrintErr("Players are no longer all ready.");
 				return;
 			}
+			
+			// Show the loading screen on both machines immediately.
+			GameSession.Instance.SetState(GameState.Loading);
 
+			Rpc(nameof(ShowLoadingScreenRpc));
+			ShowLoadingScreen();
+
+			// Ensure the loading screen gets a chance to render
+			// before task generation begins.
+			await ToSignal(
+				RenderingServer.Singleton,
+				RenderingServer.SignalName.FramePostDraw
+			);
+			
 			GameMode mode = GameSession.Instance.SelectedMode;
 			int requiredTasks = players.Count * TaskManager.TasksPerPlayer;
 
@@ -967,20 +980,11 @@ public partial class NetworkManager : Node
 			RoomClosed = true;
 			StopHostDiscovery();
 
-			GameSession.Instance.SetState(GameState.Playing);
+			GD.Print($"[TIMING] Host entering game scene: {Time.GetTicksMsec()}");
 
 			Rpc(nameof(StartGameRpc));
 
-			GD.Print($"[TIMING] Host changing scene: {Time.GetTicksMsec()}");
-
-			Error error = GetTree().ChangeSceneToFile(
-			    "res://Scenes/Game/game.tscn"
-			);
-
-			GD.Print(
-				$"[TIMING] Host ChangeSceneToFile returned: " +
-				$"{Time.GetTicksMsec()} ms, Error: {error}"
-			);
+			ChangeToPreloadedGameScene();
 		}
 		catch (System.Exception exception)
 		{
@@ -1012,6 +1016,7 @@ public partial class NetworkManager : Node
 	}
 	
 	
+	
 	[Rpc(
 		MultiplayerApi.RpcMode.Authority,
 		CallLocal = false,
@@ -1019,23 +1024,13 @@ public partial class NetworkManager : Node
 	)]
 	private void StartGameRpc()
 	{
-		GD.Print("GAME START received from server.");
+		GD.Print("GAME START received. Preparing loading screen...");
 
-		GameSession.Instance.SetState(
-			GameState.Playing
-		);
+		GameSession.Instance.SetState(GameState.Loading);
 
-		GD.Print($"[TIMING] Client changing scene: {Time.GetTicksMsec()}");
-
-		Error error = GetTree().ChangeSceneToFile(
-		    "res://Scenes/Game/game.tscn"
-		);
-
-		GD.Print(
-			$"[TIMING] Client ChangeSceneToFile returned: " +
-			$"{Time.GetTicksMsec()} ms, Error: {error}"
-		);
+		ChangeToPreloadedGameScene();
 	}
+
 	
 	public void SendPlayerPosition(Vector2 position)
 	{	
@@ -1245,29 +1240,57 @@ public partial class NetworkManager : Node
 	}
 	
 	
+	
 	private async void ChangeToPreloadedGameScene()
 	{
-		GD.Print("[SCENE] Waiting for background game scene load...");
+		GD.Print("[SCENE] Waiting for game scene resources...");
 
-		while (!GameManager.Instance.IsGameSceneReady())
+		while (GameManager.Instance == null ||
+			   !GameManager.Instance.IsGameSceneReady())
 		{
-			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			await ToSignal(
+				GetTree(),
+				SceneTree.SignalName.ProcessFrame
+			);
 		}
 
-		PackedScene scene = GameManager.Instance.GetPreloadedGameScene();
+		PackedScene gameScene =
+			GameManager.Instance.GetPreloadedGameScene();
 
-		if (scene == null)
+		if (gameScene == null)
 		{
-			GD.PrintErr("[SCENE] Preloaded game scene is null. Cannot start game.");
+			GD.PrintErr("[SCENE] Preloaded game scene is null!");
 			return;
 		}
 
-		GD.Print("[SCENE] Background load complete. Switching scene...");
+		GD.Print("[SCENE] Switching from loading screen to game...");
 
-		Error error = GetTree().ChangeSceneToPacked(scene);
+		Error error = GetTree().ChangeSceneToPacked(gameScene);
 
-		GD.Print($"[SCENE] ChangeSceneToPacked returned: {error}");
+		GD.Print($"[SCENE] Game scene change result: {error}");
+	}
+	
+	private void ShowLoadingScreen()
+	{
+		GameSession.Instance.SetState(GameState.Loading);
+
+		Error error = GetTree().ChangeSceneToFile(
+	        "res://Scenes/Loading/LoadingScreen.tscn"
+		);
+
+		if (error != Error.Ok)
+			GD.PrintErr($"Failed to show loading screen: {error}");
+		else
+			GD.Print("[SCENE] Loading screen displayed.");
 	}
 
-	
+	[Rpc(
+		MultiplayerApi.RpcMode.Authority,
+		CallLocal = false,
+		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
+	)]
+	private void ShowLoadingScreenRpc()
+	{
+		ShowLoadingScreen();
+	}
 }
