@@ -344,54 +344,42 @@ public partial class GameManager : Node
 		return TeamTotalTasks;
 	}
 	
+	
 	private void StartGameTimer()
 	{
-		if (GameStarted)
+		if (!NetworkManager.Instance.IsServer || GameStarted)
 			return;
 
 		InitializeTaskProgress();
-		
-		GameStarted = true;
+
 		GameEnded = false;
-		
-		GD.Print(
-			"================================"
-		);
+		GameStarted = true;
 
-		GD.Print(
-			"ALL PLAYERS LOADED"
-		);
-
-		GD.Print(
-			"GAME TIMER STARTED"
-		);
-
-		GD.Print(
-			$"Duration: {GameDuration} seconds"
-		);
-
-		GD.Print(
-			"================================"
-		);
+		GD.Print("================================");
+		GD.Print("ALL PLAYERS LOADED");
+		GD.Print("GAME START AUTHORIZED");
+		GD.Print("================================");
 
 		gameTimer.Start();
 
-		Rpc(
-			nameof(StartGameTimerRpc)
-		);
+		// CallLocal ensures the host and clients use the same
+		// authorization path.
+		Rpc(nameof(StartGameTimerRpc));
 	}
 
 	[Rpc(
 		MultiplayerApi.RpcMode.Authority,
-		CallLocal = false,
+		CallLocal = true,
 		TransferMode = MultiplayerPeer.TransferModeEnum.Reliable
 	)]
 	private void StartGameTimerRpc()
 	{
-		GD.Print(
-			"Server started the game timer."
-		);
+		GameEnded = false;
+		GameStarted = true;
+
+		GD.Print("GAME START AUTHORIZED: Gameplay enabled.");
 	}
+
 
 	private void OnTimeChanged(double remaining)
 	{

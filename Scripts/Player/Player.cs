@@ -45,7 +45,17 @@ public partial class Player : CharacterBody2D
 
 			return;
 		}
-
+		
+		
+		// Keep the local player frozen until the host confirms
+		// that every player has loaded the game scene.
+		if (GameManager.Instance == null ||
+			!GameManager.Instance.GameStarted)
+		{
+			Velocity = Vector2.Zero;
+			return;
+		}
+		
 		camera.Enabled = true;
 
 		TaskUIController taskUI =
