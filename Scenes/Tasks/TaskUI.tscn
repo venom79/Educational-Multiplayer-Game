@@ -1,10 +1,78 @@
-[gd_scene format=3 uid="uid://di673qreyo1la"]
+[gd_scene format=3 uid="uid://cl16w6y5k2ylg"]
 
 [ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="1_71f4x"]
 [ext_resource type="PackedScene" uid="uid://cywslk1rjp3o2" path="res://Scenes/Tasks/TaskTypes/MultipleChoice.tscn" id="2_hdneu"]
 [ext_resource type="PackedScene" uid="uid://dwmj133rksm20" path="res://Scenes/Tasks/TaskTypes/Calculation.tscn" id="3_hdneu"]
 [ext_resource type="PackedScene" uid="uid://bkdawhi3hk2i0" path="res://Scenes/Tasks/TaskTypes/MatchTheFollowing.tscn" id="4_ffnds"]
 [ext_resource type="PackedScene" uid="uid://dqt0yuvakv6ov" path="res://Scenes/Tasks/TaskTypes/Translation.tscn" id="5_lryi2"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="6_y8tvv"]
+[ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="7_eoy7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_task_panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 22.0
+bg_color = Color(0.035, 0.105, 0.075, 0.98)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.49, 0.25, 0.09, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.42)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_task_button_normal"]
+content_margin_left = 14.0
+content_margin_top = 9.0
+content_margin_right = 14.0
+content_margin_bottom = 9.0
+bg_color = Color(0.08, 0.16, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.91, 0.65, 0.13, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_task_button_pressed"]
+content_margin_left = 14.0
+content_margin_top = 9.0
+content_margin_right = 14.0
+content_margin_bottom = 9.0
+bg_color = Color(0.23, 0.19, 0.08, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.83, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_task_button_hover"]
+content_margin_left = 14.0
+content_margin_top = 9.0
+content_margin_right = 14.0
+content_margin_bottom = 9.0
+bg_color = Color(0.14, 0.25, 0.17, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(1, 0.82, 0.28, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="TaskUI" type="CanvasLayer" unique_id=1184431377]
 script = ExtResource("1_71f4x")
@@ -28,16 +96,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -40.5
-offset_right = 20.0
-offset_bottom = 40.5
+offset_left = -425.0
+offset_top = -275.0
+offset_right = 425.0
+offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_task_panel")
 
 [node name="MainLayout" type="VBoxContainer" parent="Panel" unique_id=881647074]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 18
 
 [node name="Header" type="HBoxContainer" parent="Panel/MainLayout" unique_id=1100189909]
 layout_mode = 2
@@ -45,24 +114,51 @@ theme_override_constants/separation = 16
 
 [node name="TitleLabel" type="Label" parent="Panel/MainLayout/Header" unique_id=1892886915]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.83, 0.32, 1)
+theme_override_fonts/font = ExtResource("6_y8tvv")
+theme_override_font_sizes/font_size = 26
 text = "TASK TERMINAL"
 
 [node name="ProgressLabel" type="Label" parent="Panel/MainLayout/Header" unique_id=1835912852]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.9, 0.77, 1)
+theme_override_fonts/font = ExtResource("7_eoy7p")
+theme_override_font_sizes/font_size = 16
 text = "Task 0 / 0"
 
 [node name="CloseButton" type="Button" parent="Panel/MainLayout/Header" unique_id=1162430219]
+custom_minimum_size = Vector2(100, 42)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.75, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.84, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_eoy7p")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_task_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_task_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_task_button_hover")
 text = "CLOSE"
 
 [node name="QuestionLabel" type="Label" parent="Panel/MainLayout" unique_id=1523844476]
+custom_minimum_size = Vector2(0, 78)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.95, 0.82, 1)
+theme_override_fonts/font = ExtResource("6_y8tvv")
+theme_override_font_sizes/font_size = 23
 text = "Question appears here"
+autowrap_mode = 3
 
 [node name="TaskContent" type="Control" parent="Panel/MainLayout" unique_id=723232886]
 custom_minimum_size = Vector2(600, 300)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="FeedbackLabel" type="Label" parent="Panel/MainLayout" unique_id=1608808722]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.38, 1)
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+vertical_alignment = 1

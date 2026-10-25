@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
 [ext_resource type="PackedScene" uid="uid://dgv843m5q0a0d" path="res://Assets/Maps/mainMap/game_map.tscn" id="2_flgk0"]
 [ext_resource type="Script" uid="uid://t0bnmppxwq5a" path="res://Scripts/Player/PlayerManager.cs" id="3_qikps"]
-[ext_resource type="PackedScene" uid="uid://di673qreyo1la" path="res://Scenes/Tasks/TaskUI.tscn" id="4_flgk0"]
+[ext_resource type="PackedScene" uid="uid://cl16w6y5k2ylg" path="res://Scenes/Tasks/TaskUI.tscn" id="4_flgk0"]
 [ext_resource type="PackedScene" uid="uid://bsfm6hme031pj" path="res://Scenes/Game/GameUI.tscn" id="6_flgk0"]
 [ext_resource type="PackedScene" uid="uid://ddogl8vpp8w86" path="res://Scenes/Game/TaskStation.tscn" id="7_vifcx"]
 [ext_resource type="AudioStream" uid="uid://corp3mxglxc6c" path="res://Assets/Music/music_game_f.mp3" id="7_xfil1"]
@@ -20,7 +20,6 @@ position = Vector2(564, 638)
 script = ExtResource("3_qikps")
 
 [node name="TaskUI" parent="." unique_id=1184431377 instance=ExtResource("4_flgk0")]
-visible = false
 
 [node name="TaskStation" parent="." unique_id=704673815 instance=ExtResource("7_vifcx")]
 position = Vector2(1070, 915)
