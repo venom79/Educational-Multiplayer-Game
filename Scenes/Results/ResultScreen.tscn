@@ -1,6 +1,42 @@
 [gd_scene format=3 uid="uid://4ko1i8l3scpt"]
 
 [ext_resource type="Script" uid="uid://dsepx0huwi7ga" path="res://Scripts/UI/ResultScreenController.cs" id="1_gdggs"]
+[ext_resource type="Texture2D" uid="uid://cx4f7og84dcgs" path="res://Assets/Backgrounds/bg.png" id="2_kmbhr"]
+[ext_resource type="Texture2D" uid="uid://cocpiw1qm60pc" path="res://Assets/Backgrounds/trophy.png" id="3_gfsxq"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="4_8i526"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hmq2"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9019608, 0.6, 0.13725491, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dffv1"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9760755, 0.814219, 0.2528133, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="ResultScreen" type="Control" unique_id=665551133]
 layout_mode = 3
@@ -11,33 +47,56 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gdggs")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1971339997]
+[node name="Background" type="TextureRect" parent="." unique_id=1736707977]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(0, 0.12632424, 0.32529104, 1)
+texture = ExtResource("2_kmbhr")
 
-[node name="ResultTitle" type="Label" parent="." unique_id=905672941]
+[node name="trophy" type="TextureRect" parent="." unique_id=850588795]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 439.0
+offset_top = 41.0
+offset_right = 1693.0
+offset_bottom = 1295.0
+scale = Vector2(0.23100066, 0.23646922)
+texture = ExtResource("3_gfsxq")
 
-[node name="ResultMessage" type="Label" parent="." unique_id=1465014200]
+[node name="ResultTitle" type="RichTextLabel" parent="." unique_id=418449306]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 266.0
+offset_top = 341.0
+offset_right = 701.0
+offset_bottom = 393.0
+theme_override_fonts/normal_font = ExtResource("4_8i526")
+theme_override_font_sizes/normal_font_size = 39
+text = "WINNER IS TEAM"
+horizontal_alignment = 1
 
-[node name="TeamProgress" type="Label" parent="." unique_id=1197213877]
+[node name="TeamResult" type="RichTextLabel" parent="." unique_id=1328199961]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 344.0
+offset_top = 413.00003
+offset_right = 954.0
+offset_bottom = 465.00003
+scale = Vector2(0.77840966, 0.7503811)
+theme_override_fonts/normal_font = ExtResource("4_8i526")
+theme_override_font_sizes/normal_font_size = 39
+bbcode_enabled = true
+text = "[center][color=#4da6ff]BLUE[/color]: 0/0     [color=#ff4d4d]RED[/color]: 0/0[/center]"
+horizontal_alignment = 1
 
-[node name="TimeResult" type="Label" parent="." unique_id=1856988471]
+[node name="ContinueButton" type="Button" parent="." unique_id=1509685667]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="ContinueButton" type="Button" parent="." unique_id=939024368]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 471.0
+offset_top = 479.0
+offset_right = 666.0
+offset_bottom = 527.0
+scale = Vector2(1.1987497, 1.5767269)
+theme_override_colors/font_color = Color(0.067253485, 0.20979604, 0.09093154, 1)
+theme_override_colors/font_hover_color = Color(0.09760975, 0.27603075, 0.12729055, 1)
+theme_override_fonts/font = ExtResource("4_8i526")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_8hmq2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dffv1")
+text = "PLAY AGAIN"

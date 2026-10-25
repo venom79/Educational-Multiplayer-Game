@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://di673qreyo1la" path="res://Scenes/Tasks/TaskUI.tscn" id="4_flgk0"]
 [ext_resource type="PackedScene" uid="uid://bsfm6hme031pj" path="res://Scenes/Game/GameUI.tscn" id="6_flgk0"]
 [ext_resource type="PackedScene" uid="uid://ddogl8vpp8w86" path="res://Scenes/Game/TaskStation.tscn" id="7_vifcx"]
+[ext_resource type="AudioStream" uid="uid://corp3mxglxc6c" path="res://Assets/Music/music_game_f.mp3" id="7_xfil1"]
 
 [node name="Game" type="Node2D" unique_id=411957723]
 script = ExtResource("1_qxfds")
 
 [node name="GameMap" parent="." unique_id=191271109 instance=ExtResource("2_flgk0")]
+position = Vector2(564, 638)
 
 [node name="GameUI" parent="." unique_id=516114757 instance=ExtResource("6_flgk0")]
 
@@ -34,3 +36,7 @@ StationId = "station_03"
 [node name="TaskStation4" parent="." unique_id=1013880941 instance=ExtResource("7_vifcx")]
 position = Vector2(4429, 926)
 StationId = "station_03"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1806301879]
+stream = ExtResource("7_xfil1")
+autoplay = true

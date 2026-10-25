@@ -2,149 +2,70 @@ using Godot;
 
 public partial class ResultScreenController : Control
 {
-	private ColorRect background;
+	private const string BlueHex = "#4da6ff";
+	private const string RedHex = "#ff4d4d";
 
-	private Label resultTitle;
-	private Label resultMessage;
-	private Label teamProgress;
+	private TextureRect background;
+	private TextureRect trophy;
+
+	private RichTextLabel resultTitle;
+	private RichTextLabel teamResult;
 	private Label timeResult;
 
 	private Button continueButton;
 
 	public override void _Ready()
 	{
-		background =
-			GetNode<ColorRect>("Background");
+		background = GetNode<TextureRect>("Background");
+		trophy = GetNode<TextureRect>("trophy");
 
-		resultTitle =
-			GetNode<Label>("ResultTitle");
+		resultTitle = GetNode<RichTextLabel>("ResultTitle");
+		teamResult = GetNode<RichTextLabel>("TeamResult");
 
-		resultMessage =
-			GetNode<Label>("ResultMessage");
-
-		teamProgress =
-			GetNode<Label>("TeamProgress");
-
-		timeResult =
-			GetNode<Label>("TimeResult");
-
-		continueButton =
-			GetNode<Button>("ContinueButton");
+		continueButton = GetNode<Button>("ContinueButton");
 
 		SetupUI();
 
-		continueButton.Pressed +=
-			OnContinuePressed;
-		
+		continueButton.Pressed += OnContinuePressed;
+
 		DisplayResult();
 	}
 
 	private void SetupUI()
 	{
-		// -------------------------
 		// BACKGROUND
-		// -------------------------
+		background.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+		background.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+		background.StretchMode = TextureRect.StretchModeEnum.Scale;
 
-		background.SetAnchorsAndOffsetsPreset(
-			Control.LayoutPreset.FullRect
-		);
+		// TROPHY (size and position are set in the editor)
+		trophy.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
+		trophy.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
 
+		// RICH TEXT LABELS
+		StyleRichLabel(resultTitle, 52);
+		StyleRichLabel(teamResult, 22);
 
-		// -------------------------
-		// TITLE
-		// -------------------------
+		// TIME (plain label, only if it exists)
+		if (timeResult != null)
+		{
+			timeResult.HorizontalAlignment = HorizontalAlignment.Center;
+			timeResult.AddThemeColorOverride("font_color", new Color(1, 1, 1));
+		}
 
-		resultTitle.Position =
-			new Vector2(0, 140);
-
-		resultTitle.Size =
-			new Vector2(1152, 80);
-
-		resultTitle.HorizontalAlignment =
-			HorizontalAlignment.Center;
-
-		resultTitle.AddThemeFontSizeOverride(
-			"font_size",
-			52
-		);
-
-
-		// -------------------------
-		// MESSAGE
-		// -------------------------
-
-		resultMessage.Position =
-			new Vector2(0, 230);
-
-		resultMessage.Size =
-			new Vector2(1152, 50);
-
-		resultMessage.HorizontalAlignment =
-			HorizontalAlignment.Center;
-
-		resultMessage.AddThemeFontSizeOverride(
-			"font_size",
-			24
-		);
-
-
-		// -------------------------
-		// TEAM PROGRESS
-		// -------------------------
-
-		teamProgress.Position =
-			new Vector2(0, 310);
-
-		teamProgress.Size =
-			new Vector2(1152, 40);
-
-		teamProgress.HorizontalAlignment =
-			HorizontalAlignment.Center;
-
-		teamProgress.AddThemeFontSizeOverride(
-			"font_size",
-			22
-		);
-
-
-		// -------------------------
-		// TIME
-		// -------------------------
-
-		timeResult.Position =
-			new Vector2(0, 360);
-
-		timeResult.Size =
-			new Vector2(1152, 40);
-
-		timeResult.HorizontalAlignment =
-			HorizontalAlignment.Center;
-
-		timeResult.AddThemeFontSizeOverride(
-			"font_size",
-			22
-		);
-
-
-		// -------------------------
 		// BUTTON
-		// -------------------------
-
-		continueButton.Position =
-			new Vector2(476, 450);
-
-		continueButton.Size =
-			new Vector2(200, 60);
-
-		continueButton.Text =
-			"Continue";
-
-		continueButton.AddThemeFontSizeOverride(
-			"font_size",
-			22
-		);
+		continueButton.Text = "Play Again";
 	}
-		
+
+	private void StyleRichLabel(RichTextLabel label, int fontSize)
+	{
+		label.BbcodeEnabled = true;
+		label.FitContent = true;
+		label.ScrollActive = false;
+		label.AddThemeFontSizeOverride("normal_font_size", fontSize);
+		label.AddThemeColorOverride("default_color", new Color(1, 1, 1));
+	}
+
 	private void DisplayResult()
 	{
 		GameState result = GameSession.Instance.CurrentState;
@@ -152,55 +73,47 @@ public partial class ResultScreenController : Control
 		switch (result)
 		{
 			case GameState.BlueVictory:
-				resultTitle.Text = "TEAM BLUE WINS!";
-				resultMessage.Text = "Team Blue completed its tasks first!";
+				resultTitle.Text = $"[center]TEAM [color={BlueHex}]BLUE[/color] WINS![/center]";
 				break;
 
 			case GameState.RedVictory:
-				resultTitle.Text = "TEAM RED WINS!";
-				resultMessage.Text = "Team Red completed its tasks first!";
+				resultTitle.Text = $"[center]TEAM [color={RedHex}]RED[/color] WINS![/center]";
 				break;
 
 			case GameState.Draw:
-				resultTitle.Text = "IT'S A DRAW!";
-				resultMessage.Text = "Both teams finished with the same score.";
+				resultTitle.Text = "[center]IT'S A DRAW![/center]";
 				break;
 
 			default:
-				resultTitle.Text = "GAME OVER";
-				resultMessage.Text = "The game has ended.";
+				resultTitle.Text = "[center]GAME OVER[/center]";
 				break;
 		}
 
 		if (GameManager.Instance != null)
 		{
-			teamProgress.Text =
-				$"BLUE: {GameManager.Instance.BlueCompletedTasks}/" +
-				$"{GameManager.Instance.BlueTotalTasks}     " +
-				$"RED: {GameManager.Instance.RedCompletedTasks}/" +
-				$"{GameManager.Instance.RedTotalTasks}";
+			teamResult.Text =
+				$"[center][color={BlueHex}]BLUE[/color]: " +
+				$"{GameManager.Instance.BlueCompletedTasks}/{GameManager.Instance.BlueTotalTasks}" +
+				$"     [color={RedHex}]RED[/color]: " +
+				$"{GameManager.Instance.RedCompletedTasks}/{GameManager.Instance.RedTotalTasks}[/center]";
 		}
 
-		timeResult.Text =
-			$"Time remaining: {GameManager.Instance?.TimeRemaining ?? 0:F0}s";
+		if (timeResult != null)
+		{
+			timeResult.Text =
+				$"Time remaining: {GameManager.Instance?.TimeRemaining ?? 0:F0}s";
+		}
 
 		GD.Print($"Result screen loaded with state: {result}");
 	}
 
-	
 	private void OnContinuePressed()
 	{
-		GD.Print(
-			"Returning to Main Menu..."
-		);
+		GD.Print("Returning to Main Menu...");
 		NetworkManager.Instance.Disconnect();
-		
-		GameSession.Instance.SetState(
-			GameState.MainMenu
-		);
 
-		GetTree().ChangeSceneToFile(
-			"res://Scenes/MainMenu/MainMenu.tscn"
-		);
+		GameSession.Instance.SetState(GameState.MainMenu);
+
+		GetTree().ChangeSceneToFile("res://Scenes/MainMenu/MainMenu.tscn");
 	}
 }

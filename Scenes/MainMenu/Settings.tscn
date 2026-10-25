@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bcjy1o3jyduyy"]
 
 [ext_resource type="Script" uid="uid://8hl67riq4so8" path="res://Scripts/UI/SettingsController.cs" id="1_r2fek"]
-[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="2_28jca"]
+[ext_resource type="Texture2D" uid="uid://cx4f7og84dcgs" path="res://Assets/Backgrounds/bg.png" id="2_6sctf"]
 [ext_resource type="FontFile" uid="uid://dgag2gjjwongr" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="3_1w7rt"]
 [ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="4_wrsdo"]
 [ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="5_bbwig"]
@@ -119,7 +119,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_28jca")
+texture = ExtResource("2_6sctf")
 expand_mode = 1
 stretch_mode = 5
 
