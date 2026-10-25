@@ -1,305 +1,1187 @@
 {
   "mode": "Language",
   "questions": [
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Water' to Hindi.",
-      "correctAnswer": "पानी"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Book' to Hindi.",
-      "correctAnswer": "किताब"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Sun' to Hindi.",
-      "correctAnswer": "सूरज"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Moon' to Hindi.",
-      "correctAnswer": "चाँद"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'House' to Hindi.",
-      "correctAnswer": "घर"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Friend' to Hindi.",
-      "correctAnswer": "दोस्त"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'School' to Hindi.",
-      "correctAnswer": "विद्यालय"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Tree' to Hindi.",
-      "correctAnswer": "पेड़"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Flower' to Hindi.",
-      "correctAnswer": "फूल"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Milk' to Hindi.",
-      "correctAnswer": "दूध"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Food' to Hindi.",
-      "correctAnswer": "खाना"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Mother' to Hindi.",
-      "correctAnswer": "माँ"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Father' to Hindi.",
-      "correctAnswer": "पिता"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Child' to Hindi.",
-      "correctAnswer": "बच्चा"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'River' to Hindi.",
-      "correctAnswer": "नदी"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Mountain' to Hindi.",
-      "correctAnswer": "पहाड़"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Road' to Hindi.",
-      "correctAnswer": "सड़क"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Window' to Hindi.",
-      "correctAnswer": "खिड़की"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Door' to Hindi.",
-      "correctAnswer": "दरवाज़ा"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Rain' to Hindi.",
-      "correctAnswer": "बारिश"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Today' to Hindi.",
-      "correctAnswer": "आज"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Easy",
-      "question": "Translate 'Tomorrow' to Hindi.",
-      "correctAnswer": "कल"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Beautiful' to Hindi.",
-      "correctAnswer": "सुंदर"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Courage' to Hindi.",
-      "correctAnswer": "साहस"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Knowledge' to Hindi.",
-      "correctAnswer": "ज्ञान"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Freedom' to Hindi.",
-      "correctAnswer": "स्वतंत्रता"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Kindness' to Hindi.",
-      "correctAnswer": "दयालुता"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Honesty' to Hindi.",
-      "correctAnswer": "ईमानदारी"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Success' to Hindi.",
-      "correctAnswer": "सफलता"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Question' to Hindi.",
-      "correctAnswer": "प्रश्न"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Answer' to Hindi.",
-      "correctAnswer": "उत्तर"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Environment' to Hindi.",
-      "correctAnswer": "पर्यावरण"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Responsibility' to Hindi.",
-      "correctAnswer": "ज़िम्मेदारी"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Opportunity' to Hindi.",
-      "correctAnswer": "अवसर"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Experience' to Hindi.",
-      "correctAnswer": "अनुभव"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Improvement' to Hindi.",
-      "correctAnswer": "सुधार"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Decision' to Hindi.",
-      "correctAnswer": "निर्णय"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Peace' to Hindi.",
-      "correctAnswer": "शांति"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Health' to Hindi.",
-      "correctAnswer": "स्वास्थ्य"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Patience' to Hindi.",
-      "correctAnswer": "धैर्य"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Ancient' to Hindi.",
-      "correctAnswer": "प्राचीन"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Tradition' to Hindi.",
-      "correctAnswer": "परंपरा"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Possibility' to Hindi.",
-      "correctAnswer": "संभावना"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Achievement' to Hindi.",
-      "correctAnswer": "उपलब्धि"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Confidence' to Hindi.",
-      "correctAnswer": "आत्मविश्वास"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Curiosity' to Hindi.",
-      "correctAnswer": "जिज्ञासा"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Creativity' to Hindi.",
-      "correctAnswer": "रचनात्मकता"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Medium",
-      "question": "Translate 'Equality' to Hindi.",
-      "correctAnswer": "समानता"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Compassion' to Hindi.",
-      "correctAnswer": "करुणा"
-    },
-    {
-      "taskType": "Translation",
-      "difficulty": "Hard",
-      "question": "Translate 'Determination' to Hindi.",
-      "correctAnswer": "दृढ़ संकल्प"
-    }
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Water' to Konkani.",
+	  "correctAnswer": "उदक",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Book' to Konkani.",
+	  "correctAnswer": "पुस्तक",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Sun' to Konkani.",
+	  "correctAnswer": "सूर्य",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Moon' to Konkani.",
+	  "correctAnswer": "चंद्र",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'House' to Konkani.",
+	  "correctAnswer": "घर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Friend' to Konkani.",
+	  "correctAnswer": "इश्ट",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'School' to Konkani.",
+	  "correctAnswer": "इस्कूल",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Tree' to Konkani.",
+	  "correctAnswer": "झाड",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Flower' to Konkani.",
+	  "correctAnswer": "फूल",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Milk' to Konkani.",
+	  "correctAnswer": "दूद",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Food' to Konkani.",
+	  "correctAnswer": "जेवण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Mother' to Konkani.",
+	  "correctAnswer": "आय",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Father' to Konkani.",
+	  "correctAnswer": "बाप",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Child' to Konkani.",
+	  "correctAnswer": "भुरगो",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'River' to Konkani.",
+	  "correctAnswer": "नदी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Mountain' to Konkani.",
+	  "correctAnswer": "डोंगर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Road' to Konkani.",
+	  "correctAnswer": "रस्तो",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Window' to Konkani.",
+	  "correctAnswer": "खिडकी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Door' to Konkani.",
+	  "correctAnswer": "दार",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Rain' to Konkani.",
+	  "correctAnswer": "पावस",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Today' to Konkani.",
+	  "correctAnswer": "आयज",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Tomorrow' to Konkani.",
+	  "correctAnswer": "फाल्यां",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Beautiful' to Konkani.",
+	  "correctAnswer": "सुंदर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Courage' to Konkani.",
+	  "correctAnswer": "धाडस",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Knowledge' to Konkani.",
+	  "correctAnswer": "गिन्यान",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Freedom' to Konkani.",
+	  "correctAnswer": "स्वातंत्र",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Kindness' to Konkani.",
+	  "correctAnswer": "दयाळपण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Honesty' to Konkani.",
+	  "correctAnswer": "प्रामाणिकपण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Success' to Konkani.",
+	  "correctAnswer": "यश",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Question' to Konkani.",
+	  "correctAnswer": "प्रश्न",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Answer' to Konkani.",
+	  "correctAnswer": "जाप",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Environment' to Konkani.",
+	  "correctAnswer": "पर्यावरण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Responsibility' to Konkani.",
+	  "correctAnswer": "जापसालदारकी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Opportunity' to Konkani.",
+	  "correctAnswer": "संधी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Experience' to Konkani.",
+	  "correctAnswer": "अनुभव",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Improvement' to Konkani.",
+	  "correctAnswer": "सुधारणा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Decision' to Konkani.",
+	  "correctAnswer": "निर्णय",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Peace' to Konkani.",
+	  "correctAnswer": "शांती",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Health' to Konkani.",
+	  "correctAnswer": "आरोग्य",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Patience' to Konkani.",
+	  "correctAnswer": "धीर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Ancient' to Konkani.",
+	  "correctAnswer": "प्राचीन",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Tradition' to Konkani.",
+	  "correctAnswer": "परंपरा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Possibility' to Konkani.",
+	  "correctAnswer": "शक्यता",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Achievement' to Konkani.",
+	  "correctAnswer": "साध्य",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Confidence' to Konkani.",
+	  "correctAnswer": "आत्मविश्वास",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Curiosity' to Konkani.",
+	  "correctAnswer": "जिज्ञासा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Creativity' to Konkani.",
+	  "correctAnswer": "सर्जनशीलता",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Equality' to Konkani.",
+	  "correctAnswer": "समानता",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Compassion' to Konkani.",
+	  "correctAnswer": "करुणा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Translation",
+	  "difficulty": "Hard",
+	  "question": "Translate 'Determination' to Konkani.",
+	  "correctAnswer": "निश्चय",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each English word with its Konkani meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Water",
+		"Book",
+		"Sun",
+        "Friend"
+	  ],
+	  "rightItems": [
+		"इश्ट",
+		"उदक",
+		"सूर्य",
+        "पुस्तक"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		2,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each Konkani word with its English meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"झाड",
+		"घर",
+		"दूद",
+        "फूल"
+	  ],
+	  "rightItems": [
+		"Milk",
+		"Flower",
+		"House",
+        "Tree"
+	  ],
+	  "correctMatches": [
+		3,
+		2,
+		0,
+		1
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each Konkani word with its English meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"स्वातंत्र",
+		"धाडस",
+		"गिन्यान",
+        "यश"
+	  ],
+	  "rightItems": [
+		"Knowledge",
+		"Success",
+		"Courage",
+        "Freedom"
+	  ],
+	  "correctMatches": [
+		3,
+		2,
+		0,
+		1
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each English word with its Konkani meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Today",
+		"Tomorrow",
+		"Rain",
+        "Road"
+	  ],
+	  "rightItems": [
+		"रस्तो",
+		"आयज",
+		"पावस",
+        "फाल्यां"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		2,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each Konkani word with its English meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"दयाळपण",
+		"प्रामाणिकपण",
+		"धीर",
+        "शांती"
+	  ],
+	  "rightItems": [
+		"Peace",
+		"Patience",
+		"Honesty",
+        "Kindness"
+	  ],
+	  "correctMatches": [
+		3,
+		2,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each English word with its Konkani meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Responsibility",
+		"Opportunity",
+		"Experience",
+        "Decision"
+	  ],
+	  "rightItems": [
+		"निर्णय",
+		"संधी",
+		"जापसालदारकी",
+        "अनुभव"
+	  ],
+	  "correctMatches": [
+		2,
+		1,
+		3,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each Konkani word with its English meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"शक्यता",
+		"सर्जनशीलता",
+		"निश्चय",
+        "साध्य"
+	  ],
+	  "rightItems": [
+		"Achievement",
+		"Determination",
+		"Possibility",
+        "Creativity"
+	  ],
+	  "correctMatches": [
+		2,
+		3,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each English word with its Konkani meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Health",
+		"Tradition",
+		"Peace",
+        "Knowledge"
+	  ],
+	  "rightItems": [
+		"गिन्यान",
+		"शांती",
+		"आरोग्य",
+        "परंपरा"
+	  ],
+	  "correctMatches": [
+		2,
+		3,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each Konkani word with its English meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"आय",
+		"बाप",
+		"भुरगो",
+        "इस्कूल"
+	  ],
+	  "rightItems": [
+		"School",
+		"Child",
+		"Father",
+        "Mother"
+	  ],
+	  "correctMatches": [
+		3,
+		2,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each English word with its Konkani meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Courage",
+		"Equality",
+		"Compassion",
+        "Success"
+	  ],
+	  "rightItems": [
+		"करुणा",
+		"यश",
+		"समानता",
+        "धाडस"
+	  ],
+	  "correctMatches": [
+		3,
+		2,
+		0,
+		1
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each Konkani word with its English meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"डोंगर",
+		"रस्तो",
+		"दार",
+        "पावस"
+	  ],
+	  "rightItems": [
+		"Rain",
+		"Door",
+		"Mountain",
+        "Road"
+	  ],
+	  "correctMatches": [
+		2,
+		3,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each English word with its Konkani meaning.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Beautiful",
+		"Ancient",
+		"Improvement",
+        "Question"
+	  ],
+	  "rightItems": [
+		"प्रश्न",
+		"सुधारणा",
+		"सुंदर",
+        "प्राचीन"
+	  ],
+	  "correctMatches": [
+		2,
+		3,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which Konkani word means “tomorrow”?",
+	  "options": [
+		"फाल्यां",
+		"काल",
+		"आयज",
+        "सकाळीं"
+	  ],
+	  "correctAnswer": "फाल्यां",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the closest meaning of “देव बरो करूं” in English?",
+	  "options": [
+		"May God do good",
+		"God is sleeping",
+		"Come here quickly",
+        "The rain has stopped"
+	  ],
+	  "correctAnswer": "May God do good",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which word means “yesterday” in Konkani?",
+	  "options": [
+		"फाल्यां",
+		"काल",
+		"परवां",
+        "आतां"
+	  ],
+	  "correctAnswer": "काल",
+	  "correctOptionIndex": 1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Choose the Konkani word that means “beautiful”.",
+	  "options": [
+		"सुंदर",
+		"कठीण",
+		"उशीर",
+        "ल्हान"
+	  ],
+	  "correctAnswer": "सुंदर",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What does “म्हाका समजना” mean?",
+	  "options": [
+		"I do not understand",
+		"I am hungry",
+		"I am going home",
+        "I have finished"
+	  ],
+	  "correctAnswer": "I do not understand",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which phrase means “Where are you going?”",
+	  "options": [
+		"तूं खंय वता?",
+		"तूं कितें खाता?",
+		"तुका कितें जाय?",
+        "तो खंय आसा?"
+	  ],
+	  "correctAnswer": "तूं खंय वता?",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Choose the best Konkani translation for “I need water.”",
+	  "options": [
+		"म्हाका उदक जाय.",
+		"हांव उदक वता.",
+		"तुका उदक आसा.",
+        "उदक खूब सुंदर."
+	  ],
+	  "correctAnswer": "म्हाका उदक जाय.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What does “आतां” mean?",
+	  "options": [
+		"Now",
+		"Never",
+		"Yesterday",
+        "Far away"
+	  ],
+	  "correctAnswer": "Now",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which word means “small” in Konkani?",
+	  "options": [
+		"व्हड",
+		"ल्हान",
+		"लांब",
+        "जाड"
+	  ],
+	  "correctAnswer": "ल्हान",
+	  "correctOptionIndex": 1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the meaning of “व्हड”?",
+	  "options": [
+		"Big",
+		"Small",
+		"Cold",
+        "Quiet"
+	  ],
+	  "correctAnswer": "Big",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Choose the phrase that means “I am going home.”",
+	  "options": [
+		"हांव घरा वता.",
+		"हांव घरा खातां.",
+		"म्हाका घर जाय.",
+        "घर खूब लांब."
+	  ],
+	  "correctAnswer": "हांव घरा वता.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which word means “food/meal” in common Goan Konkani usage?",
+	  "options": [
+		"जेवण",
+		"दिस",
+		"रस्तो",
+        "पावस"
+	  ],
+	  "correctAnswer": "जेवण",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What does “पावस पडटा” mean?",
+	  "options": [
+		"It is raining",
+		"The sun is shining",
+		"The wind stopped",
+        "It is getting dark"
+	  ],
+	  "correctAnswer": "It is raining",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Choose the word that means “road/way”.",
+	  "options": [
+		"रस्तो",
+		"दर्या",
+		"झाड",
+        "दूध"
+	  ],
+	  "correctAnswer": "रस्तो",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What does “तुका कितें जाय?” mean?",
+	  "options": [
+		"What do you want?",
+		"Where do you live?",
+		"When will you come?",
+        "Who is calling you?"
+	  ],
+	  "correctAnswer": "What do you want?",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which phrase means “Please speak slowly”?",
+	  "options": [
+		"उणें उणें उलय.",
+		"वेगान धांव.",
+		"दार बंद कर.",
+        "हांगा बस."
+	  ],
+	  "correctAnswer": "उणें उणें उलय.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which word means “today”?",
+	  "options": [
+		"आयज",
+		"काल",
+		"फाल्यां",
+        "सदांच"
+	  ],
+	  "correctAnswer": "आयज",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the closest meaning of “सदांच”?",
+	  "options": [
+		"Always",
+		"Sometimes",
+		"Tomorrow",
+        "Outside"
+	  ],
+	  "correctAnswer": "Always",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Choose the phrase that means “I am very tired.”",
+	  "options": [
+		"हांव खूब दमलों.",
+		"हांव खूब हांसतां.",
+		"म्हाका खूब भूक.",
+        "तो खूब उंच."
+	  ],
+	  "correctAnswer": "हांव खूब दमलों.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which option best translates “Do you know Konkani?”",
+	  "options": [
+		"तुका कोंकणी येता?",
+		"तुका कोंकणी जाय?",
+		"तूं कोंकणी खाता?",
+        "कोंकणी खंय आसा?"
+	  ],
+	  "correctAnswer": "तुका कोंकणी येता?",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	}
   ]
 }

@@ -16,7 +16,7 @@ public class GeminiTaskProvider
 	private static readonly System.Net.Http.HttpClient Http =
 		new System.Net.Http.HttpClient();
 
-	private static string GetApiKey()
+	private static string? GetApiKey()
 	{
 		string? apiKey =
 			System.Environment.GetEnvironmentVariable("GEMINI_API_KEY");
@@ -24,8 +24,7 @@ public class GeminiTaskProvider
 		if (!string.IsNullOrWhiteSpace(apiKey))
 			return apiKey.Trim();
 
-		string envPath =
-			ProjectSettings.GlobalizePath("res://.env");
+		string envPath = ProjectSettings.GlobalizePath("res://.env");
 
 		if (!File.Exists(envPath))
 		{
@@ -79,43 +78,90 @@ public class GeminiTaskProvider
 		if (string.IsNullOrWhiteSpace(apiKey))
 		{
 			throw new InvalidOperationException(
-				"GEMINI_API_KEY is missing. Check your environment variable or project-root .env file.");
+				"GEMINI_API_KEY is missing. Check your environment " +
+				"variable or project-root .env file.");
 		}
+
+		// --------------------------------------------------
+		// MODE-SPECIFIC INSTRUCTIONS
+		// --------------------------------------------------
 
 		string taskInstructions = gameMode switch
 		{
 			GameMode.Maths =>
-				"Generate only Calculation tasks containing arithmetic questions and correct numeric answers.",
+				"Generate educational maths tasks using calculations, " +
+				"multiple-choice questions, and matching mathematical " +
+				"expressions, fractions, formulas, numbers, and concepts.",
 
 			GameMode.Science =>
-				"Generate only MultipleChoice tasks containing factual science questions, exactly four distinct options, and the correct option index.",
+				"Generate educational science tasks using factual " +
+				"multiple-choice questions, calculations involving " +
+				"scientific concepts, and matching scientific terms, " +
+				"concepts, processes, and definitions.",
 
 			GameMode.Language =>
-				"Generate only Translation tasks asking users to translate English words into Hindi.",
+				"Generate educational language tasks involving English " +
+				"and Hindi vocabulary, multiple-choice questions, " +
+				"translations, meanings, and matching words with meanings.",
 
 			_ => throw new ArgumentException(
 				$"Unsupported game mode: {gameMode}")
 		};
 
-		string expectedTaskType = gameMode switch
-		{
-			GameMode.Maths => "Calculation",
-			GameMode.Science => "MultipleChoice",
-			GameMode.Language => "Translation",
-			_ => throw new ArgumentException(
-				$"Unsupported game mode: {gameMode}")
-		};
+		// --------------------------------------------------
+		// PROMPT
+		// --------------------------------------------------
 
 		string prompt =
-			$"Generate exactly {taskCount} unique, age-appropriate educational " +
-			$"tasks in English for the selected mode: {gameMode}. " +
+			$"Generate exactly {taskCount} unique educational tasks " +
+			$"for the {gameMode} mode. " +
 			$"{taskInstructions} " +
-			$"Every task must have taskType \"{expectedTaskType}\". " +
-			"Do not generate tasks from any other subject or task type. " +
-			"For MultipleChoice, provide exactly four distinct options and a zero-based CorrectOptionIndex. " +
-			"For Calculation and Translation, Options must be an empty array and CorrectOptionIndex must be -1. " +
-			"Ensure every correct answer matches the question and the selected option. " +
+
+			"Make questions moderately challenging, age-appropriate, " +
+			"clear, and solvable. Require some reasoning or application " +
+			"of knowledge. " +
+
+			"Use a varied mix of eligible task types whenever possible. " +
+
+			"Maths allows MultipleChoice, Calculation, and MatchTheFollowing. " +
+			"Science allows MultipleChoice, Calculation, and MatchTheFollowing. " +
+			"Language allows MultipleChoice, Translation, and MatchTheFollowing. " +
+
+			"Never generate task types outside the selected mode's " +
+			"allowed types. " +
+
+			"For Calculation, put the expected answer in correctAnswer. " +
+
+			"For Translation, put the expected translation in correctAnswer. " +
+
+			"For MultipleChoice, provide exactly four distinct options. " +
+			"correctOptionIndex must be the zero-based index of the " +
+			"correct option, and correctAnswer must match that option. " +
+
+			"For MatchTheFollowing, provide between 3 and 6 leftItems " +
+			"and the same number of rightItems. Shuffle rightItems so " +
+			"the correct pairs are not necessarily in the same order. " +
+			"correctMatches must contain one zero-based right-item index " +
+			"for each left item, in left-item order. Each right item " +
+			"must be used exactly once. " +
+
+			"For matching tasks, correctAnswer must be an empty string, " +
+			"options must be an empty array, and correctOptionIndex " +
+			"must be -1. " +
+
+			"For non-matching tasks, leftItems, rightItems, and " +
+			"correctMatches must be empty arrays. " +
+
+			"For non-multiple-choice tasks, options must be empty and " +
+			"correctOptionIndex must be -1. " +
+
+			"Never include the correct answer in the question text. " +
+			"Ensure all answers and matching pairs are correct. " +
 			"Return JSON matching the requested schema.";
+
+		// --------------------------------------------------
+		// JSON SCHEMA
+		// --------------------------------------------------
 
 		var schema = new
 		{
@@ -137,17 +183,42 @@ public class GeminiTaskProvider
 								{
 									"Calculation",
 									"MultipleChoice",
-                                    "Translation"
+									"Translation",
+                                    "MatchTheFollowing"
 								}
 							},
-							question = new { type = "STRING" },
-							correctAnswer = new { type = "STRING" },
+							question = new
+							{
+								type = "STRING"
+							},
+							correctAnswer = new
+							{
+								type = "STRING"
+							},
 							options = new
 							{
 								type = "ARRAY",
 								items = new { type = "STRING" }
 							},
-							correctOptionIndex = new { type = "INTEGER" }
+							correctOptionIndex = new
+							{
+								type = "INTEGER"
+							},
+							leftItems = new
+							{
+								type = "ARRAY",
+								items = new { type = "STRING" }
+							},
+							rightItems = new
+							{
+								type = "ARRAY",
+								items = new { type = "STRING" }
+							},
+							correctMatches = new
+							{
+								type = "ARRAY",
+								items = new { type = "INTEGER" }
+							}
 						},
 						required = new[]
 						{
@@ -155,7 +226,10 @@ public class GeminiTaskProvider
 							"question",
 							"correctAnswer",
 							"options",
-                            "correctOptionIndex"
+							"correctOptionIndex",
+							"leftItems",
+							"rightItems",
+                            "correctMatches"
 						},
 						propertyOrdering = new[]
 						{
@@ -163,13 +237,20 @@ public class GeminiTaskProvider
 							"question",
 							"correctAnswer",
 							"options",
-                            "correctOptionIndex"
+							"correctOptionIndex",
+							"leftItems",
+							"rightItems",
+                            "correctMatches"
 						}
 					}
 				}
 			},
 			required = new[] { "tasks" }
 		};
+
+		// --------------------------------------------------
+		// API REQUEST
+		// --------------------------------------------------
 
 		var requestBody = new
 		{
@@ -187,7 +268,8 @@ public class GeminiTaskProvider
 
 		using var request = new HttpRequestMessage(
 			HttpMethod.Post,
-			"https://generativelanguage.googleapis.com/v1beta/interactions");
+			"https://generativelanguage.googleapis.com/v1beta/test");
+			//"https://generativelanguage.googleapis.com/v1beta/interactions");
 
 		request.Headers.Add("x-goog-api-key", apiKey);
 
@@ -196,12 +278,11 @@ public class GeminiTaskProvider
 			Encoding.UTF8,
 			"application/json");
 
-		using HttpResponseMessage response =
-			await Http.SendAsync(request);
-		
-		GD.Print($"GEMINI RESPONSE: {response}");
-		string responseText =
-			await response.Content.ReadAsStringAsync();
+		using HttpResponseMessage response = await Http.SendAsync(request);
+
+		string responseText = await response.Content.ReadAsStringAsync();
+
+		GD.Print($"Gemini HTTP status: {(int)response.StatusCode}");
 
 		if (!response.IsSuccessStatusCode)
 		{
@@ -210,12 +291,13 @@ public class GeminiTaskProvider
 				$"({response.StatusCode}): {responseText}");
 		}
 
-		// FIX: Extract text from the actual Interactions API response.
-		// It may be inside steps -> model_output -> content -> text.
+		// --------------------------------------------------
+		// EXTRACT GENERATED JSON
+		// --------------------------------------------------
+
 		string generatedJson = ExtractGeneratedJson(responseText);
 
-		using JsonDocument taskDocument =
-			JsonDocument.Parse(generatedJson);
+		using JsonDocument taskDocument = JsonDocument.Parse(generatedJson);
 
 		if (!taskDocument.RootElement.TryGetProperty(
 				"tasks", out JsonElement taskArray) ||
@@ -232,7 +314,12 @@ public class GeminiTaskProvider
 				$"{taskArray.GetArrayLength()}.");
 		}
 
+		// --------------------------------------------------
+		// VALIDATE AND CREATE TASKS
+		// --------------------------------------------------
+
 		var tasks = new List<GameTask>();
+
 		var seenQuestions = new HashSet<string>(
 			StringComparer.OrdinalIgnoreCase);
 
@@ -252,11 +339,38 @@ public class GeminiTaskProvider
 			int correctIndex =
 				item.GetProperty("correctOptionIndex").GetInt32();
 
-			if (string.IsNullOrWhiteSpace(question) ||
+			string[] leftItems = item.GetProperty("leftItems")
+				.EnumerateArray()
+				.Select(element => element.GetString() ?? string.Empty)
+				.ToArray();
+
+			string[] rightItems = item.GetProperty("rightItems")
+				.EnumerateArray()
+				.Select(element => element.GetString() ?? string.Empty)
+				.ToArray();
+
+			int[] correctMatches = item.GetProperty("correctMatches")
+				.EnumerateArray()
+				.Select(element => element.GetInt32())
+				.ToArray();
+
+			if (string.IsNullOrWhiteSpace(question))
+			{
+				throw new InvalidOperationException(
+					"Gemini returned an empty question.");
+			}
+
+			if (string.IsNullOrWhiteSpace(type))
+			{
+				throw new InvalidOperationException(
+					"Gemini returned an empty task type.");
+			}
+
+			if (type != "MatchTheFollowing" &&
 				string.IsNullOrWhiteSpace(answer))
 			{
 				throw new InvalidOperationException(
-					"Gemini returned an empty question or answer.");
+					"Gemini returned an empty answer.");
 			}
 
 			if (!seenQuestions.Add(question.Trim()))
@@ -265,24 +379,42 @@ public class GeminiTaskProvider
 					$"Gemini returned a duplicate question: {question}");
 			}
 
+			if (type != "MatchTheFollowing" &&
+				(leftItems.Length != 0 ||
+				 rightItems.Length != 0 ||
+				 correctMatches.Length != 0))
+			{
+				throw new InvalidOperationException(
+					"A non-matching task contains matching data.");
+			}
+
 			GameTask task;
 
 			switch (type)
 			{
 				case "Calculation":
-					if (gameMode != GameMode.Maths ||
+				{
+					if (!TaskTypeRules.IsAllowed(
+							gameMode, TaskType.Calculation) ||
 						options.Length != 0 ||
 						correctIndex != -1)
 					{
 						throw new InvalidOperationException(
-							"Invalid calculation task data.");
+							$"Invalid calculation task data for {gameMode}.");
 					}
 
-					task = new CalculationTask(id++, question, answer);
+					task = new CalculationTask(
+						id++,
+						question,
+						answer!);
+
 					break;
+				}
 
 				case "MultipleChoice":
-					if (gameMode != GameMode.Science ||
+				{
+					if (!TaskTypeRules.IsAllowed(
+							gameMode, TaskType.MultipleChoice) ||
 						options.Length != 4 ||
 						correctIndex < 0 ||
 						correctIndex >= options.Length ||
@@ -291,34 +423,124 @@ public class GeminiTaskProvider
 							StringComparer.OrdinalIgnoreCase).Count() != 4)
 					{
 						throw new InvalidOperationException(
-							"Invalid multiple-choice task data.");
+							$"Invalid multiple-choice task data for {gameMode}.");
 					}
 
-					// Ensure the correct option matches the answer.
 					if (!string.Equals(
 							options[correctIndex].Trim(),
-							answer.Trim(),
+							answer!.Trim(),
 							StringComparison.OrdinalIgnoreCase))
 					{
 						throw new InvalidOperationException(
-							"The correct answer does not match the selected option.");
+							"The correct answer does not match " +
+							"the selected option.");
 					}
 
 					task = new MultipleChoiceTask(
-						id++, question, options, correctIndex);
+						id++,
+						question,
+						options,
+						correctIndex);
+
 					break;
+				}
 
 				case "Translation":
-					if (gameMode != GameMode.Language ||
+				{
+					if (!TaskTypeRules.IsAllowed(
+							gameMode, TaskType.Translation) ||
 						options.Length != 0 ||
 						correctIndex != -1)
 					{
 						throw new InvalidOperationException(
-							"Invalid translation task data.");
+							$"Invalid translation task data for {gameMode}.");
 					}
 
-					task = new TranslationTask(id++, question, answer);
+					task = new TranslationTask(
+						id++,
+						question,
+						answer!);
+
 					break;
+				}
+
+				case "MatchTheFollowing":
+				{
+					if (!TaskTypeRules.IsAllowed(
+							gameMode, TaskType.MatchTheFollowing))
+					{
+						throw new InvalidOperationException(
+							$"Matching tasks are not supported in {gameMode}.");
+					}
+
+					if (leftItems.Length < 3 ||
+						leftItems.Length > 6 ||
+						rightItems.Length != leftItems.Length ||
+						correctMatches.Length != leftItems.Length)
+					{
+						throw new InvalidOperationException(
+							"Matching task must contain 3 to 6 complete pairs.");
+					}
+
+					if (leftItems.Any(string.IsNullOrWhiteSpace) ||
+						rightItems.Any(string.IsNullOrWhiteSpace))
+					{
+						throw new InvalidOperationException(
+							"Matching task contains an empty item.");
+					}
+
+					if (leftItems.Distinct(
+							StringComparer.OrdinalIgnoreCase).Count()
+						!= leftItems.Length)
+					{
+						throw new InvalidOperationException(
+							"Matching task contains duplicate left items.");
+					}
+
+					if (rightItems.Distinct(
+							StringComparer.OrdinalIgnoreCase).Count()
+						!= rightItems.Length)
+					{
+						throw new InvalidOperationException(
+							"Matching task contains duplicate right items.");
+					}
+
+					if (correctMatches.Any(
+							index => index < 0 ||
+									 index >= rightItems.Length))
+					{
+						throw new InvalidOperationException(
+							"Matching task contains an invalid index.");
+					}
+
+					if (correctMatches.Distinct().Count()
+						!= correctMatches.Length)
+					{
+						throw new InvalidOperationException(
+							"Every right-side item must be used exactly once.");
+					}
+
+					if (options.Length != 0 || correctIndex != -1)
+					{
+						throw new InvalidOperationException(
+							"Matching task contains multiple-choice data.");
+					}
+
+					if (!string.IsNullOrEmpty(answer))
+					{
+						throw new InvalidOperationException(
+							"Matching task must have an empty correctAnswer.");
+					}
+
+					task = new MatchTheFollowingTask(
+						id++,
+						question,
+						leftItems,
+						rightItems,
+						correctMatches);
+
+					break;
+				}
 
 				default:
 					throw new InvalidOperationException(
@@ -334,14 +556,16 @@ public class GeminiTaskProvider
 		return tasks;
 	}
 
+	// --------------------------------------------------
+	// GEMINI INTERACTIONS API RESPONSE EXTRACTION
+	// --------------------------------------------------
+
 	private static string ExtractGeneratedJson(string responseText)
 	{
-		using JsonDocument document =
-			JsonDocument.Parse(responseText);
+		using JsonDocument document = JsonDocument.Parse(responseText);
 
 		JsonElement root = document.RootElement;
 
-		// Support a root-level output_text if present.
 		if (root.TryGetProperty(
 				"output_text", out JsonElement outputText) &&
 			outputText.ValueKind == JsonValueKind.String)
@@ -352,8 +576,6 @@ public class GeminiTaskProvider
 				return value;
 		}
 
-		// Interactions API response:
-		// steps -> model_output -> content -> text
 		if (root.TryGetProperty(
 				"steps", out JsonElement steps) &&
 			steps.ValueKind == JsonValueKind.Array)
@@ -363,19 +585,25 @@ public class GeminiTaskProvider
 				if (!step.TryGetProperty(
 						"type", out JsonElement stepType) ||
 					stepType.GetString() != "model_output")
+				{
 					continue;
+				}
 
 				if (!step.TryGetProperty(
 						"content", out JsonElement content) ||
 					content.ValueKind != JsonValueKind.Array)
+				{
 					continue;
+				}
 
 				foreach (JsonElement item in content.EnumerateArray())
 				{
 					if (!item.TryGetProperty(
 							"type", out JsonElement itemType) ||
 						itemType.GetString() != "text")
+					{
 						continue;
+					}
 
 					if (item.TryGetProperty(
 							"text", out JsonElement textElement) &&

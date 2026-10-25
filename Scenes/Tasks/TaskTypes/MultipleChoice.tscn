@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cywslk1rjp3o2"]
+
+[ext_resource type="Script" uid="uid://b42hgvw3bqjqe" path="res://Scripts/Game/Tasks/MultipleChoiceController.cs" id="1_j6h25"]
+
+[node name="MultipleChoice" type="Control" unique_id=1611026641]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j6h25")
+
+[node name="OptionsGrid" type="GridContainer" parent="." unique_id=1259735395]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="Option1" type="Button" parent="OptionsGrid" unique_id=1660368285]
+custom_minimum_size = Vector2(280, 90)
+layout_mode = 2
+text = "OPTION A"
+
+[node name="Option2" type="Button" parent="OptionsGrid" unique_id=693686156]
+custom_minimum_size = Vector2(280, 90)
+layout_mode = 2
+text = "OPTION B"
+
+[node name="Option3" type="Button" parent="OptionsGrid" unique_id=1198757865]
+custom_minimum_size = Vector2(280, 90)
+layout_mode = 2
+text = "OPTION C"
+
+[node name="Option4" type="Button" parent="OptionsGrid" unique_id=1709586176]
+custom_minimum_size = Vector2(280, 90)
+layout_mode = 2
+text = "OPTION D"

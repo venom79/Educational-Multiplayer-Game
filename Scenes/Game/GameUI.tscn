@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://bsfm6hme031pj"]
+
+[ext_resource type="Script" uid="uid://dp1vdkc4a4u8c" path="res://Scripts/UI/GameUIController.cs" id="1_28nl8"]
+[ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="1_vxlpk"]
+[ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="3_qhuq4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flgk0"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.043137256, 0.078431375, 0.13333334, 0.05882353)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftsht"]
+bg_color = Color(0.32024413, 0.3202442, 0.32024407, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ulqv"]
+bg_color = Color(0.22352941, 0.5294118, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vifcx"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.043137256, 0.078431375, 0.13333334, 0.25490198)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfil1"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.043137256, 0.078431375, 0.13333334, 0.05882353)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28nl8"]
+bg_color = Color(0.32156864, 0.32156864, 0.32156864, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmfai"]
+bg_color = Color(1, 0.38431373, 0.38431373, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmfai"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhuq4"]
+bg_color = Color(1, 0.38431373, 0.38431373, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="GameUI" type="CanvasLayer" unique_id=516114757]
+script = ExtResource("1_28nl8")
+
+[node name="HUD" type="Control" parent="." unique_id=684281736]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenMargin" type="MarginContainer" parent="HUD" unique_id=1820949596]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="Layout" type="VBoxContainer" parent="HUD/ScreenMargin" unique_id=963913868]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TopBar" type="HBoxContainer" parent="HUD/ScreenMargin/Layout" unique_id=677966293]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="OwnTeamPanel" type="PanelContainer" parent="HUD/ScreenMargin/Layout/TopBar" unique_id=2065857596]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_flgk0")
+
+[node name="TeamContent" type="VBoxContainer" parent="HUD/ScreenMargin/Layout/TopBar/OwnTeamPanel" unique_id=1904559219]
+layout_mode = 2
+
+[node name="TeamNameLabel" type="Label" parent="HUD/ScreenMargin/Layout/TopBar/OwnTeamPanel/TeamContent" unique_id=14677025]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vxlpk")
+theme_override_font_sizes/font_size = 20
+text = "TEAM BLUE"
+
+[node name="TeamProgressBar" type="ProgressBar" parent="HUD/ScreenMargin/Layout/TopBar/OwnTeamPanel/TeamContent" unique_id=1009334012]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ftsht")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4ulqv")
+show_percentage = false
+
+[node name="TimerPanel" type="PanelContainer" parent="HUD/ScreenMargin/Layout/TopBar" unique_id=1785060964]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vifcx")
+
+[node name="TimerContent" type="VBoxContainer" parent="HUD/ScreenMargin/Layout/TopBar/TimerPanel" unique_id=42576917]
+layout_mode = 2
+
+[node name="TimerCaption" type="Label" parent="HUD/ScreenMargin/Layout/TopBar/TimerPanel/TimerContent" unique_id=1693389502]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vxlpk")
+theme_override_font_sizes/font_size = 12
+text = "TIME LEFT"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="HUD/ScreenMargin/Layout/TopBar/TimerPanel/TimerContent" unique_id=1349133950]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_qhuq4")
+theme_override_font_sizes/font_size = 32
+text = "05:00"
+horizontal_alignment = 1
+
+[node name="OpponentTeamPanel" type="PanelContainer" parent="HUD/ScreenMargin/Layout/TopBar" unique_id=1669981098]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_xfil1")
+
+[node name="OpponentContent" type="VBoxContainer" parent="HUD/ScreenMargin/Layout/TopBar/OpponentTeamPanel" unique_id=637081414]
+layout_mode = 2
+
+[node name="OpponentNameLabel" type="Label" parent="HUD/ScreenMargin/Layout/TopBar/OpponentTeamPanel/OpponentContent" unique_id=134226479]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vxlpk")
+theme_override_font_sizes/font_size = 20
+text = "TEAM RED"
+horizontal_alignment = 2
+
+[node name="OpponentProgressBar" type="ProgressBar" parent="HUD/ScreenMargin/Layout/TopBar/OpponentTeamPanel/OpponentContent" unique_id=248535630]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_28nl8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vmfai")
+show_percentage = false
+
+[node name="PlayerProgressPanel" type="PanelContainer" parent="HUD/ScreenMargin/Layout" unique_id=208033200]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vmfai")
+
+[node name="PlayerContent" type="VBoxContainer" parent="HUD/ScreenMargin/Layout/PlayerProgressPanel" unique_id=1685551692]
+layout_mode = 2
+
+[node name="PlayerProgressLabel" type="Label" parent="HUD/ScreenMargin/Layout/PlayerProgressPanel/PlayerContent" unique_id=1500953761]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_qhuq4")
+theme_override_font_sizes/font_size = 17
+text = "YOUR TASKS  0 / 4"
+
+[node name="PlayerProgressBar" type="ProgressBar" parent="HUD/ScreenMargin/Layout/PlayerProgressPanel/PlayerContent" unique_id=667157615]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_28nl8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qhuq4")
+show_percentage = false

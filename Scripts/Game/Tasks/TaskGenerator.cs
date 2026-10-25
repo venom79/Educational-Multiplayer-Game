@@ -1,330 +1,387 @@
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class TaskGenerator
 {
 	private int nextTaskId = 1;
 
 	private readonly Random random = new Random();
-	
+
 	private readonly HashSet<string> usedQuestions =
-		new HashSet<string>();
-	
-	public List<GameTask> GenerateTasks(
-		GameMode gameMode,
-		int taskCount
-	)
+		new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+	public List<GameTask> GenerateTasks(GameMode gameMode, int taskCount)
 	{
-		List<GameTask> tasks = new List<GameTask>();
+		if (taskCount <= 0)
+		{
+			throw new ArgumentOutOfRangeException(nameof(taskCount));
+		}
+
+		TaskType[] allowedTypes = TaskTypeRules.GetAllowedTypes(gameMode);
+
+		var tasks = new List<GameTask>();
+		var questionsThisBatch = new HashSet<string>(
+			StringComparer.OrdinalIgnoreCase);
 
 		int attempts = 0;
-		int maxAttempts = taskCount * 20;
+		int maxAttempts = Math.Max(taskCount * 50, 100);
 
-		while (
-			tasks.Count < taskCount &&
-			attempts < maxAttempts
-		)
+		while (tasks.Count < taskCount && attempts < maxAttempts)
 		{
 			attempts++;
 
-			GameTask task = GenerateTask(gameMode);
+			TaskType type = allowedTypes[random.Next(allowedTypes.Length)];
+			GameTask task = GenerateTask(gameMode, type);
 
 			if (task == null)
 				continue;
 
-			if (usedQuestions.Contains(task.Question))
+			if (!questionsThisBatch.Add(task.Question))
 				continue;
 
-			usedQuestions.Add(task.Question);
 			tasks.Add(task);
+			usedQuestions.Add(task.Question);
 		}
-	
-		// Fallback: reuse questions if the unique question bank is exhausted.
-		while (tasks.Count < taskCount)
-		{
-			GameTask task = GenerateTask(gameMode);
 
-			if (task != null)
-				tasks.Add(task);
+		if (tasks.Count < taskCount)
+		{
+			throw new InvalidOperationException(
+				$"Could only generate {tasks.Count} unique tasks for " +
+				$"{gameMode}; {taskCount} were requested.");
 		}
-		
+
 		return tasks;
 	}
 
-	private GameTask GenerateTask(GameMode gameMode)
+	private GameTask GenerateTask(GameMode mode, TaskType type)
 	{
-		int taskId = nextTaskId++;
+		int id = nextTaskId++;
 
-		switch (gameMode)
+		return type switch
 		{
-			case GameMode.Maths:
-				return GenerateMathTask(taskId);
+			TaskType.Calculation => GenerateCalculation(id, mode),
+			TaskType.MultipleChoice => GenerateMultipleChoice(id, mode),
+			TaskType.Translation => GenerateTranslation(id),
+			TaskType.MatchTheFollowing => GenerateMatching(id, mode),
+			_ => throw new ArgumentOutOfRangeException(
+				nameof(type), type, "Unsupported task type.")
+		};
+	}
 
-			case GameMode.Science:
-				return GenerateScienceTask(taskId);
+	private GameTask GenerateCalculation(int id, GameMode mode)
+	{
+		if (mode == GameMode.Maths)
+		{
+			int a = random.Next(10, 100);
+			int b = random.Next(2, 20);
 
-			case GameMode.Language:
-				return GenerateLanguageTask(taskId);
+			switch (random.Next(3))
+			{
+				case 0:
+					return new CalculationTask(
+						id,
+						$"What is {a} + {b}?",
+						(a + b).ToString());
 
-			default:
-				return null;
+				case 1:
+					if (b > a)
+						(a, b) = (b, a);
+
+					return new CalculationTask(
+						id,
+						$"What is {a} - {b}?",
+						(a - b).ToString());
+
+				default:
+					int x = random.Next(2, 13);
+					int y = random.Next(2, 11);
+
+					return new CalculationTask(
+						id,
+						$"What is {x} × {y}?",
+						(x * y).ToString());
+			}
 		}
-	}
 
-	private GameTask GenerateMathTask(int taskId)
-	{
-		int operation = random.Next(0, 3);
-
-		switch (operation)
+		if (mode == GameMode.Science)
 		{
-			case 0:
-				return GenerateAdditionTask(taskId);
+			int mass = random.Next(2, 21);
+			int acceleration = random.Next(2, 11);
 
-			case 1:
-				return GenerateSubtractionTask(taskId);
-
-			default:
-				return GenerateMultiplicationTask(taskId);
+			return new CalculationTask(
+				id,
+				$"Using force = mass × acceleration, calculate the force " +
+				$"for a mass of {mass} kg and acceleration of " +
+				$"{acceleration} m/s².",
+				(mass * acceleration).ToString());
 		}
+
+		throw new InvalidOperationException(
+			$"Calculation tasks are not allowed in {mode} mode.");
 	}
 
-	private GameTask GenerateAdditionTask(int taskId)
+	private GameTask GenerateMultipleChoice(int id, GameMode mode)
 	{
-		int number1 = random.Next(10, 100);
-		int number2 = random.Next(10, 100);
+		var questions = new List<MultipleChoiceQuestion>();
 
-		int answer = number1 + number2;
-
-		return new CalculationTask(
-			taskId,
-			$"What is {number1} + {number2}?",
-			answer.ToString()
-		);
-	}
-
-	private GameTask GenerateSubtractionTask(int taskId)
-	{
-		int number1 = random.Next(20, 100);
-		int number2 = random.Next(1, number1);
-
-		int answer = number1 - number2;
-
-		return new CalculationTask(
-			taskId,
-			$"What is {number1} - {number2}?",
-			answer.ToString()
-		);
-	}
-
-	private GameTask GenerateMultiplicationTask(int taskId)
-	{
-		int number1 = random.Next(2, 20);
-		int number2 = random.Next(2, 12);
-
-		int answer = number1 * number2;
-
-		return new CalculationTask(
-			taskId,
-			$"What is {number1} × {number2}?",
-			answer.ToString()
-		);
-	}
-
-	private GameTask GenerateScienceTask(int taskId)
-	{
-		int questionNumber = random.Next(0, 10);
-
-		switch (questionNumber)
+		if (mode == GameMode.Maths)
 		{
-			case 0:
-				return new MultipleChoiceTask(
-					taskId,
-					"Which gas do humans need to breathe?",
-					new string[]
-					{
-						"Oxygen",
-						"Helium",
-						"Hydrogen",
-						"Carbon Dioxide"
-					},
-					0
-				);
+			int a = random.Next(5, 50);
+			int b = random.Next(5, 50);
+			int answer = a + b;
 
-			case 1:
-				return new MultipleChoiceTask(
-					taskId,
-					"What is H₂O commonly known as?",
-					new string[]
-					{
-						"Oxygen",
-						"Water",
-						"Hydrogen",
-						"Carbon Dioxide"
-					},
-					1
-				);
+			questions.Add(new MultipleChoiceQuestion(
+				$"What is {a} + {b}?",
+				answer.ToString(),
+				MakeOptions(answer, answer + 2, answer - 3, answer + 5)));
+			
+			int n = random.Next(2, 13);
+			int square = n * n;
 
-			case 2:
-				return new MultipleChoiceTask(
-					taskId,
-					"Which planet is known as the Red Planet?",
-					new string[]
-					{
-						"Earth",
-						"Mars",
-						"Jupiter",
-						"Venus"
-					},
-					1
-				);
-
-			case 3:
-				return new MultipleChoiceTask(
-					taskId,
-					"What force pulls objects toward Earth?",
-					new string[]
-					{
-						"Magnetism",
-						"Friction",
-						"Gravity",
-						"Electricity"
-					},
-					2
-				);
-
-			case 4:
-				return new MultipleChoiceTask(
-					taskId,
-					"Which organ pumps blood through the human body?",
-					new string[]
-					{
-						"Lungs",
-						"Brain",
-						"Heart",
-						"Kidneys"
-					},
-					2
-				);
-
-			case 5:
-				return new MultipleChoiceTask(
-					taskId,
-					"Which part of a plant absorbs water from the soil?",
-					new string[]
-					{
-						"Flower",
-						"Leaf",
-						"Root",
-						"Fruit"
-					},
-					2
-				);
-
-			case 6:
-				return new MultipleChoiceTask(
-					taskId,
-					"How many planets are in our Solar System?",
-					new string[]
-					{
-						"7",
-						"8",
-						"9",
-						"10"
-					},
-					1
-				);
-
-			case 7:
-				return new MultipleChoiceTask(
-					taskId,
-					"Which star is closest to Earth?",
-					new string[]
-					{
-						"Sirius",
-						"Polaris",
-						"The Sun",
-						"Betelgeuse"
-					},
-					2
-				);
-
-			case 8:
-				return new MultipleChoiceTask(
-					taskId,
-					"Which state of matter has a fixed shape?",
-					new string[]
-					{
-						"Solid",
-						"Liquid",
-						"Gas",
-						"Plasma"
-					},
-					0
-				);
-
-			default:
-				return new MultipleChoiceTask(
-					taskId,
-					"What do plants use to make food?",
-					new string[]
-					{
-						"Photosynthesis",
-						"Digestion",
-						"Respiration",
-						"Fermentation"
-					},
-					0
-				);
+			questions.Add(new MultipleChoiceQuestion(
+				$"What is {n}²?",
+				square.ToString(),
+				MakeOptions(square, square + 1, square - 2, square + 5)));
 		}
+		else if (mode == GameMode.Science)
+		{
+			questions.Add(new MultipleChoiceQuestion(
+				"Which gas do humans need for respiration?",
+				"Oxygen",
+				new[] { "Oxygen", "Helium", "Hydrogen", "Carbon Dioxide" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"What is H₂O commonly known as?",
+				"Water",
+				new[] { "Oxygen", "Water", "Hydrogen", "Carbon Dioxide" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"Which planet is known as the Red Planet?",
+				"Mars",
+				new[] { "Earth", "Mars", "Jupiter", "Venus" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"Which force pulls objects toward Earth?",
+				"Gravity",
+				new[] { "Magnetism", "Friction", "Gravity", "Electricity" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"Which organ pumps blood through the human body?",
+				"Heart",
+				new[] { "Lungs", "Brain", "Heart", "Kidneys" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"Which part of a plant mainly absorbs water from soil?",
+				"Root",
+				new[] { "Flower", "Leaf", "Root", "Fruit" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"How many planets are in our Solar System?",
+				"8",
+				new[] { "7", "8", "9", "10" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"Which state of matter has a fixed shape?",
+				"Solid",
+				new[] { "Solid", "Liquid", "Gas", "Plasma" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"What process do plants use to make food?",
+				"Photosynthesis",
+				new[] { "Photosynthesis", "Digestion", "Respiration", "Fermentation" }));
+		}
+		else if (mode == GameMode.Language)
+		{
+			questions.Add(new MultipleChoiceQuestion(
+				"What is the Hindi word for 'Water'?",
+				"पानी",
+				new[] { "आग", "पानी", "घर", "किताब" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"What is the Hindi word for 'Fire'?",
+				"आग",
+				new[] { "पानी", "आग", "दोस्त", "विद्यालय" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"What is the Hindi word for 'Book'?",
+				"किताब",
+				new[] { "किताब", "घर", "आग", "पानी" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"What is the Hindi word for 'House'?",
+				"घर",
+				new[] { "दोस्त", "पानी", "घर", "किताब" }));
+
+			questions.Add(new MultipleChoiceQuestion(
+				"What is the Hindi word for 'Friend'?",
+				"दोस्त",
+				new[] { "विद्यालय", "दोस्त", "आग", "घर" }));
+		}
+
+		if (questions.Count == 0)
+		{
+			throw new InvalidOperationException(
+				$"No multiple-choice questions are defined for {mode}.");
+		}
+
+		MultipleChoiceQuestion selected =
+			questions[random.Next(questions.Count)];
+
+		return new MultipleChoiceTask(
+			id,
+			selected.Question,
+			selected.Options,
+			Array.IndexOf(selected.Options, selected.Answer));
 	}
 
-	private GameTask GenerateLanguageTask(int taskId)
+	private GameTask GenerateTranslation(int id)
 	{
-		int questionNumber = random.Next(0, 6);
-
-		switch (questionNumber)
+		var questions = new (string Question, string Answer)[]
 		{
-			case 0:
-				return new TranslationTask(
-					taskId,
-					"Translate 'Water' to Hindi.",
-                    "पानी"
-				);
+			("Translate 'Water' to Hindi.", "पानी"),
+			("Translate 'Fire' to Hindi.", "आग"),
+			("Translate 'Book' to Hindi.", "किताब"),
+			("Translate 'House' to Hindi.", "घर"),
+			("Translate 'Friend' to Hindi.", "दोस्त"),
+			("Translate 'School' to Hindi.", "विद्यालय"),
+			("Translate 'Sun' to Hindi.", "सूरज"),
+			("Translate 'Moon' to Hindi.", "चाँद"),
+			("Translate 'Tree' to Hindi.", "पेड़"),
+			("Translate 'Flower' to Hindi.", "फूल")
+		};
 
-			case 1:
-				return new TranslationTask(
-					taskId,
-					"Translate 'Fire' to Hindi.",
-                    "आग"
-				);
+		var selected = questions[random.Next(questions.Length)];
 
-			case 2:
-				return new TranslationTask(
-					taskId,
-					"Translate 'Book' to Hindi.",
-                    "किताब"
-				);
+		return new TranslationTask(
+			id,
+			selected.Question,
+			selected.Answer);
+	}
 
-			case 3:
-				return new TranslationTask(
-					taskId,
-					"Translate 'House' to Hindi.",
-                    "घर"
-				);
+	private GameTask GenerateMatching(int id, GameMode mode)
+	{
+		List<(string Left, string Right)> pairs = mode switch
+		{
+			GameMode.Maths => new List<(string, string)>
+			{
+				("2 + 3", "5"),
+				("4 × 3", "12"),
+				("10 - 6", "4"),
+				("5 × 5", "25"),
+				("18 ÷ 3", "6"),
+				("7 + 8", "15")
+			},
 
-			case 4:
-				return new TranslationTask(
-					taskId,
-					"Translate 'Friend' to Hindi.",
-                    "दोस्त"
-				);
+			GameMode.Science => new List<(string, string)>
+			{
+				("H₂O", "Water"),
+				("Mars", "Red Planet"),
+				("Heart", "Pumps blood"),
+				("Root", "Absorbs water"),
+				("Gravity", "Attractive force"),
+				("Oxygen", "Needed for respiration")
+			},
 
-			default:
-				return new TranslationTask(
-					taskId,
-					"Translate 'School' to Hindi.",
-                    "विद्यालय"
-				);
+			GameMode.Language => new List<(string, string)>
+			{
+				("Water", "पानी"),
+				("Fire", "आग"),
+				("Book", "किताब"),
+				("House", "घर"),
+				("Friend", "दोस्त"),
+				("School", "विद्यालय")
+			},
+
+			_ => throw new ArgumentException(
+				$"Unsupported game mode: {mode}")
+		};
+
+		// Select 3–6 pairs, then shuffle the right-side items.
+		int pairCount = random.Next(3, pairs.Count + 1);
+
+		pairs = pairs
+			.OrderBy(_ => random.Next())
+			.Take(pairCount)
+			.ToList();
+
+		string[] leftItems = pairs.Select(pair => pair.Left).ToArray();
+		string[] rightItems = pairs.Select(pair => pair.Right).ToArray();
+
+		// Track each right-side item by its original index.
+		int[] rightOriginalIndices = Enumerable
+			.Range(0, rightItems.Length)
+			.ToArray();
+
+		for (int i = rightItems.Length - 1; i > 0; i--)
+		{
+			int j = random.Next(i + 1);
+
+			(rightItems[i], rightItems[j]) =
+				(rightItems[j], rightItems[i]);
+
+			(rightOriginalIndices[i], rightOriginalIndices[j]) =
+				(rightOriginalIndices[j], rightOriginalIndices[i]);
+		}
+
+		int[] correctMatches = new int[leftItems.Length];
+
+		for (int leftIndex = 0; leftIndex < pairs.Count; leftIndex++)
+		{
+			correctMatches[leftIndex] =
+				Array.IndexOf(rightOriginalIndices, leftIndex);
+		}
+
+		return new MatchTheFollowingTask(
+			id,
+			"Match each item on the left with its correct pair on the right.",
+			leftItems,
+			rightItems,
+			correctMatches);
+	}
+
+	private static string[] MakeOptions(
+		int correct,
+		int wrong1,
+		int wrong2,
+		int wrong3)
+	{
+		var options = new HashSet<string>
+		{
+			correct.ToString(),
+			wrong1.ToString(),
+			wrong2.ToString(),
+			wrong3.ToString()
+		};
+
+		int candidate = correct + 1;
+
+		while (options.Count < 4)
+		{
+			options.Add(candidate.ToString());
+			candidate++;
+		}
+
+		return options
+			.OrderBy(_ => Guid.NewGuid())
+			.ToArray();
+	}
+
+	private sealed class MultipleChoiceQuestion
+	{
+		public string Question { get; }
+		public string Answer { get; }
+		public string[] Options { get; }
+
+		public MultipleChoiceQuestion(
+			string question,
+			string answer,
+			string[] options)
+		{
+			Question = question;
+			Answer = answer;
+			Options = options;
 		}
 	}
 }

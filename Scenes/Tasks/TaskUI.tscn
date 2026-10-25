@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://di673qreyo1la"]
+
+[ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="1_71f4x"]
+[ext_resource type="PackedScene" uid="uid://cywslk1rjp3o2" path="res://Scenes/Tasks/TaskTypes/MultipleChoice.tscn" id="2_hdneu"]
+[ext_resource type="PackedScene" uid="uid://dwmj133rksm20" path="res://Scenes/Tasks/TaskTypes/Calculation.tscn" id="3_hdneu"]
+[ext_resource type="PackedScene" uid="uid://bkdawhi3hk2i0" path="res://Scenes/Tasks/TaskTypes/MatchTheFollowing.tscn" id="4_ffnds"]
+[ext_resource type="PackedScene" uid="uid://dqt0yuvakv6ov" path="res://Scenes/Tasks/TaskTypes/Translation.tscn" id="5_lryi2"]
+
+[node name="TaskUI" type="CanvasLayer" unique_id=1184431377]
+script = ExtResource("1_71f4x")
+MultipleChoiceScene = ExtResource("2_hdneu")
+CalculationScene = ExtResource("3_hdneu")
+MatchTheFollowingScene = ExtResource("4_ffnds")
+TranslationScene = ExtResource("5_lryi2")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1826185269]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=2063367422]
+custom_minimum_size = Vector2(850, 550)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -40.5
+offset_right = 20.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainLayout" type="VBoxContainer" parent="Panel" unique_id=881647074]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Header" type="HBoxContainer" parent="Panel/MainLayout" unique_id=1100189909]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Panel/MainLayout/Header" unique_id=1892886915]
+layout_mode = 2
+text = "TASK TERMINAL"
+
+[node name="ProgressLabel" type="Label" parent="Panel/MainLayout/Header" unique_id=1835912852]
+layout_mode = 2
+text = "Task 0 / 0"
+
+[node name="CloseButton" type="Button" parent="Panel/MainLayout/Header" unique_id=1162430219]
+layout_mode = 2
+text = "CLOSE"
+
+[node name="QuestionLabel" type="Label" parent="Panel/MainLayout" unique_id=1523844476]
+layout_mode = 2
+text = "Question appears here"
+
+[node name="TaskContent" type="Control" parent="Panel/MainLayout" unique_id=723232886]
+custom_minimum_size = Vector2(600, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FeedbackLabel" type="Label" parent="Panel/MainLayout" unique_id=1608808722]
+layout_mode = 2

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bkdawhi3hk2i0"]
+
+[ext_resource type="Script" uid="uid://dwnijwkbtrsdu" path="res://Scripts/Game/Tasks/MatchTheFollowingController.cs" id="1_v6s5s"]
+
+[node name="MatchTheFollowing" type="Control" unique_id=1392964264]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v6s5s")
+
+[node name="Layout" type="VBoxContainer" parent="." unique_id=1337131859]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Columns" type="HBoxContainer" parent="Layout" unique_id=1508472771]
+layout_mode = 2
+
+[node name="LeftColumn" type="VBoxContainer" parent="Layout/Columns" unique_id=1877024148]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightColumn" type="VBoxContainer" parent="Layout/Columns" unique_id=631960643]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubmitButton" type="Button" parent="Layout" unique_id=1655805979]
+layout_mode = 2
+text = "SUBMIT"

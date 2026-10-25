@@ -2,5 +2,6 @@ public enum TaskType
 {
 	Calculation,
 	MultipleChoice,
-	Translation
+	Translation,
+	MatchTheFollowing
 }
