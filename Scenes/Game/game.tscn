@@ -34,7 +34,15 @@ StationId = "station_03"
 
 [node name="TaskStation4" parent="." unique_id=1013880941 instance=ExtResource("7_vifcx")]
 position = Vector2(4429, 926)
-StationId = "station_03"
+StationId = "station_04"
+
+[node name="TaskStation5" parent="." unique_id=362526422 instance=ExtResource("7_vifcx")]
+position = Vector2(4114, 1796)
+StationId = "station_05"
+
+[node name="TaskStation6" parent="." unique_id=1892089768 instance=ExtResource("7_vifcx")]
+position = Vector2(1194, 1801)
+StationId = "station_06"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1806301879]
 stream = ExtResource("7_xfil1")

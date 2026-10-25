@@ -7,7 +7,7 @@ public partial class TaskManager : Node
 {
 	public static TaskManager Instance { get; private set; }
 
-	public const int TasksPerPlayer = 4;
+	public const int TasksPerPlayer = 6;
 
 	private readonly Dictionary<long, List<PlayerTask>> playerTasks =
 		new Dictionary<long, List<PlayerTask>>();
@@ -312,7 +312,9 @@ public partial class TaskManager : Node
 			"station_01",
 			"station_02",
 			"station_03",
-            "station_04"
+			"station_04",
+			"station_05",
+			"station_06",
 		};
 
 		List<GameTask> generatedTasks =

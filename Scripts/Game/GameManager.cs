@@ -15,7 +15,7 @@ public partial class GameManager : Node
 	private readonly HashSet<long> loadedPlayers =
 		new HashSet<long>();
 	
-	private const int TasksPerPlayer = 4;
+	private const int TasksPerPlayer = 6;
 	private const int MaximumPlayers = 8;
 	
 	public bool GameStarted { get; private set; }
