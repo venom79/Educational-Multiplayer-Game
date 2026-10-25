@@ -3,77 +3,44 @@ using Godot;
 
 public partial class LoadingScreen : Control
 {
-	private Label titleLabel;
-	private Label statusLabel;
-	private Label instructionsLabel;
-	private ProgressBar progressBar;
+	private const string NextScene = "res://scenes/main_menu.tscn"; // change to your real scene path
 
-	private double animationTime;
+	private TextureProgressBar bar;
+	private Label label;
+
+	private Godot.Collections.Array progress = new Godot.Collections.Array();
+	private float shown = 0f;
 
 	public override void _Ready()
 	{
-		SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+		bar = GetNode<TextureProgressBar>("TextureProgressBar");
+		label = GetNode<Label>("Label");
 
-		var background = new ColorRect();
-		background.Color = new Color(0.055f, 0.065f, 0.10f);
-		background.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-		AddChild(background);
-
-		var center = new CenterContainer();
-		center.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-		AddChild(center);
-
-		var layout = new VBoxContainer();
-		layout.CustomMinimumSize = new Vector2(560, 0);
-		layout.AddThemeConstantOverride("separation", 20);
-		center.AddChild(layout);
-
-		titleLabel = new Label();
-		titleLabel.Text = "THE LAST BELL";
-		titleLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		titleLabel.AddThemeFontSizeOverride("font_size", 36);
-		layout.AddChild(titleLabel);
-
-		statusLabel = new Label();
-		statusLabel.Text = "Preparing the classroom...";
-		statusLabel.HorizontalAlignment = HorizontalAlignment.Center;
-		statusLabel.AddThemeFontSizeOverride("font_size", 20);
-		layout.AddChild(statusLabel);
-
-		progressBar = new ProgressBar();
-		progressBar.CustomMinimumSize = new Vector2(560, 28);
-		progressBar.MinValue = 0;
-		progressBar.MaxValue = 100;
-		progressBar.ShowPercentage = false;
-		layout.AddChild(progressBar);
-
-		instructionsLabel = new Label();
-		instructionsLabel.Text =
-			"Complete your team's tasks.\n" +
-			"Team Red vs Team Blue.\n" +
-			"The first team to complete all its tasks wins!";
-		instructionsLabel.HorizontalAlignment =
-			HorizontalAlignment.Center;
-		instructionsLabel.AutowrapMode =
-			TextServer.AutowrapMode.Word;
-		instructionsLabel.AddThemeFontSizeOverride("font_size", 18);
-		layout.AddChild(instructionsLabel);
-
-		SetStatus("Preparing the classroom...");
+		ResourceLoader.LoadThreadedRequest(NextScene);
 	}
 
 	public override void _Process(double delta)
 	{
-		// Temporary indeterminate animation.
-		// We will replace this with real loading status where available.
-		animationTime += delta;
-		progressBar.Value =
-			15.0 + (System.Math.Sin(animationTime * 2.0) + 1.0) * 35.0;
-	}
+		var status = ResourceLoader.LoadThreadedGetStatus(NextScene, progress);
 
-	public void SetStatus(string message)
-	{
-		if (statusLabel != null)
-			statusLabel.Text = message;
+		if (status == ResourceLoader.ThreadLoadStatus.InvalidResource)
+		{
+			GD.PrintErr("Wrong scene path: " + NextScene);
+			SetProcess(false);
+			return;
+		}
+
+		float real = progress[0].AsSingle();
+		shown = Mathf.MoveToward(shown, real, (float)delta);
+
+		bar.Value = shown * 100f;
+		label.Text = $"Loading... {(int)(shown * 100f)}%";
+
+		if (status == ResourceLoader.ThreadLoadStatus.Loaded && shown >= 1f)
+		{
+			SetProcess(false);
+			var scene = (PackedScene)ResourceLoader.LoadThreadedGet(NextScene);
+			GetTree().ChangeSceneToPacked(scene);
+		}
 	}
 }

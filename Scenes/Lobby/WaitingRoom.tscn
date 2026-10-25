@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c48guob310qn5"]
 
 [ext_resource type="Script" uid="uid://cuuveyto5juif" path="res://Scripts/Lobby/WaitingRoomController.cs" id="1_1yqdp"]
-[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="2_ydqgx"]
+[ext_resource type="Texture2D" uid="uid://cx4f7og84dcgs" path="res://Assets/Backgrounds/bg.png" id="2_ar1tk"]
 [ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="3_y8xfw"]
 [ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="4_ar1tk"]
 
@@ -74,7 +74,7 @@ content_margin_left = 24.0
 content_margin_top = 12.0
 content_margin_right = 24.0
 content_margin_bottom = 12.0
-bg_color = Color(0.8806456, 0.7591168, 3.85046e-06, 1)
+bg_color = Color(0.9019608, 0.6, 0.13725491, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -160,9 +160,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_ydqgx")
+texture = ExtResource("2_ar1tk")
 expand_mode = 1
 stretch_mode = 6
 
@@ -188,10 +192,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -380.0
-offset_top = -270.0
-offset_right = 380.0
-offset_bottom = 206.0
+offset_left = -387.0
+offset_top = -283.0
+offset_right = 373.0
+offset_bottom = 221.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1

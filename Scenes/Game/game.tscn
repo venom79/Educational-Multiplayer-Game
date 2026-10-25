@@ -6,11 +6,13 @@
 [ext_resource type="Script" uid="uid://dp1vdkc4a4u8c" path="res://Scripts/UI/GameUIController.cs" id="4_i1e5p"]
 [ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="5_flgk0"]
 [ext_resource type="PackedScene" uid="uid://ddogl8vpp8w86" path="res://Scenes/Game/TaskStation.tscn" id="7_vifcx"]
+[ext_resource type="AudioStream" uid="uid://corp3mxglxc6c" path="res://Assets/Music/music_game_f.mp3" id="7_xfil1"]
 
 [node name="Game" type="Node2D" unique_id=411957723]
 script = ExtResource("1_qxfds")
 
 [node name="GameMap" parent="." unique_id=191271109 instance=ExtResource("2_flgk0")]
+position = Vector2(564, 638)
 
 [node name="PlayerManager" type="Node2D" parent="." unique_id=1206553064]
 script = ExtResource("3_qikps")
@@ -39,16 +41,13 @@ offset_right = 4.0
 offset_bottom = 27.0
 
 [node name="BlueProgressLabel" type="Label" parent="GameUI" unique_id=11169500]
-offset_right = 40.0
+offset_left = -19.0
+offset_right = 21.0
 offset_bottom = 23.0
 
 [node name="BlueProgressBar" type="ProgressBar" parent="GameUI" unique_id=663253004]
 offset_right = 4.0
 offset_bottom = 27.0
-
-[node name="RedProgressLabel" type="Label" parent="GameUI" unique_id=1336608604]
-offset_right = 40.0
-offset_bottom = 23.0
 
 [node name="RedProgressBar" type="ProgressBar" parent="GameUI" unique_id=29322269]
 offset_right = 4.0
@@ -113,3 +112,7 @@ StationId = "station_02"
 [node name="TaskStation3" parent="." unique_id=395453437 instance=ExtResource("7_vifcx")]
 position = Vector2(3709, 668)
 StationId = "station_03"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1806301879]
+stream = ExtResource("7_xfil1")
+autoplay = true

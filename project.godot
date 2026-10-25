@@ -26,8 +26,8 @@ TaskPoolManager="*uid://d3m530b0e5osc"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [dotnet]
 

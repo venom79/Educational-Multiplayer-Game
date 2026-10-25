@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://bnovoxmawicw2"]
 
 [ext_resource type="Script" uid="uid://sh17t6jjrciw" path="res://Scripts/Lobby/HostSetupController.cs" id="1_n61bt"]
+[ext_resource type="Texture2D" uid="uid://cx4f7og84dcgs" path="res://Assets/Backgrounds/bg.png" id="2_1nfrl"]
 [ext_resource type="FontFile" uid="uid://dgag2gjjwongr" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_d0s8q"]
 [ext_resource type="FontFile" uid="uid://c1woar24gpfn1" path="res://Assets/Fonts/Silkscreen-Bold.ttf" id="2_ptpmn"]
 [ext_resource type="Texture2D" uid="uid://bjtuwg6pbsiu0" path="res://Assets/Backgrounds/SubjectCards/science_card.png" id="3_46re0"]
 [ext_resource type="Texture2D" uid="uid://cy6rgbsf20c2s" path="res://Assets/Backgrounds/SubjectCards/maths_card.png" id="3_cfpbg"]
 [ext_resource type="Texture2D" uid="uid://bdsky4jjrwo02" path="res://Assets/Backgrounds/SubjectCards/language_card.png" id="5_mqpuq"]
-[ext_resource type="Texture2D" uid="uid://bmckcbx1oxrvw" path="res://Assets/Backgrounds/settings_bg.png" id="7_1nfrl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mqpuq"]
 texture = ExtResource("3_46re0")
@@ -74,7 +74,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_1nfrl")
+texture = ExtResource("2_1nfrl")
 expand_mode = 1
 stretch_mode = 6
 
@@ -86,10 +86,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -445.0
+offset_top = -226.0
+offset_right = 451.0
+offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32

@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://cc0nce4jh67mi"]
 
-[ext_resource type="Texture2D" uid="uid://br0teaflbkvta" path="res://Assets/Maps/Classroom Pixel Art Tileset Atlas.png" id="1_xeaka"]
-[ext_resource type="Texture2D" uid="uid://c38l1dqu853g8" path="res://Assets/Maps/General.png" id="2_hxsxn"]
-[ext_resource type="Texture2D" uid="uid://c2y72ujovb3v8" path="res://Assets/Maps/Classroom Pixel Art Tileset Atlas (1).png" id="3_8uc61"]
+[ext_resource type="Texture2D" uid="uid://br0teaflbkvta" path="res://Assets/Maps/Tileset/Class/Classroom Pixel Art Tileset Atlas.png" id="1_xeaka"]
+[ext_resource type="Texture2D" uid="uid://c38l1dqu853g8" path="res://Assets/Maps/Tileset/Extras/General.png" id="2_hxsxn"]
+[ext_resource type="Texture2D" uid="uid://c2y72ujovb3v8" path="res://Assets/Maps/Tileset/Class/Classroom Pixel Art Tileset Atlas (1).png" id="3_8uc61"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3lkm7"]
 texture = ExtResource("1_xeaka")
@@ -5337,7 +5337,6 @@ texture = ExtResource("1_xeaka")
 sources/0 = SubResource("TileSetAtlasSource_3lkm7")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qv66m"]
-load_path = "res://.godot/imported/Classroom Pixel Art Tileset Atlas.png-53dc0706f80084041939d2f3527eeb6e.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxa54"]
 texture = SubResource("CompressedTexture2D_qv66m")
