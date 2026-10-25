@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://tnew4p0t0qk5"]
 
 [ext_resource type="Script" uid="uid://0ns4lu8b4mq4" path="res://Scripts/Player/Player.cs" id="1_ft8w5"]
-[ext_resource type="Texture2D" uid="uid://c2dns06s1ipby" path="res://Assets/Characters/Black/black_down_walk/step1.png" id="1_s0eop"]
-[ext_resource type="Texture2D" uid="uid://ccvmay42xvuy6" path="res://Assets/Characters/Black/black_up_walk/step1.png" id="2_jmcll"]
-[ext_resource type="Texture2D" uid="uid://b4t26fjgdws53" path="res://Assets/Characters/Black/black_left_walk/step1.png" id="4_4wape"]
-[ext_resource type="Texture2D" uid="uid://j3xaaknhhopg" path="res://Assets/Characters/Black/black_right_walk/step1.png" id="5_t26db"]
+[ext_resource type="SpriteFrames" uid="uid://lnkmoychfy5m" path="res://Assets/Characters/Skins/skin_red_boy.tres" id="2_jmcll"]
+[ext_resource type="SpriteFrames" uid="uid://unacpd173461" path="res://Assets/Characters/Skins/skin_blue_girl.tres" id="3_4wape"]
+[ext_resource type="SpriteFrames" uid="uid://co1bfsgrk0qf0" path="res://Assets/Characters/Skins/skin_red_girl.tres" id="4_t26db"]
 [ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="6_4wape"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cekx0"]
@@ -13,17 +12,16 @@ height = 16.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1434159941]
 script = ExtResource("1_ft8w5")
-UpSprite = ExtResource("1_s0eop")
-DownSprite = ExtResource("2_jmcll")
-LeftSprite = ExtResource("4_4wape")
-RightSprite = ExtResource("5_t26db")
+RedFrames = ExtResource("2_jmcll")
+BlueFrames = ExtResource("3_4wape")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=815786270]
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("1_s0eop")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2026325791]
+scale = Vector2(0.17500825, 0.15513737)
+sprite_frames = ExtResource("4_t26db")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1400945947]
-position = Vector2(-3, 13)
+position = Vector2(2, 13)
 shape = SubResource("CapsuleShape2D_cekx0")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=34816961]

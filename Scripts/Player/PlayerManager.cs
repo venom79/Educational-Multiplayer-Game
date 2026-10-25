@@ -61,6 +61,7 @@ public partial class PlayerManager : Node2D
 		player.SetMultiplayerAuthority(
 			(int)networkPlayer.PeerId
 		);
+		player.SetTeam(networkPlayer.Team);
 
 		player.Position =
 			GetSpawnPosition(players.Count);
