@@ -17,7 +17,31 @@ public class LocalTaskProvider : ITaskProvider
 		}
 
 		// Validate the mode and get its permitted task types.
-		TaskType[] allowedTypes = TaskTypeRules.GetAllowedTypes(gameMode);
+		// Each mode must include at least one task of every permitted type.
+		// Translation is disabled for Science/Maths; Calculation is disabled for Language.
+		TaskType[] allowedTypes = gameMode switch
+		{
+			GameMode.Science => new[]
+			{
+				TaskType.Calculation,
+				TaskType.MultipleChoice,
+				TaskType.MatchTheFollowing
+			},
+			GameMode.Maths => new[]
+			{
+				TaskType.Calculation,
+				TaskType.MultipleChoice,
+				TaskType.MatchTheFollowing
+			},
+			GameMode.Language => new[]
+			{
+				TaskType.Translation,
+				TaskType.MultipleChoice,
+				TaskType.MatchTheFollowing
+			},
+			_ => throw new ArgumentException(
+				$"Unsupported game mode: {gameMode}")
+		};
 
 		string filePath = gameMode switch
 		{
@@ -145,9 +169,15 @@ public class LocalTaskProvider : ITaskProvider
 				$"Check the task fields and allowed types in {filePath}.");
 		}
 
-		// Shuffle each task-type bucket independently, then select in
-		// round-robin order so the pool contains a mix of allowed types
-		// whenever the JSON bank provides valid tasks of those types.
+		if (count < allowedTypes.Length)
+		{
+			throw new InvalidOperationException(
+				$"{gameMode} requires at least {allowedTypes.Length} tasks to include " +
+				$"every permitted task type, but only {count} were requested.");
+		}
+
+		// Build one bucket for each permitted type. Every bucket must have at least
+		// one valid question, otherwise this mode cannot guarantee its required mix.
 		var tasksByType = new Dictionary<TaskType, List<JsonElement>>();
 
 		foreach (TaskType type in allowedTypes)
@@ -160,6 +190,13 @@ public class LocalTaskProvider : ITaskProvider
 						out TaskType parsed) &&
 					parsed == type)
 				.ToList();
+
+			if (bucket.Count == 0)
+			{
+				throw new InvalidOperationException(
+					$"{gameMode} is missing a valid '{type}' question in {filePath}. " +
+					$"Add at least one valid question of this type to guarantee the required mix.");
+			}
 
 			for (int i = bucket.Count - 1; i > 0; i--)
 			{

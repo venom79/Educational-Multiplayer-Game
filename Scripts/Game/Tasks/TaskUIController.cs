@@ -9,6 +9,11 @@ public partial class TaskUIController : CanvasLayer
 
 	[Export]
 	public PackedScene MultipleChoiceScene { get; set; }
+	
+	[Export]
+	public PackedScene CalculationScene { get; set; }
+
+	private CalculationController calculationController;
 
 	public bool IsTaskOpen { get; private set; }
 
@@ -108,7 +113,11 @@ public partial class TaskUIController : CanvasLayer
 
 		ClearTaskContent();
 
-		if (task is MultipleChoiceTask mcTask)
+		if (task.Type == TaskType.Calculation)
+		{
+			ShowCalculationTask();
+		}
+		else if (task is MultipleChoiceTask mcTask)
 		{
 			ShowMultipleChoiceTask(mcTask.Options);
 		}
@@ -152,7 +161,11 @@ public partial class TaskUIController : CanvasLayer
 
 		ClearTaskContent();
 
-		if (task.TaskType == TaskType.MultipleChoice)
+		if (task.TaskType == TaskType.Calculation)
+		{
+			ShowCalculationTask();
+		}
+		else if (task.TaskType == TaskType.MultipleChoice)
 		{
 			ShowMultipleChoiceTask(task.Options);
 		}
@@ -166,6 +179,62 @@ public partial class TaskUIController : CanvasLayer
 		}
 
 		UpdateNetworkProgress();
+	}
+
+	// CALCULATION TASK
+	private void ShowCalculationTask()
+	{
+		if (CalculationScene == null)
+		{
+			GD.PrintErr("CalculationScene is not assigned in the Inspector.");
+			feedbackLabel.Text = "Calculation scene is not configured.";
+			return;
+		}
+
+		CalculationController instance =
+			CalculationScene.Instantiate<CalculationController>();
+
+		instance.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		instance.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+
+		contentRoot.AddChild(instance);
+		calculationController = instance;
+		calculationController.AnswerSubmitted += OnCalculationAnswerSubmitted;
+		calculationController.ResetInput();
+	}
+
+	private void OnCalculationAnswerSubmitted(string answer)
+	{
+		if (!IsTaskOpen || awaitingNetworkResult)
+			return;
+
+		if (isNetworkTask)
+		{
+			if (currentNetworkTask == null)
+				return;
+
+			awaitingNetworkResult = true;
+			calculationController?.SetInputDisabled(true);
+			feedbackLabel.Text = "Checking answer...";
+			SubmitNetworkAnswer(answer);
+			return;
+		}
+
+		if (currentTask == null || currentTask.IsCompleted)
+			return;
+
+		bool correct = currentTask.SubmitAnswer(answer);
+
+		if (correct)
+		{
+			feedbackLabel.Text = "Correct!";
+			calculationController?.SetInputDisabled(true);
+			OnTaskCompleted();
+		}
+		else
+		{
+			feedbackLabel.Text = "Incorrect answer. Try again.";
+		}
 	}
 
 	// MULTIPLE CHOICE
@@ -494,6 +563,7 @@ public partial class TaskUIController : CanvasLayer
 		answerInput = null;
 		submitButton = null;
 		multipleChoiceController = null;
+		calculationController = null;
 
 		matchingDropdowns.Clear();
 	}
@@ -670,6 +740,7 @@ public partial class TaskUIController : CanvasLayer
 				taskId
 			);
 
+			calculationController?.SetInputDisabled(true);
 			OnTaskCompleted();
 		}
 		else
@@ -689,6 +760,8 @@ public partial class TaskUIController : CanvasLayer
 
 			if (submitButton != null)
 				submitButton.Disabled = false;
+
+			calculationController?.SetInputDisabled(false);
 		}
 	}
 
@@ -713,6 +786,7 @@ public partial class TaskUIController : CanvasLayer
 			if (submitButton != null)
 				submitButton.Disabled = false;
 
+			calculationController?.SetInputDisabled(false);
 			return;
 		}
 

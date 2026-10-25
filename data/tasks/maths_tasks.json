@@ -3,342 +3,1300 @@
   "questions": [
 	{
 	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 7 + 8?",
-	  "correctAnswer": "15"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 19 - 6?",
-	  "correctAnswer": "13"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 6 × 4?",
-	  "correctAnswer": "24"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 36 ÷ 6?",
-	  "correctAnswer": "6"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 25 + 37?",
-	  "correctAnswer": "62"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 80 - 29?",
-	  "correctAnswer": "51"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "What is 9 × 7?",
-	  "correctAnswer": "63"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 144 ÷ 12?",
-	  "correctAnswer": "12"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 15 × 8?",
-	  "correctAnswer": "120"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 125 + 275?",
-	  "correctAnswer": "400"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 250 - 86?",
-	  "correctAnswer": "164"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 18 × 12?",
-	  "correctAnswer": "216"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 225 ÷ 15?",
-	  "correctAnswer": "15"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 3² + 4²?",
-	  "correctAnswer": "25"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 20% of 150?",
-	  "correctAnswer": "30"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 5/8 of 64?",
-	  "correctAnswer": "40"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 2.5 + 3.75?",
-	  "correctAnswer": "6.25"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 7.2 - 2.85?",
-	  "correctAnswer": "4.35"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 14 × 15?",
-	  "correctAnswer": "210"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 1000 ÷ 25?",
-	  "correctAnswer": "40"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Solve: 3x = 27. What is x?",
-	  "correctAnswer": "9"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Solve: x + 17 = 42. What is x?",
-	  "correctAnswer": "25"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Perimeter of a square with side 9 cm, in cm?",
-	  "correctAnswer": "36"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Area of an 8 cm by 5 cm rectangle, in cm²?",
-	  "correctAnswer": "40"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Average of 6, 10, and 14?",
-	  "correctAnswer": "10"
+	  "difficulty": "Hard",
+	  "question": "Evaluate: 3/4 + 5/6 - 1/3",
+	  "correctAnswer": "5/4",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "What is 15% of 240?",
-	  "correctAnswer": "36"
+	  "question": "Evaluate: (7/8) ÷ (14/15)",
+	  "correctAnswer": "15/16",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "What is 3/4 + 2/3 as a fraction?",
-	  "correctAnswer": "17/12"
+	  "question": "Simplify: 2.4 × 1.75",
+	  "correctAnswer": "4.2",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "What is 5/6 - 1/4 as a fraction?",
-	  "correctAnswer": "7/12"
+	  "question": "Evaluate: 18% of 450",
+	  "correctAnswer": "81",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "What is 17²?",
-	  "correctAnswer": "289"
+	  "question": "An item costs ₹1,250 and is discounted by 18%. What is the sale price in rupees?",
+	  "correctAnswer": "1025",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Square root of 2025",
-	  "correctAnswer": "45"
+	  "question": "A price rises from ₹640 to ₹800. What is the percentage increase? Answer with the number only.",
+	  "correctAnswer": "25",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Solve: 4x - 7 = 29",
-	  "correctAnswer": "9"
+	  "question": "Solve: 7x - 13 = 4x + 26",
+	  "correctAnswer": "13",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Solve: 5(x + 2) = 45",
-	  "correctAnswer": "7"
+	  "question": "Solve: 3(2x - 5) = 4x + 9",
+	  "correctAnswer": "12",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "136 divided by 8",
-	  "correctAnswer": "17"
+	  "question": "Solve: (x - 4)/3 = 7",
+	  "correctAnswer": "25",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Least common multiple of 12 and 18",
-	  "correctAnswer": "36"
+	  "question": "If 5x + 2 = 3x + 30, find x",
+	  "correctAnswer": "14",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Greatest common divisor of 48 and 60",
-	  "correctAnswer": "12"
+	  "question": "Evaluate: 2³ × 2⁵ ÷ 2⁴",
+	  "correctAnswer": "16",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Sale price of an ₹800 item after a 25% discount, in rupees",
-	  "correctAnswer": "600"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "A car travels 180 km in 3 hours. Average speed in km/h?",
-	  "correctAnswer": "60"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "5 notebooks cost ₹175. Cost of one notebook in rupees?",
-	  "correctAnswer": "35"
+	  "question": "Evaluate: (3² + 4²) × 2 - 18",
+	  "correctAnswer": "32",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "What is 2⁵ × 2³?",
-	  "correctAnswer": "256"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 3(4 + 5) - 7?",
-	  "correctAnswer": "20"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 0.6 × 0.5?",
-	  "correctAnswer": "0.3"
+	  "question": "Find the square root of 3136",
+	  "correctAnswer": "56",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "What is 7.5 ÷ 0.5?",
-	  "correctAnswer": "15"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Easy",
-	  "question": "Sum of the interior angles of a triangle, in degrees",
-	  "correctAnswer": "180"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "A triangle has angles 50° and 60°. Find the third angle in degrees",
-	  "correctAnswer": "70"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Area of a triangle with base 10 cm and height 6 cm, in cm²",
-	  "correctAnswer": "30"
+	  "question": "Find the cube of 12",
+	  "correctAnswer": "1728",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "1.2 as a fraction in simplest form",
-	  "correctAnswer": "6/5"
+	  "question": "Find the LCM of 24, 36, and 54",
+	  "correctAnswer": "216",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "If x = 4, find 2x² + 3",
-	  "correctAnswer": "35"
-	},
-	{
-	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "Median of 3, 9, 5, 11, 7",
-	  "correctAnswer": "7"
+	  "question": "Find the HCF of 84 and 126",
+	  "correctAnswer": "42",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
 	  "difficulty": "Hard",
-	  "question": "Probability of red: 3 red and 7 blue balls",
-	  "correctAnswer": "3/10"
+	  "question": "Find the smallest positive number divisible by both 18 and 30",
+	  "correctAnswer": "90",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Calculation",
-	  "difficulty": "Medium",
-	  "question": "What is 40% of 85?",
-	  "correctAnswer": "34"
+	  "difficulty": "Hard",
+	  "question": "A rectangle has perimeter 54 cm and length 17 cm. Find its area in cm².",
+	  "correctAnswer": "170",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A square has area 324 cm². Find its perimeter in cm.",
+	  "correctAnswer": "72",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A triangle has base 18 cm and area 153 cm². Find its height in cm.",
+	  "correctAnswer": "17",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "The angles of a triangle are x, 2x, and 3x. Find the largest angle in degrees.",
+	  "correctAnswer": "90",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the mean of 18, 23, 27, 32, and 40",
+	  "correctAnswer": "28",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the median of 14, 3, 21, 17, 9, 25, 11",
+	  "correctAnswer": "14",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A bag has 5 red, 7 blue, and 8 green balls. What is the probability of selecting a blue ball? Give a simplified fraction.",
+	  "correctAnswer": "7/20",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A car travels 252 km in 3.5 hours. Find its average speed in km/h.",
+	  "correctAnswer": "72",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A recipe uses 3/5 kg of flour for 4 cakes. How much flour is needed for 10 cakes? Give a fraction in kg.",
+	  "correctAnswer": "3/2",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Evaluate: 4.8 ÷ 0.16",
+	  "correctAnswer": "30",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Evaluate: 0.375 as a fraction in simplest form",
+	  "correctAnswer": "3/8",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Convert 7/16 to a percentage. Answer with the number only.",
+	  "correctAnswer": "43.75",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A number is increased by 20% and becomes 180. What was the original number?",
+	  "correctAnswer": "150",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "The ratio of boys to girls is 5:7. If there are 96 students, how many are girls?",
+	  "correctAnswer": "56",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "If 8 workers finish a job in 15 days, how many days would 12 workers take at the same rate?",
+	  "correctAnswer": "10",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Evaluate: 5/12 + 7/18",
+	  "correctAnswer": "29/36",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Evaluate: 11/15 - 2/9",
+	  "correctAnswer": "23/45",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Solve: 2(x + 7) - 3 = 25",
+	  "correctAnswer": "7",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "If x = -3, evaluate x² - 4x + 2",
+	  "correctAnswer": "23",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the value of 15² - 9²",
+	  "correctAnswer": "144",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A ₹2,400 item has a 15% discount, followed by an additional 10% discount on the reduced price. Find the final price in rupees.",
+	  "correctAnswer": "1836",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A train travels 120 km at 60 km/h and another 120 km at 40 km/h. Find the total travel time in hours.",
+	  "correctAnswer": "5",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "The sum of three consecutive integers is 96. Find the largest integer.",
+	  "correctAnswer": "33",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "The sum of two numbers is 72 and their difference is 18. Find the larger number.",
+	  "correctAnswer": "45",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A tank is 3/8 full. After adding 25 litres, it becomes 5/8 full. Find the tank capacity in litres.",
+	  "correctAnswer": "100",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the perimeter of a rectangle with length 2.5 m and width 1.75 m, in metres.",
+	  "correctAnswer": "8.5",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the area of a parallelogram with base 14 cm and height 9.5 cm, in cm².",
+	  "correctAnswer": "133",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A circle has radius 7 cm. Using π = 22/7, find its circumference in cm.",
+	  "correctAnswer": "44",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A class has 40 students and 30% are absent. How many students are present?",
+	  "correctAnswer": "28",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A number divided by 6 gives quotient 14 and remainder 5. Find the number.",
+	  "correctAnswer": "89",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the next number in the pattern: 3, 8, 15, 24, 35, __",
+	  "correctAnswer": "48",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "If 2x/5 = 18, find x",
+	  "correctAnswer": "45",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "Find the simple interest on ₹3,600 at 7.5% per year for 2 years.",
+	  "correctAnswer": "540",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "Calculation",
+	  "difficulty": "Hard",
+	  "question": "A shopkeeper buys an item for ₹720 and sells it for ₹900. Find the profit percentage. Answer with the number only.",
+	  "correctAnswer": "25",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MatchTheFollowing",
-	  "difficulty": "Easy",
-	  "question": "Match each mathematical expression with its value.",
-	  "options": [],
-	  "correctOptionIndex": -1,
-	  "correctAnswer": "",
-	  "leftItems": ["7 + 5", "18 - 9", "4 × 6", "32 ÷ 4"],
-	  "rightItems": ["8", "12", "9", "24"],
-	  "correctMatches": [1, 2, 3, 0]
-	},
-	{
-	  "taskType": "MatchTheFollowing",
-	  "difficulty": "Medium",
-	  "question": "Match each fraction with its equivalent percentage.",
-	  "options": [],
-	  "correctOptionIndex": -1,
-	  "correctAnswer": "",
-	  "leftItems": ["1/2", "1/4", "3/4", "1/5"],
-	  "rightItems": ["20%", "75%", "50%", "25%"],
-	  "correctMatches": [2, 3, 1, 0]
-	},
-	{
-	  "taskType": "MatchTheFollowing",
 	  "difficulty": "Hard",
-	  "question": "Match each mathematical term with its meaning.",
+	  "question": "Match each expression with its simplified value.",
 	  "options": [],
 	  "correctOptionIndex": -1,
 	  "correctAnswer": "",
-	  "leftItems": ["Perimeter", "Area", "Mean", "Square root"],
-	  "rightItems": [
-		"Average of a set of values",
-		"Distance around a shape",
-		"Number that produces the original when squared",
-	    "Space enclosed by a shape"
+	  "leftItems": [
+		"3/4 + 1/8",
+		"5/6 - 1/3",
+		"7/10 ÷ 7/5",
+        "0.25 × 0.8"
 	  ],
-	  "correctMatches": [1, 3, 0, 2]
+	  "rightItems": [
+		"1/5",
+		"7/8",
+		"1/2",
+        "3/8"
+	  ],
+	  "correctMatches": [
+		1,
+		2,
+		0,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each equation with its solution.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"3x + 5 = 20",
+		"4x - 7 = 21",
+		"2(x + 3) = 18",
+        "x/5 - 2 = 4"
+	  ],
+	  "rightItems": [
+		"x = 6",
+		"x = 5",
+		"x = 12",
+        "x = 7"
+	  ],
+	  "correctMatches": [
+		1,
+		2,
+		0,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each percentage problem with its answer.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"15% of 320",
+		"Increase 80 by 25%",
+		"Decrease 240 by 15%",
+        "What percent of 200 is 36?"
+	  ],
+	  "rightItems": [
+		"18%",
+		"204",
+		"48",
+        "100"
+	  ],
+	  "correctMatches": [
+		2,
+		3,
+		1,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each pair of numbers with its LCM or HCF as indicated.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"LCM of 12 and 20",
+		"HCF of 54 and 90",
+		"LCM of 8 and 14",
+        "HCF of 72 and 120"
+	  ],
+	  "rightItems": [
+		"56",
+		"18",
+		"60",
+        "24"
+	  ],
+	  "correctMatches": [
+		2,
+		1,
+		0,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each shape problem with its answer.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Square area = 196 cm²; perimeter?",
+		"Rectangle 12 cm × 7 cm; area?",
+		"Triangle base 16 cm, height 9 cm; area?",
+        "Circle radius 7 cm; circumference using 22/7?"
+	  ],
+	  "rightItems": [
+		"72 cm²",
+		"56 cm",
+		"84 cm²",
+        "44 cm"
+	  ],
+	  "correctMatches": [
+		1,
+		2,
+		0,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each data set with its median.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"4, 8, 10, 12, 20",
+		"3, 11, 7, 15, 9",
+		"18, 2, 14, 6",
+        "5, 13, 17, 9, 21, 25"
+	  ],
+	  "rightItems": [
+		"10",
+		"9",
+		"10",
+        "11"
+	  ],
+	  "correctMatches": [
+		0,
+		1,
+		2,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each probability situation with its probability.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"3 red, 5 blue: select red",
+		"4 green, 6 yellow: select yellow",
+		"2 white, 3 black, 5 red: select black",
+        "7 wins, 3 losses: select a loss"
+	  ],
+	  "rightItems": [
+		"3/8",
+		"1/5",
+		"3/5",
+        "3/10"
+	  ],
+	  "correctMatches": [
+		0,
+		2,
+		1,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each ratio problem with the required value.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Ratio 3:5, total 64; larger share",
+		"Ratio 2:7, total 81; smaller share",
+		"Simplify 42:56",
+        "Divide 120 in ratio 2:3; larger share"
+	  ],
+	  "rightItems": [
+		"3:4",
+		"40",
+		"18",
+        "72"
+	  ],
+	  "correctMatches": [
+		1,
+		2,
+		0,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each exponent expression with its value.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"2⁴ × 2³",
+		"5⁶ ÷ 5⁴",
+		"(3²)³",
+        "10³ ÷ 10"
+	  ],
+	  "rightItems": [
+		"100",
+		"128",
+		"729",
+        "25"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		2,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each word problem with its answer.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"8 workers take 12 days; 6 workers take how many days?",
+		"₹1,500 after a 20% discount",
+		"180 km in 2.5 hours; average speed?",
+        "Simple interest on ₹2,000 at 5% for 3 years"
+	  ],
+	  "rightItems": [
+		"72 km/h",
+		"₹1,200",
+		"16 days",
+        "₹300"
+	  ],
+	  "correctMatches": [
+		2,
+		1,
+		0,
+		3
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each algebraic expression with its value when x = 3.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"2x² + 1",
+		"5x - 4",
+		"(x + 2)²",
+        "3(x - 1)"
+	  ],
+	  "rightItems": [
+		"6",
+		"19",
+		"25",
+        "11"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		2,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each decimal or fraction with its equivalent form.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"0.625 as a fraction",
+		"3/8 as a percentage",
+		"1.2 as a fraction",
+        "7/20 as a percentage"
+	  ],
+	  "rightItems": [
+		"35%",
+		"5/8",
+		"120%",
+        "37.5%"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		2,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each geometry term with its description.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Perpendicular lines",
+		"Complementary angles",
+		"Circumference",
+        "Area"
+	  ],
+	  "rightItems": [
+		"Space enclosed by a 2D shape",
+		"Two lines meeting at 90°",
+		"Sum of angles equals 90°",
+        "Distance around a circle"
+	  ],
+	  "correctMatches": [
+		1,
+		2,
+		3,
+		0
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each number pattern with its next term.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"2, 6, 12, 20, 30, __",
+		"5, 10, 20, 40, __",
+		"81, 27, 9, 3, __",
+        "1, 4, 9, 16, __"
+	  ],
+	  "rightItems": [
+		"1",
+		"25",
+		"42",
+        "80"
+	  ],
+	  "correctMatches": [
+		2,
+		3,
+		0,
+		1
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each rate or unit conversion with its answer.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"2.5 hours in minutes",
+		"3.6 km in metres",
+		"7500 g in kg",
+        "90 minutes in hours"
+	  ],
+	  "rightItems": [
+		"7.5 kg",
+		"150 minutes",
+		"1.5 hours",
+        "3600 m"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		0,
+		2
+	  ]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each financial calculation with its result.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"20% profit on ₹450 cost price",
+		"10% loss on ₹800 cost price",
+		"15% discount on ₹2,000",
+        "₹500 earns 8% simple interest for 2 years"
+	  ],
+	  "rightItems": [
+		"₹1,700",
+		"₹540 selling price",
+		"₹80 interest",
+        "₹720 selling price"
+	  ],
+	  "correctMatches": [
+		1,
+		3,
+		0,
+		2
+	  ]
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the value of 2/3 + 5/12?",
+	  "options": [
+		"13/12",
+		"7/15",
+		"1/4",
+        "11/12"
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "13/12",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A number is decreased by 15% and becomes 340. What was the original number?",
+	  "options": [
+		"380",
+		"400",
+		"391",
+        "425"
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "400",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Solve: 5(2x - 3) = 3x + 20",
+	  "options": [
+		"5",
+		"4",
+		"7",
+        "6"
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "5",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the HCF of 96 and 144?",
+	  "options": [
+		"12",
+		"24",
+		"36",
+        "48"
+	  ],
+	  "correctOptionIndex": 3,
+	  "correctAnswer": "48",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the LCM of 18, 24, and 30?",
+	  "options": [
+		"180",
+		"240",
+		"360",
+        "720"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "360",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A rectangle has length 18 cm and perimeter 58 cm. What is its area?",
+	  "options": [
+		"198 cm²",
+		"180 cm²",
+		"207 cm²",
+        "216 cm²"
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "198 cm²",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "The average of six numbers is 17. If five numbers sum to 78, what is the sixth number?",
+	  "options": [
+		"20",
+		"22",
+		"24",
+        "26"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "24",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A bag contains 4 red, 5 blue, and 3 green balls. What is the probability of selecting a ball that is not blue?",
+	  "options": [
+		"5/12",
+		"7/12",
+		"2/3",
+        "3/4"
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "7/12",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A sum of ₹5,000 earns simple interest at 6% per year for 3 years. What is the total amount?",
+	  "options": [
+		"₹5,600",
+		"₹5,800",
+		"₹5,900",
+        "₹6,300"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "₹5,900",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Two numbers are in the ratio 4:7 and their sum is 99. What is the larger number?",
+	  "options": [
+		"36",
+		"56",
+		"63",
+        "72"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "63",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "If x = -4, what is the value of 2x² - 3x - 5?",
+	  "options": [
+		"15",
+		"27",
+		"39",
+        "45"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "39",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A vehicle travels 150 km at 50 km/h and then 120 km at 60 km/h. What is the total travel time?",
+	  "options": [
+		"4 hours",
+		"4.5 hours",
+		"5 hours",
+        "5.5 hours"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "5 hours",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is 35% of 680?",
+	  "options": [
+		"218",
+		"228",
+		"238",
+        "248"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "238",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A shopkeeper buys an item for ₹800 and sells it for ₹920. What is the profit percentage?",
+	  "options": [
+		"12%",
+		"15%",
+		"18%",
+        "20%"
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "15%",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Simplify the ratio 84:126.",
+	  "options": [
+		"2:3",
+		"3:4",
+		"4:7",
+        "6:9"
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "2:3",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A square has diagonal 10√2 cm. What is its area?",
+	  "options": [
+		"50 cm²",
+		"100 cm²",
+		"200 cm²",
+        "25 cm²"
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "100 cm²",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the median of 7, 15, 4, 19, 12, 9, 21?",
+	  "options": [
+		"9",
+		"12",
+		"15",
+        "19"
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "12",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "If 15 workers complete a job in 8 days, how many days would 12 workers take at the same rate?",
+	  "options": [
+		"6.4 days",
+		"9 days",
+		"10 days",
+        "12 days"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "10 days",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "What is the value of (3⁴ × 3²) ÷ 3³?",
+	  "options": [
+		"9",
+		"18",
+		"27",
+        "81"
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "27",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "A tank is 40% full. After adding 30 litres, it becomes 70% full. What is the tank capacity?",
+	  "options": [
+		"90 litres",
+		"100 litres",
+		"120 litres",
+        "150 litres"
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "100 litres",
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	}
-
   ]
 }

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://balhtxsa110ky" path="res://Scripts/Game/GameController.cs" id="1_qxfds"]
 [ext_resource type="PackedScene" uid="uid://dgv843m5q0a0d" path="res://Assets/Maps/mainMap/game_map.tscn" id="2_flgk0"]
 [ext_resource type="Script" uid="uid://t0bnmppxwq5a" path="res://Scripts/Player/PlayerManager.cs" id="3_qikps"]
-[ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="5_flgk0"]
+[ext_resource type="PackedScene" uid="uid://di673qreyo1la" path="res://Scenes/Tasks/TaskUI.tscn" id="4_flgk0"]
 [ext_resource type="PackedScene" uid="uid://bsfm6hme031pj" path="res://Scenes/Game/GameUI.tscn" id="6_flgk0"]
 [ext_resource type="PackedScene" uid="uid://ddogl8vpp8w86" path="res://Scenes/Game/TaskStation.tscn" id="7_vifcx"]
 
@@ -17,54 +17,8 @@ script = ExtResource("1_qxfds")
 [node name="PlayerManager" type="Node2D" parent="." unique_id=1206553064]
 script = ExtResource("3_qikps")
 
-[node name="TaskUI" type="CanvasLayer" parent="." unique_id=1334917936]
-script = ExtResource("5_flgk0")
-
-[node name="Panel" type="Panel" parent="TaskUI" unique_id=1707642423]
-custom_minimum_size = Vector2(500, 300)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -150.0
-offset_right = 250.0
-offset_bottom = 150.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TaskUI/Panel" unique_id=712927786]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TitleLabel" type="Label" parent="TaskUI/Panel/VBoxContainer" unique_id=1175814058]
-layout_mode = 2
-text = "TASK"
-
-[node name="ProgressLabel" type="Label" parent="TaskUI/Panel/VBoxContainer" unique_id=102533846]
-layout_mode = 2
-text = "Task 0 / 0"
-
-[node name="QuestionLabel" type="Label" parent="TaskUI/Panel/VBoxContainer" unique_id=832960947]
-layout_mode = 2
-text = "Question"
-
-[node name="AnswerInput" type="LineEdit" parent="TaskUI/Panel/VBoxContainer" unique_id=39566097]
-layout_mode = 2
-placeholder_text = "Type your answer..."
-
-[node name="OptionsContainer" type="VBoxContainer" parent="TaskUI/Panel/VBoxContainer" unique_id=903334935]
-layout_mode = 2
-
-[node name="SubmitButton" type="Button" parent="TaskUI/Panel/VBoxContainer" unique_id=1118775609]
-layout_mode = 2
-text = "SUBMIT"
-
-[node name="CloseButton" type="Button" parent="TaskUI/Panel/VBoxContainer" unique_id=687921653]
-layout_mode = 2
-text = "Close"
+[node name="TaskUI" parent="." unique_id=1184431377 instance=ExtResource("4_flgk0")]
+visible = false
 
 [node name="TaskStation" parent="." unique_id=704673815 instance=ExtResource("7_vifcx")]
 position = Vector2(1070, 915)

@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dwff12netkjp6" path="res://Scripts/Game/Tasks/TaskUIController.cs" id="1_71f4x"]
 [ext_resource type="PackedScene" uid="uid://cywslk1rjp3o2" path="res://Scenes/Tasks/TaskTypes/MultipleChoice.tscn" id="2_hdneu"]
+[ext_resource type="PackedScene" uid="uid://dwmj133rksm20" path="res://Scenes/Tasks/TaskTypes/Calculation.tscn" id="3_hdneu"]
 
 [node name="TaskUI" type="CanvasLayer" unique_id=1184431377]
 script = ExtResource("1_71f4x")
 MultipleChoiceScene = ExtResource("2_hdneu")
+CalculationScene = ExtResource("3_hdneu")
 
 [node name="Overlay" type="ColorRect" parent="." unique_id=1826185269]
 anchors_preset = 15
