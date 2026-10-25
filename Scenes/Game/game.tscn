@@ -67,12 +67,16 @@ layout_mode = 2
 text = "Close"
 
 [node name="TaskStation" parent="." unique_id=704673815 instance=ExtResource("7_vifcx")]
-position = Vector2(3331, 301)
+position = Vector2(1070, 915)
 
 [node name="TaskStation2" parent="." unique_id=978730931 instance=ExtResource("7_vifcx")]
-position = Vector2(2963, 727)
+position = Vector2(2315, 907)
 StationId = "station_02"
 
 [node name="TaskStation3" parent="." unique_id=395453437 instance=ExtResource("7_vifcx")]
-position = Vector2(3709, 668)
+position = Vector2(3522, 1051)
+StationId = "station_03"
+
+[node name="TaskStation4" parent="." unique_id=1013880941 instance=ExtResource("7_vifcx")]
+position = Vector2(4429, 926)
 StationId = "station_03"

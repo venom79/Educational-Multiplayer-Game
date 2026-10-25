@@ -1,5 +1,6 @@
 
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public partial class TaskManager : Node
@@ -96,10 +97,25 @@ public partial class TaskManager : Node
 		foreach (PlayerTask playerTask in tasks)
 		{
 			GameTask task = playerTask.Task;
-			string[] options = null;
 
+			string[] options = Array.Empty<string>();
+			string[] leftItems = Array.Empty<string>();
+			string[] rightItems = Array.Empty<string>();
+
+			// Multiple-choice task data.
 			if (task is MultipleChoiceTask multipleChoiceTask)
+			{
 				options = multipleChoiceTask.Options;
+			}
+
+			// Matching task data.
+			// Only the items are sent to clients.
+			// CorrectMatches must remain on the host/server.
+			else if (task is MatchTheFollowingTask matchingTask)
+			{
+				leftItems = matchingTask.LeftItems;
+				rightItems = matchingTask.RightItems;
+			}
 
 			networkTasks.Add(
 				new NetworkTaskData(
@@ -107,7 +123,9 @@ public partial class TaskManager : Node
 					playerTask.StationId,
 					task.Type,
 					task.Question,
-					options
+					options,
+					leftItems,
+					rightItems
 				)
 			);
 		}
@@ -326,7 +344,8 @@ public partial class TaskManager : Node
 		long playerId,
 		List<NetworkTaskData> tasks)
 	{
-		// Keep the complete assignment list; do not remove completed tasks.
+		// Keep the complete assignment list.
+		// Do not remove tasks when they are completed.
 		networkPlayerTasks[playerId] = tasks;
 
 		// Reset progress when a new assignment is received.
@@ -393,6 +412,7 @@ public partial class TaskManager : Node
 				$"Cannot complete network task {taskId}: " +
 				$"no tasks found for player {playerId}."
 			);
+
 			return;
 		}
 
@@ -413,6 +433,7 @@ public partial class TaskManager : Node
 			GD.PrintErr(
 				$"Network task {taskId} was not assigned to player {playerId}."
 			);
+
 			return;
 		}
 

@@ -1,655 +1,709 @@
 {
   "mode": "Science",
   "questions": [
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which gas do green plants primarily absorb during photosynthesis?",
-      "options": [
-        "Oxygen",
-        "Nitrogen",
-        "Carbon dioxide",
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which gas do green plants primarily absorb during photosynthesis?",
+	  "options": [
+		"Oxygen",
+		"Nitrogen",
+		"Carbon dioxide",
         "Hydrogen"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Carbon dioxide"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which planet is known as the Red Planet?",
-      "options": [
-        "Earth",
-        "Mars",
-        "Jupiter",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Carbon dioxide"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which planet is known as the Red Planet?",
+	  "options": [
+		"Earth",
+		"Mars",
+		"Jupiter",
         "Venus"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Mars"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "What is the chemical formula for water?",
-      "options": [
-        "CO2",
-        "H2O",
-        "O2",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Mars"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "What is the chemical formula for water?",
+	  "options": [
+		"CO2",
+		"H2O",
+		"O2",
         "NaCl"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "H2O"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which organ pumps blood around the human body?",
-      "options": [
-        "Lungs",
-        "Brain",
-        "Heart",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "H2O"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which organ pumps blood around the human body?",
+	  "options": [
+		"Lungs",
+		"Brain",
+		"Heart",
         "Kidneys"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Heart"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Freezing point of pure water at standard pressure?",
-      "options": [
-        "0°C",
-        "32°C",
-        "100°C",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Heart"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Freezing point of pure water at standard pressure?",
+	  "options": [
+		"0°C",
+		"32°C",
+		"100°C",
         "-10°C"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "0°C"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which star is closest to Earth?",
-      "options": [
-        "Sirius",
-        "The Sun",
-        "Polaris",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "0°C"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which star is closest to Earth?",
+	  "options": [
+		"Sirius",
+		"The Sun",
+		"Polaris",
         "Proxima Centauri"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "The Sun"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which part of a plant usually absorbs water from soil?",
-      "options": [
-        "Flower",
-        "Leaves",
-        "Roots",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "The Sun"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which part of a plant usually absorbs water from soil?",
+	  "options": [
+		"Flower",
+		"Leaves",
+		"Roots",
         "Fruit"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Roots"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "What force pulls objects toward Earth?",
-      "options": [
-        "Friction",
-        "Gravity",
-        "Magnetism",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Roots"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "What force pulls objects toward Earth?",
+	  "options": [
+		"Friction",
+		"Gravity",
+		"Magnetism",
         "Electricity"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Gravity"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which gas do humans need for cellular respiration?",
-      "options": [
-        "Oxygen",
-        "Helium",
-        "Carbon dioxide",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Gravity"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which gas do humans need for cellular respiration?",
+	  "options": [
+		"Oxygen",
+		"Helium",
+		"Carbon dioxide",
         "Neon"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "Oxygen"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "What is the center of an atom called?",
-      "options": [
-        "Electron cloud",
-        "Nucleus",
-        "Molecule",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "Oxygen"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "What is the center of an atom called?",
+	  "options": [
+		"Electron cloud",
+		"Nucleus",
+		"Molecule",
         "Cell"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Nucleus"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which organ helps humans exchange gases?",
-      "options": [
-        "Liver",
-        "Lungs",
-        "Stomach",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Nucleus"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which organ helps humans exchange gases?",
+	  "options": [
+		"Liver",
+		"Lungs",
+		"Stomach",
         "Pancreas"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Lungs"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Chemical symbol for gold?",
-      "options": [
-        "Ag",
-        "Gd",
-        "Au",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Lungs"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Chemical symbol for gold?",
+	  "options": [
+		"Ag",
+		"Gd",
+		"Au",
         "Go"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Au"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which state of matter has fixed volume but no fixed shape?",
-      "options": [
-        "Solid",
-        "Liquid",
-        "Gas",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Au"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which state of matter has fixed volume but no fixed shape?",
+	  "options": [
+		"Solid",
+		"Liquid",
+		"Gas",
         "Plasma only"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Liquid"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which vitamin can skin help produce in sunlight?",
-      "options": [
-        "Vitamin A",
-        "Vitamin C",
-        "Vitamin D",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Liquid"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which vitamin can skin help produce in sunlight?",
+	  "options": [
+		"Vitamin A",
+		"Vitamin C",
+		"Vitamin D",
         "Vitamin K"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Vitamin D"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which natural satellite orbits Earth?",
-      "options": [
-        "Titan",
-        "The Moon",
-        "Europa",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Vitamin D"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which natural satellite orbits Earth?",
+	  "options": [
+		"Titan",
+		"The Moon",
+		"Europa",
         "Phobos"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "The Moon"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Liquid water changing into water vapour is called?",
-      "options": [
-        "Condensation",
-        "Freezing",
-        "Evaporation",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "The Moon"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Liquid water changing into water vapour is called?",
+	  "options": [
+		"Condensation",
+		"Freezing",
+		"Evaporation",
         "Melting"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Evaporation"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which blood cells primarily fight infections?",
-      "options": [
-        "Red blood cells",
-        "White blood cells",
-        "Platelets",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Evaporation"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which blood cells primarily fight infections?",
+	  "options": [
+		"Red blood cells",
+		"White blood cells",
+		"Platelets",
         "Plasma only"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "White blood cells"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which cell structure is called the powerhouse of the cell?",
-      "options": [
-        "Ribosome",
-        "Mitochondrion",
-        "Nucleus",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "White blood cells"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which cell structure is called the powerhouse of the cell?",
+	  "options": [
+		"Ribosome",
+		"Mitochondrion",
+		"Nucleus",
         "Cell wall"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Mitochondrion"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Rock formed when magma or lava cools?",
-      "options": [
-        "Sedimentary",
-        "Metamorphic",
-        "Igneous",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Mitochondrion"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Rock formed when magma or lava cools?",
+	  "options": [
+		"Sedimentary",
+		"Metamorphic",
+		"Igneous",
         "Chalk"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Igneous"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "SI unit of electric current?",
-      "options": [
-        "Volt",
-        "Ohm",
-        "Ampere",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Igneous"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "SI unit of electric current?",
+	  "options": [
+		"Volt",
+		"Ohm",
+		"Ampere",
         "Watt"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Ampere"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which metal is liquid at ordinary room temperature?",
-      "options": [
-        "Iron",
-        "Mercury",
-        "Copper",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Ampere"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which metal is liquid at ordinary room temperature?",
+	  "options": [
+		"Iron",
+		"Mercury",
+		"Copper",
         "Aluminium"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Mercury"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Approximate speed of light in a vacuum?",
-      "options": [
-        "300,000 km/s",
-        "30,000 km/s",
-        "3,000 km/s",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Mercury"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Approximate speed of light in a vacuum?",
+	  "options": [
+		"300,000 km/s",
+		"30,000 km/s",
+		"3,000 km/s",
         "300 km/s"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "300,000 km/s"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which planet has the most prominent ring system?",
-      "options": [
-        "Mars",
-        "Saturn",
-        "Mercury",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "300,000 km/s"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which planet has the most prominent ring system?",
+	  "options": [
+		"Mars",
+		"Saturn",
+		"Mercury",
         "Earth"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Saturn"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "pH of a neutral solution at about 25°C?",
-      "options": [
-        "0",
-        "5",
-        "7",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Saturn"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "pH of a neutral solution at about 25°C?",
+	  "options": [
+		"0",
+		"5",
+		"7",
         "14"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "7"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which brain region helps coordinate balance and movement?",
-      "options": [
-        "Cerebellum",
-        "Medulla only",
-        "Hypothalamus",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "7"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which brain region helps coordinate balance and movement?",
+	  "options": [
+		"Cerebellum",
+		"Medulla only",
+		"Hypothalamus",
         "Spinal disc"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "Cerebellum"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Main gas in Earth's atmosphere?",
-      "options": [
-        "Oxygen",
-        "Carbon dioxide",
-        "Nitrogen",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "Cerebellum"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Main gas in Earth's atmosphere?",
+	  "options": [
+		"Oxygen",
+		"Carbon dioxide",
+		"Nitrogen",
         "Hydrogen"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Nitrogen"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Water vapour released mainly through plant leaves is called?",
-      "options": [
-        "Respiration",
-        "Transpiration",
-        "Germination",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Nitrogen"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Water vapour released mainly through plant leaves is called?",
+	  "options": [
+		"Respiration",
+		"Transpiration",
+		"Germination",
         "Pollination"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Transpiration"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Instrument that measures atmospheric pressure?",
-      "options": [
-        "Thermometer",
-        "Barometer",
-        "Ammeter",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Transpiration"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Instrument that measures atmospheric pressure?",
+	  "options": [
+		"Thermometer",
+		"Barometer",
+		"Ammeter",
         "Hygrometer"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Barometer"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Chemical symbol for sodium?",
-      "options": [
-        "S",
-        "So",
-        "Na",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Barometer"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Chemical symbol for sodium?",
+	  "options": [
+		"S",
+		"So",
+		"Na",
         "N"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Na"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Energy stored in a stretched spring?",
-      "options": [
-        "Chemical",
-        "Elastic potential",
-        "Nuclear",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Na"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Energy stored in a stretched spring?",
+	  "options": [
+		"Chemical",
+		"Elastic potential",
+		"Nuclear",
         "Sound"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Elastic potential"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Hard",
-      "question": "Liquid layer surrounding Earth's inner core?",
-      "options": [
-        "Crust",
-        "Mantle",
-        "Outer core",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Elastic potential"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Liquid layer surrounding Earth's inner core?",
+	  "options": [
+		"Crust",
+		"Mantle",
+		"Outer core",
         "Inner core"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Outer core"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Hard",
-      "question": "Solid changing directly into gas is called?",
-      "options": [
-        "Condensation",
-        "Sublimation",
-        "Deposition",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Outer core"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Solid changing directly into gas is called?",
+	  "options": [
+		"Condensation",
+		"Sublimation",
+		"Deposition",
         "Fusion"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Sublimation"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which subatomic particle has a negative charge?",
-      "options": [
-        "Proton",
-        "Neutron",
-        "Electron",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Sublimation"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which subatomic particle has a negative charge?",
+	  "options": [
+		"Proton",
+		"Neutron",
+		"Electron",
         "Nucleus"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Electron"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "SI unit of force?",
-      "options": [
-        "Joule",
-        "Pascal",
-        "Newton",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Electron"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "SI unit of force?",
+	  "options": [
+		"Joule",
+		"Pascal",
+		"Newton",
         "Watt"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Newton"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which molecule carries genetic instructions in most organisms?",
-      "options": [
-        "DNA",
-        "Glucose",
-        "Starch",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Newton"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which molecule carries genetic instructions in most organisms?",
+	  "options": [
+		"DNA",
+		"Glucose",
+		"Starch",
         "Hemoglobin"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "DNA"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Hard",
-      "question": "Universal red-cell donor blood type?",
-      "options": [
-        "AB positive",
-        "O negative",
-        "A positive",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "DNA"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Universal red-cell donor blood type?",
+	  "options": [
+		"AB positive",
+		"O negative",
+		"A positive",
         "B negative"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "O negative"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Main function of red blood cells?",
-      "options": [
-        "Fight infection",
-        "Carry oxygen",
-        "Digest food",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "O negative"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Main function of red blood cells?",
+	  "options": [
+		"Fight infection",
+		"Carry oxygen",
+		"Digest food",
         "Produce hormones"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Carry oxygen"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which phenomenon bends light between materials?",
-      "options": [
-        "Reflection",
-        "Refraction",
-        "Diffusion",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Carry oxygen"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which phenomenon bends light between materials?",
+	  "options": [
+		"Reflection",
+		"Refraction",
+		"Diffusion",
         "Conduction"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Refraction"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Gas most associated with the human-caused enhanced greenhouse effect?",
-      "options": [
-        "Argon",
-        "Carbon dioxide",
-        "Helium",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Refraction"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Gas most associated with the human-caused enhanced greenhouse effect?",
+	  "options": [
+		"Argon",
+		"Carbon dioxide",
+		"Helium",
         "Hydrogen"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Carbon dioxide"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Hard",
-      "question": "Approximate Earth's gravitational acceleration at the surface?",
-      "options": [
-        "9.8 m/s²",
-        "1.6 m/s²",
-        "98 m/s²",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Carbon dioxide"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Approximate Earth's gravitational acceleration at the surface?",
+	  "options": [
+		"9.8 m/s²",
+		"1.6 m/s²",
+		"98 m/s²",
         "0.98 m/s²"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "9.8 m/s²"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which planet is famous for the Great Red Spot?",
-      "options": [
-        "Neptune",
-        "Jupiter",
-        "Venus",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "9.8 m/s²"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which planet is famous for the Great Red Spot?",
+	  "options": [
+		"Neptune",
+		"Jupiter",
+		"Venus",
         "Mercury"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Jupiter"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Smallest unit of an element retaining its chemical identity?",
-      "options": [
-        "Cell",
-        "Atom",
-        "Tissue",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Jupiter"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Smallest unit of an element retaining its chemical identity?",
+	  "options": [
+		"Cell",
+		"Atom",
+		"Tissue",
         "Compound"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Atom"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Easy",
-      "question": "Which organ filters blood to produce urine?",
-      "options": [
-        "Heart",
-        "Kidney",
-        "Lung",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Atom"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Easy",
+	  "question": "Which organ filters blood to produce urine?",
+	  "options": [
+		"Heart",
+		"Kidney",
+		"Lung",
         "Small intestine"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Kidney"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Which wave requires a medium to travel?",
-      "options": [
-        "Radio wave",
-        "Light wave",
-        "Sound wave",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Kidney"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Which wave requires a medium to travel?",
+	  "options": [
+		"Radio wave",
+		"Light wave",
+		"Sound wave",
         "X-ray"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Sound wave"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Scientist associated with the three laws of motion?",
-      "options": [
-        "Isaac Newton",
-        "Charles Darwin",
-        "Louis Pasteur",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Sound wave"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Scientist associated with the three laws of motion?",
+	  "options": [
+		"Isaac Newton",
+		"Charles Darwin",
+		"Louis Pasteur",
         "Gregor Mendel"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "Isaac Newton"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Organism that makes its own food, such as a green plant?",
-      "options": [
-        "Consumer",
-        "Decomposer",
-        "Producer",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "Isaac Newton"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Organism that makes its own food, such as a green plant?",
+	  "options": [
+		"Consumer",
+		"Decomposer",
+		"Producer",
         "Parasite"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Producer"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Hard",
-      "question": "Scale commonly used to measure mineral hardness?",
-      "options": [
-        "Richter scale",
-        "Mohs scale",
-        "Celsius scale",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Producer"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Scale commonly used to measure mineral hardness?",
+	  "options": [
+		"Richter scale",
+		"Mohs scale",
+		"Celsius scale",
         "Beaufort scale"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Mohs scale"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Chemical formula of table salt?",
-      "options": [
-        "NaCl",
-        "KClO3",
-        "HCl",
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Mohs scale"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Chemical formula of table salt?",
+	  "options": [
+		"NaCl",
+		"KClO3",
+		"HCl",
         "CaCO3"
-      ],
-      "correctOptionIndex": 0,
-      "correctAnswer": "NaCl"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Hard",
-      "question": "Which radiation has a longer wavelength than visible red light?",
-      "options": [
-        "Ultraviolet",
-        "X-rays",
-        "Infrared",
+	  ],
+	  "correctOptionIndex": 0,
+	  "correctAnswer": "NaCl"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Hard",
+	  "question": "Which radiation has a longer wavelength than visible red light?",
+	  "options": [
+		"Ultraviolet",
+		"X-rays",
+		"Infrared",
         "Gamma rays"
-      ],
-      "correctOptionIndex": 2,
-      "correctAnswer": "Infrared"
-    },
-    {
-      "taskType": "MultipleChoice",
-      "difficulty": "Medium",
-      "question": "Usual role of fungi and many bacteria in food chains?",
-      "options": [
-        "Producers",
-        "Decomposers",
-        "Primary consumers",
+	  ],
+	  "correctOptionIndex": 2,
+	  "correctAnswer": "Infrared"
+	},
+	{
+	  "taskType": "MultipleChoice",
+	  "difficulty": "Medium",
+	  "question": "Usual role of fungi and many bacteria in food chains?",
+	  "options": [
+		"Producers",
+		"Decomposers",
+		"Primary consumers",
         "Predators only"
-      ],
-      "correctOptionIndex": 1,
-      "correctAnswer": "Decomposers"
-    }
+	  ],
+	  "correctOptionIndex": 1,
+	  "correctAnswer": "Decomposers"
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Easy",
+	  "question": "Match each planet with its characteristic.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": ["Earth", "Mars", "Jupiter", "Saturn"],
+	  "rightItems": [
+		"Largest planet",
+		"Known as the Red Planet",
+		"Known to support life",
+	    "Famous for its rings"
+	  ],
+	  "correctMatches": [2, 1, 0, 3]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Medium",
+	  "question": "Match each scientific term with its description.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": [
+		"Evaporation",
+		"Condensation",
+		"Photosynthesis",
+	    "Gravity"
+	  ],
+	  "rightItems": [
+		"Attraction between masses",
+		"Liquid changes into gas",
+		"Plants use light to make food",
+	    "Gas changes into liquid"
+	  ],
+	  "correctMatches": [1, 3, 2, 0]
+	},
+	{
+	  "taskType": "MatchTheFollowing",
+	  "difficulty": "Hard",
+	  "question": "Match each scientific instrument with what it measures.",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "correctAnswer": "",
+	  "leftItems": ["Thermometer", "Barometer", "Ammeter", "Hygrometer"],
+	  "rightItems": [
+		"Humidity",
+		"Electric current",
+		"Temperature",
+	    "Atmospheric pressure"
+	  ],
+	  "correctMatches": [2, 3, 1, 0]
+	}
+
   ]
 }

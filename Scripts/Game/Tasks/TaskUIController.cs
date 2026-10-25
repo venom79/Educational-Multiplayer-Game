@@ -1,31 +1,41 @@
+
 using Godot;
+using System;
+using System.Collections.Generic;
 
 public partial class TaskUIController : CanvasLayer
 {
 	public static TaskUIController Instance { get; private set; }
-	
+
+	[Export]
+	public PackedScene MultipleChoiceScene { get; set; }
+
 	public bool IsTaskOpen { get; private set; }
-	
+
 	private Label titleLabel;
 	private Label progressLabel;
 	private Label questionLabel;
+	private Label feedbackLabel;
+	private Button closeButton;
+	private Control taskContent;
+	private VBoxContainer contentRoot;
 
 	private LineEdit answerInput;
-
-	private VBoxContainer optionsContainer;
-
 	private Button submitButton;
-	private Button closeButton;
+	private MultipleChoiceController multipleChoiceController;
 
 	private GameTask currentTask;
 	private TaskStation currentStation;
-	
-	private bool awaitingNetworkResult = false;
 	private NetworkTaskData currentNetworkTask;
+
+	private bool awaitingNetworkResult;
 	private bool isNetworkTask;
+	private bool isMatchingTask;
 
 	private int selectedOption = -1;
 	private int networkSelectedOption = -1;
+
+	private readonly List<OptionButton> matchingDropdowns = new();
 
 	public override void _Ready()
 	{
@@ -36,86 +46,76 @@ public partial class TaskUIController : CanvasLayer
 		}
 
 		Instance = this;
-		
+
 		titleLabel =
-			GetNode<Label>(
-                "Panel/VBoxContainer/TitleLabel"
-			);
+			GetNode<Label>("Panel/MainLayout/Header/TitleLabel");
 
 		progressLabel =
-			GetNode<Label>(
-                "Panel/VBoxContainer/ProgressLabel"
-			);
-
-		questionLabel =
-			GetNode<Label>(
-                "Panel/VBoxContainer/QuestionLabel"
-			);
-
-		answerInput =
-			GetNode<LineEdit>(
-                "Panel/VBoxContainer/AnswerInput"
-			);
-
-		optionsContainer =
-			GetNode<VBoxContainer>(
-                "Panel/VBoxContainer/OptionsContainer"
-			);
-
-		submitButton =
-			GetNode<Button>(
-                "Panel/VBoxContainer/SubmitButton"
-			);
+			GetNode<Label>("Panel/MainLayout/Header/ProgressLabel");
 
 		closeButton =
-			GetNode<Button>(
-                "Panel/VBoxContainer/CloseButton"
-			);
+			GetNode<Button>("Panel/MainLayout/Header/CloseButton");
 
-		submitButton.Pressed += OnSubmitPressed;
+		questionLabel =
+			GetNode<Label>("Panel/MainLayout/QuestionLabel");
+
+		taskContent =
+			GetNode<Control>("Panel/MainLayout/TaskContent");
+
+		feedbackLabel =
+			GetNode<Label>("Panel/MainLayout/FeedbackLabel");
+
 		closeButton.Pressed += OnClosePressed;
+
+		contentRoot = new VBoxContainer
+		{
+			Name = "GeneratedTaskContent",
+			SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+			SizeFlagsVertical = Control.SizeFlags.ExpandFill
+		};
+
+		contentRoot.SetAnchorsAndOffsetsPreset(
+			Control.LayoutPreset.FullRect
+		);
+
+		taskContent.AddChild(contentRoot);
 
 		HideTaskUI();
 	}
 
-	public void ShowTask(
-		GameTask task,
-		TaskStation station
-	)
+	// LOCAL TASK
+	public void ShowTask(GameTask task, TaskStation station)
 	{
-		if (task == null)
-		{
-			GD.PrintErr("Cannot display a null task.");
+		if (task == null || task.IsCompleted)
 			return;
-		}
-
-		// Safety check.
-		if (task.IsCompleted)
-		{
-			GD.Print("This task is already completed.");
-			return;
-		}
 
 		currentTask = task;
+		currentNetworkTask = null;
 		currentStation = station;
+
+		isNetworkTask = false;
+		isMatchingTask = false;
+		awaitingNetworkResult = false;
+		selectedOption = -1;
+		networkSelectedOption = -1;
 
 		IsTaskOpen = true;
 		Visible = true;
 
 		titleLabel.Text = "TASK";
+		questionLabel.Text = task.Question;
+		feedbackLabel.Text = "";
 
-		questionLabel.Text =
-			currentTask.Question;
+		ClearTaskContent();
 
-		answerInput.Clear();
-
-		ClearOptions();
-
-		if (currentTask is MultipleChoiceTask multipleChoiceTask)
+		if (task is MultipleChoiceTask mcTask)
 		{
-			ShowMultipleChoiceTask(
-				multipleChoiceTask
-			);
+			ShowMultipleChoiceTask(mcTask.Options);
+		}
+		else if (task is MatchTheFollowingTask matchingTask)
+		{
+			isMatchingTask = true;
+			ShowLocalMatchingTask(matchingTask);
 		}
 		else
 		{
@@ -123,310 +123,336 @@ public partial class TaskUIController : CanvasLayer
 		}
 
 		UpdateProgress();
-
-		GD.Print(
-			$"Task UI opened: {currentTask.Question}"
-		);
 	}
-	
-	public void ShowTask(
-		NetworkTaskData task,
-		TaskStation station
-	)
+
+	// NETWORK TASK
+	public void ShowTask(NetworkTaskData task, TaskStation station)
 	{
 		if (task == null)
-		{
-			GD.PrintErr(
-				"Cannot display a null network task."
-			);
-
 			return;
-		}
 
 		currentTask = null;
 		currentNetworkTask = task;
-
 		currentStation = station;
+
 		isNetworkTask = true;
-		networkSelectedOption = -1;
+		isMatchingTask =
+			task.TaskType == TaskType.MatchTheFollowing;
+
 		awaitingNetworkResult = false;
-		
+		selectedOption = -1;
+		networkSelectedOption = -1;
+
 		IsTaskOpen = true;
 		Visible = true;
 
 		titleLabel.Text = "TASK";
+		questionLabel.Text = task.Question;
+		feedbackLabel.Text = "";
 
-		questionLabel.Text =
-			task.Question;
+		ClearTaskContent();
 
-		answerInput.Clear();
-
-		ClearOptions();
-
-		if (task.TaskType == TaskType.MultipleChoice &&
-			task.Options != null)
+		if (task.TaskType == TaskType.MultipleChoice)
 		{
-			ShowNetworkMultipleChoiceTask(task);
+			ShowMultipleChoiceTask(task.Options);
+		}
+		else if (isMatchingTask)
+		{
+			ShowNetworkMatchingTask(task);
 		}
 		else
 		{
-			ShowNetworkTextAnswerTask();
+			ShowTextAnswerTask();
 		}
 
 		UpdateNetworkProgress();
+	}
 
-		GD.Print(
-			$"Network task UI opened: {task.Question}"
+	// MULTIPLE CHOICE
+	private void ShowMultipleChoiceTask(string[] options)
+	{
+		if (MultipleChoiceScene == null)
+		{
+			GD.PrintErr(
+                "MultipleChoiceScene is not assigned in the Inspector."
+			);
+
+			feedbackLabel.Text =
+				"Multiple-choice scene is not configured.";
+
+			return;
+		}
+
+		Control instance = MultipleChoiceScene.Instantiate<Control>();
+
+		instance.SizeFlagsHorizontal =
+			Control.SizeFlags.ExpandFill;
+
+		instance.SizeFlagsVertical =
+			Control.SizeFlags.ExpandFill;
+
+		contentRoot.AddChild(instance);
+
+		multipleChoiceController =
+			instance as MultipleChoiceController;
+
+		if (multipleChoiceController == null)
+		{
+			GD.PrintErr(
+                "MultipleChoice.tscn root must use MultipleChoiceController.cs."
+			);
+
+			feedbackLabel.Text =
+				"Multiple-choice scene setup error.";
+
+			return;
+		}
+
+		multipleChoiceController.OptionSelected += OnOptionSelected;
+
+		multipleChoiceController.SetOptions(
+			options ?? Array.Empty<string>()
 		);
 	}
-	
-	private void ShowMultipleChoiceTask(
-		MultipleChoiceTask task
-	)
+
+	private void OnOptionSelected(int optionIndex)
 	{
-		answerInput.Visible = false;
-		optionsContainer.Visible = true;
-
-		for (int i = 0; i < task.Options.Length; i++)
-		{
-			int optionIndex = i;
-
-			Button optionButton = new Button();
-
-			optionButton.Text = task.Options[i];
-
-			optionButton.Disabled = false;
-
-			optionButton.Pressed +=
-				() => SelectOption(optionIndex);
-
-			optionsContainer.AddChild(
-				optionButton
-			);
-		}
-	}
-	
-	private void ShowNetworkMultipleChoiceTask(
-		NetworkTaskData task
-	)
-	{
-		answerInput.Visible = false;
-		optionsContainer.Visible = true;
-
-		for (int i = 0; i < task.Options.Length; i++)
-		{
-			int optionIndex = i;
-
-			Button optionButton = new Button();
-
-			optionButton.Text =
-				task.Options[i];
-
-			optionButton.Disabled = false;
-
-			optionButton.Pressed +=
-				() => OnNetworkOptionSelected(optionIndex);
-
-			optionsContainer.AddChild(
-				optionButton
-			);
-		}
-	}
-
-	private void ShowTextAnswerTask()
-	{
-		answerInput.Visible = true;
-		optionsContainer.Visible = false;
-	}
-	
-	private void ShowNetworkTextAnswerTask()
-	{
-		answerInput.Visible = true;
-		optionsContainer.Visible = false;
-	}
-	
-	private void OnNetworkOptionSelected(int optionIndex)
-	{
-		if (currentNetworkTask == null ||
-			awaitingNetworkResult ||
-			!IsTaskOpen)
+		if (!IsTaskOpen || awaitingNetworkResult)
 			return;
 
-		if (optionIndex < 0 ||
-			optionIndex >= optionsContainer.GetChildCount())
-			return;
-
-		awaitingNetworkResult = true;
-		networkSelectedOption = optionIndex;
-
-		Button selectedButton =
-			optionsContainer.GetChild<Button>(optionIndex);
-
-		SetButtonColor(selectedButton, Colors.Yellow);
-		SetOptionButtonsDisabled(true);
-
-		GD.Print($"Client selected option: {optionIndex}");
-
-		SubmitNetworkAnswer(optionIndex.ToString());
-	}
-	
-	private void SetOptionButtonsDisabled(bool disabled)
-	{
-		foreach (Node child in optionsContainer.GetChildren())
+		if (isNetworkTask)
 		{
-			if (child is Button button)
-			{
-				button.Disabled = disabled;
-			}
+			OnNetworkOptionSelected(optionIndex);
+			return;
 		}
+
+		SelectOption(optionIndex);
 	}
-	
-	private void SetButtonColor(
-		Button button,
-		Color color
-	)
-	{
-		button.Modulate = color;
-	}
-	
-	
+
 	private async void SelectOption(int optionIndex)
 	{
-		if (currentTask == null)
+		if (currentTask == null ||
+			currentTask.IsCompleted ||
+			multipleChoiceController == null)
+		{
 			return;
+		}
 
-		if (currentTask.IsCompleted)
-			return;
-
-		// Prevent multiple clicks while feedback is showing.
-		SetOptionButtonsDisabled(true);
-
+		awaitingNetworkResult = true;
 		selectedOption = optionIndex;
 
-		Button selectedButton =
-			optionsContainer.GetChild<Button>(optionIndex);
+		multipleChoiceController.SetOptionsDisabled(true);
 
-		bool correct =
-			currentTask.SubmitAnswer(
-				optionIndex.ToString()
-			);
+		bool correct = currentTask.SubmitAnswer(
+			optionIndex.ToString()
+		);
+
+		multipleChoiceController.SetOptionFeedback(
+			optionIndex,
+			correct
+		);
+
+		feedbackLabel.Text = correct
+			? "Correct!"
+			: "Incorrect. Try again.";
 
 		if (correct)
 		{
-			// Correct → green
-			SetButtonColor(
-				selectedButton,
-				Colors.Green
-			);
-
 			GD.Print("CORRECT OPTION!");
 
-			// Keep green visible for 1 second.
 			await ToSignal(
 				GetTree().CreateTimer(1.0),
 				SceneTreeTimer.SignalName.Timeout
 			);
 
+			if (!IsTaskOpen || currentTask == null)
+				return;
+
 			OnTaskCompleted();
 		}
 		else
 		{
-			// Wrong → red
-			SetButtonColor(
-				selectedButton,
-				Colors.Red
-			);
-
 			GD.Print("INCORRECT OPTION!");
 
-			// Keep red visible for 0.7 seconds.
 			await ToSignal(
 				GetTree().CreateTimer(0.7),
 				SceneTreeTimer.SignalName.Timeout
 			);
 
-			// Return button to normal.
-			SetButtonColor(
-				selectedButton,
-				Colors.White
-			);
+			if (!IsTaskOpen || currentTask == null)
+				return;
 
-			SetOptionButtonsDisabled(false);
+			multipleChoiceController.ResetOption(optionIndex);
+			multipleChoiceController.SetOptionsDisabled(false);
 
 			selectedOption = -1;
+			awaitingNetworkResult = false;
+			feedbackLabel.Text = "";
 		}
 	}
 
-	private void OnSubmitPressed()
+	private void OnNetworkOptionSelected(int optionIndex)
 	{
-		if (isNetworkTask)
+		if (currentNetworkTask == null ||
+			awaitingNetworkResult ||
+			!IsTaskOpen ||
+			multipleChoiceController == null)
 		{
-			SubmitNetworkTextAnswer();
 			return;
 		}
-		
-		if (currentTask == null)
+
+		awaitingNetworkResult = true;
+		networkSelectedOption = optionIndex;
+
+		multipleChoiceController.SetOptionsDisabled(true);
+
+		feedbackLabel.Text = "Checking answer...";
+
+		GD.Print($"Client selected option: {optionIndex}");
+
+		// The server validates the answer.
+		SubmitNetworkAnswer(optionIndex.ToString());
+	}
+
+	// TEXT ANSWERS
+	private void ShowTextAnswerTask()
+	{
+		answerInput = new LineEdit
+		{
+			Name = "AnswerInput",
+			PlaceholderText = "Enter your answer",
+			SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
+		};
+
+		contentRoot.AddChild(answerInput);
+
+		submitButton = new Button
+		{
+			Name = "SubmitButton",
+			Text = "Submit",
+			SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter
+		};
+
+		submitButton.Pressed += OnSubmitPressed;
+		contentRoot.AddChild(submitButton);
+	}
+
+	// SUBMIT TEXT OR MATCHING ANSWERS
+	private void OnSubmitPressed()
+	{
+		if (!IsTaskOpen)
 			return;
 
-		// Multiple-choice tasks are answered
-		// immediately when an option is clicked.
-		if (currentTask is MultipleChoiceTask)
-			return;
+		if (isMatchingTask)
+		{
+			string matchingAnswer = BuildMatchingAnswer();
 
-		string answer = answerInput.Text.Trim();
+			if (string.IsNullOrEmpty(matchingAnswer))
+			{
+				feedbackLabel.Text =
+					"Please select a match for every item.";
+
+				return;
+			}
+
+			if (isNetworkTask)
+			{
+				awaitingNetworkResult = true;
+				SetMatchingDropdownsDisabled(true);
+
+				feedbackLabel.Text = "Checking answers...";
+
+				SubmitNetworkAnswer(matchingAnswer);
+			}
+			else if (currentTask != null)
+			{
+				bool correct =
+					currentTask.SubmitAnswer(matchingAnswer);
+
+				if (correct)
+				{
+					OnTaskCompleted();
+				}
+				else
+				{
+					feedbackLabel.Text =
+						"Incorrect matches. Try again.";
+				}
+			}
+
+			return;
+		}
+
+		string answer = answerInput?.Text.Trim() ?? "";
 
 		if (string.IsNullOrEmpty(answer))
 		{
-			GD.Print("Please enter an answer first.");
+			feedbackLabel.Text =
+				"Please enter an answer first.";
+
 			return;
 		}
 
-		bool correct =
+		if (isNetworkTask)
+		{
+			awaitingNetworkResult = true;
+
+			if (submitButton != null)
+				submitButton.Disabled = true;
+
+			feedbackLabel.Text = "Checking answer...";
+
+			SubmitNetworkAnswer(answer);
+			return;
+		}
+
+		if (currentTask == null)
+			return;
+
+		bool answerCorrect =
 			currentTask.SubmitAnswer(answer);
 
-		if (correct)
+		if (answerCorrect)
 		{
+			feedbackLabel.Text = "Correct!";
 			OnTaskCompleted();
 		}
 		else
 		{
-			GD.Print("INCORRECT ANSWER!");
+			feedbackLabel.Text =
+				"Incorrect answer. Try again.";
 		}
 	}
 
+	// COMPLETE TASK
 	private void OnTaskCompleted()
 	{
 		GD.Print("TASK COMPLETED!");
-		
-		// HOST completed a task locally.
-		if (NetworkManager.Instance.IsServer &&
-			currentTask != null)
-		{
-			long playerId =
-				Multiplayer.GetUniqueId();
 
-			GameManager.Instance.RegisterTaskCompletion(
-				playerId
-			);
+		if (NetworkManager.Instance != null &&
+			NetworkManager.Instance.IsServer &&
+			currentTask != null &&
+			GameManager.Instance != null)
+		{
+			long playerId = Multiplayer.GetUniqueId();
+
+			GameManager.Instance.RegisterTaskCompletion(playerId);
 		}
-		
-		// Disable this station for this player.
+
 		if (currentStation != null)
-		{
 			currentStation.DisableForPlayer();
-		}
 
-		UpdateProgress();
+		if (isNetworkTask)
+			UpdateNetworkProgress();
+		else
+			UpdateProgress();
 
 		HideTaskUI();
 	}
 
 	private void OnClosePressed()
 	{
-		GD.Print(
-            "Task UI closed. Task remains incomplete."
-		);
-
+		GD.Print("Task UI closed. Task remains incomplete.");
 		HideTaskUI();
 	}
 
@@ -440,47 +466,60 @@ public partial class TaskUIController : CanvasLayer
 		currentStation = null;
 
 		isNetworkTask = false;
+		isMatchingTask = false;
+		awaitingNetworkResult = false;
 
 		selectedOption = -1;
 		networkSelectedOption = -1;
-		awaitingNetworkResult = false;
 
-		answerInput.Clear();
-		ClearOptions();
+		matchingDropdowns.Clear();
+
+		if (feedbackLabel != null)
+			feedbackLabel.Text = "";
+
+		ClearTaskContent();
 	}
-	private void ClearOptions()
-	{
-		selectedOption = -1;
 
-		foreach (Node child
-			in optionsContainer.GetChildren())
+	private void ClearTaskContent()
+	{
+		if (contentRoot == null)
+			return;
+
+		foreach (Node child in contentRoot.GetChildren())
 		{
+			contentRoot.RemoveChild(child);
 			child.QueueFree();
 		}
+
+		answerInput = null;
+		submitButton = null;
+		multipleChoiceController = null;
+
+		matchingDropdowns.Clear();
 	}
 
+	// PROGRESS
 	private void UpdateProgress()
 	{
 		if (TaskManager.Instance == null)
 			return;
 
-		long playerId =
-			Multiplayer.GetUniqueId();
+		long playerId = Multiplayer.GetUniqueId();
 
 		int completed =
-			TaskManager.Instance
-				.GetCompletedTaskCount(playerId);
+			TaskManager.Instance.GetCompletedTaskCount(playerId);
 
 		int total =
-			TaskManager.Instance
-				.GetTotalTaskCount(playerId);
+			TaskManager.Instance.GetTotalTaskCount(playerId);
 
-		progressLabel.Text =
-			$"Tasks: {completed} / {total}";
+		progressLabel.Text = $"Tasks: {completed} / {total}";
 	}
-	
+
 	private void UpdateNetworkProgress()
 	{
+		if (TaskManager.Instance == null)
+			return;
+
 		long playerId = Multiplayer.GetUniqueId();
 
 		int completed =
@@ -491,74 +530,175 @@ public partial class TaskUIController : CanvasLayer
 
 		progressLabel.Text = $"Tasks: {completed} / {total}";
 	}
-	
+
+	// SERVER ANSWER RESULT
 	public async void HandleNetworkAnswerResult(
 		int taskId,
-		bool correct)
+		bool correct
+	)
 	{
 		if (currentNetworkTask == null ||
 			currentNetworkTask.TaskId != taskId ||
-			networkSelectedOption < 0 ||
 			!awaitingNetworkResult ||
 			!IsTaskOpen)
+		{
 			return;
+		}
 
-		int selectedIndex = networkSelectedOption;
+		// MATCHING TASK RESULT
+		if (isMatchingTask)
+		{
+			if (correct)
+			{
+				feedbackLabel.Text = "Correct!";
 
-		if (selectedIndex >= optionsContainer.GetChildCount())
+				await ToSignal(
+					GetTree().CreateTimer(1.0),
+					SceneTreeTimer.SignalName.Timeout
+				);
+
+				if (!IsCurrentNetworkTask(taskId))
+					return;
+
+				int localPlayerId = Multiplayer.GetUniqueId();
+
+				TaskManager.Instance.MarkNetworkTaskCompleted(
+					localPlayerId,
+					taskId
+				);
+
+				OnTaskCompleted();
+			}
+			else
+			{
+				feedbackLabel.Text =
+					"Incorrect matches. Try again.";
+
+				await ToSignal(
+					GetTree().CreateTimer(0.7),
+					SceneTreeTimer.SignalName.Timeout
+				);
+
+				if (!IsCurrentNetworkTask(taskId))
+					return;
+
+				awaitingNetworkResult = false;
+				SetMatchingDropdownsDisabled(false);
+			}
+
 			return;
+		}
 
-		Button selectedButton =
-			optionsContainer.GetChild<Button>(selectedIndex);
+		// MULTIPLE-CHOICE RESULT
+		if (multipleChoiceController != null &&
+			networkSelectedOption >= 0)
+		{
+			int index = networkSelectedOption;
 
+			if (correct)
+			{
+				feedbackLabel.Text = "Correct!";
+
+				multipleChoiceController.SetOptionFeedback(
+					index,
+					true
+				);
+
+				await ToSignal(
+					GetTree().CreateTimer(1.0),
+					SceneTreeTimer.SignalName.Timeout
+				);
+
+				if (!IsCurrentNetworkTask(taskId))
+					return;
+
+				int localPlayerId = Multiplayer.GetUniqueId();
+
+				TaskManager.Instance.MarkNetworkTaskCompleted(
+					localPlayerId,
+					taskId
+				);
+
+				OnTaskCompleted();
+			}
+			else
+			{
+				feedbackLabel.Text =
+					"Incorrect. Try again.";
+
+				multipleChoiceController.SetOptionFeedback(
+					index,
+					false
+				);
+
+				await ToSignal(
+					GetTree().CreateTimer(0.7),
+					SceneTreeTimer.SignalName.Timeout
+				);
+
+				if (!IsCurrentNetworkTask(taskId))
+					return;
+
+				multipleChoiceController.ResetOption(index);
+				multipleChoiceController.SetOptionsDisabled(false);
+
+				networkSelectedOption = -1;
+				awaitingNetworkResult = false;
+				feedbackLabel.Text = "";
+			}
+
+			return;
+		}
+
+		// TEXT ANSWER RESULT
 		if (correct)
 		{
-			SetButtonColor(selectedButton, Colors.Green);
-
-			GD.Print("NETWORK TASK CORRECT!");
+			feedbackLabel.Text = "Correct!";
 
 			await ToSignal(
-				GetTree().CreateTimer(1.0),
-				SceneTreeTimer.SignalName.Timeout);
+				GetTree().CreateTimer(0.8),
+				SceneTreeTimer.SignalName.Timeout
+			);
 
-			// The player may have closed the panel during the delay.
-			if (!IsTaskOpen ||
-				currentNetworkTask == null ||
-				currentNetworkTask.TaskId != taskId)
+			if (!IsCurrentNetworkTask(taskId))
 				return;
 
-			long playerId = Multiplayer.GetUniqueId();
+			int localPlayerId = Multiplayer.GetUniqueId();
 
 			TaskManager.Instance.MarkNetworkTaskCompleted(
-				playerId,
-				taskId);
+				localPlayerId,
+				taskId
+			);
 
 			OnTaskCompleted();
 		}
 		else
 		{
-			SetButtonColor(selectedButton, Colors.Red);
-
-			GD.Print("NETWORK TASK INCORRECT!");
+			feedbackLabel.Text =
+				"Incorrect answer. Try again.";
 
 			await ToSignal(
 				GetTree().CreateTimer(0.7),
-				SceneTreeTimer.SignalName.Timeout);
+				SceneTreeTimer.SignalName.Timeout
+			);
 
-			if (!IsTaskOpen ||
-				currentNetworkTask == null ||
-				currentNetworkTask.TaskId != taskId)
+			if (!IsCurrentNetworkTask(taskId))
 				return;
 
-			SetButtonColor(selectedButton, Colors.White);
-
-			networkSelectedOption = -1;
 			awaitingNetworkResult = false;
 
-			SetOptionButtonsDisabled(false);
+			if (submitButton != null)
+				submitButton.Disabled = false;
 		}
 	}
-	
+
+	private bool IsCurrentNetworkTask(int taskId)
+	{
+		return IsTaskOpen &&
+			   currentNetworkTask != null &&
+			   currentNetworkTask.TaskId == taskId;
+	}
+
 	private void SubmitNetworkAnswer(string answer)
 	{
 		if (currentNetworkTask == null)
@@ -567,12 +707,17 @@ public partial class TaskUIController : CanvasLayer
 		if (NetworkManager.Instance == null)
 		{
 			GD.PrintErr("NetworkManager not found.");
+
+			awaitingNetworkResult = false;
+
+			if (submitButton != null)
+				submitButton.Disabled = false;
+
 			return;
 		}
 
 		GD.Print(
-			$"Sending answer for network task " +
-			$"{currentNetworkTask.TaskId}"
+			$"Sending answer for network task {currentNetworkTask.TaskId}"
 		);
 
 		NetworkManager.Instance.SubmitTaskAnswer(
@@ -580,24 +725,127 @@ public partial class TaskUIController : CanvasLayer
 			answer
 		);
 	}
-	
-	private void SubmitNetworkTextAnswer()
+
+	// LOCAL MATCHING TASK
+	private void ShowLocalMatchingTask(
+		MatchTheFollowingTask task
+	)
 	{
-		if (currentNetworkTask == null)
+		if (task.LeftItems == null || task.RightItems == null)
 			return;
 
-		string answer =
-			answerInput.Text.Trim();
-
-		if (string.IsNullOrEmpty(answer))
+		for (int i = 0; i < task.LeftItems.Length; i++)
 		{
-			GD.Print(
-				"Please enter an answer first."
-			);
+			HBoxContainer row = new HBoxContainer();
 
+			Label leftLabel = new Label
+			{
+				Text = task.LeftItems[i],
+				SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
+			};
+
+			OptionButton dropdown =
+				CreateMatchingDropdown(task.RightItems);
+
+			row.AddChild(leftLabel);
+			row.AddChild(dropdown);
+			contentRoot.AddChild(row);
+
+			matchingDropdowns.Add(dropdown);
+		}
+
+		AddMatchingSubmitButton();
+	}
+
+	// NETWORK MATCHING TASK
+	private void ShowNetworkMatchingTask(NetworkTaskData task)
+	{
+		if (task.LeftItems == null ||
+			task.RightItems == null ||
+			task.LeftItems.Length == 0 ||
+			task.RightItems.Length == 0)
+		{
+			GD.PrintErr("Matching task has no items.");
+			feedbackLabel.Text = "Matching task has no items.";
 			return;
 		}
 
-		SubmitNetworkAnswer(answer);
+		for (int i = 0; i < task.LeftItems.Length; i++)
+		{
+			HBoxContainer row = new HBoxContainer();
+
+			Label leftLabel = new Label
+			{
+				Text = task.LeftItems[i],
+				SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
+			};
+
+			OptionButton dropdown =
+				CreateMatchingDropdown(task.RightItems);
+
+			row.AddChild(leftLabel);
+			row.AddChild(dropdown);
+			contentRoot.AddChild(row);
+
+			matchingDropdowns.Add(dropdown);
+		}
+
+		AddMatchingSubmitButton();
+	}
+
+	private OptionButton CreateMatchingDropdown(
+		string[] rightItems
+	)
+	{
+		OptionButton dropdown = new OptionButton
+		{
+			SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
+		};
+
+		dropdown.AddItem("Select match", 0);
+
+		for (int i = 0; i < rightItems.Length; i++)
+			dropdown.AddItem(rightItems[i], i + 1);
+
+		dropdown.Select(0);
+
+		return dropdown;
+	}
+
+	private void AddMatchingSubmitButton()
+	{
+		submitButton = new Button
+		{
+			Text = "Submit",
+			SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter
+		};
+
+		submitButton.Pressed += OnSubmitPressed;
+		contentRoot.AddChild(submitButton);
+	}
+
+	private string BuildMatchingAnswer()
+	{
+		List<string> selectedIndices = new();
+
+		foreach (OptionButton dropdown in matchingDropdowns)
+		{
+			// Zero means no match has been selected.
+			if (dropdown.Selected <= 0)
+				return "";
+
+			// Csonvert to zero-based indices.
+			selectedIndices.Add(
+				(dropdown.Selected - 1).ToString()
+			);
+		}
+
+		return string.Join(",", selectedIndices);
+	}
+
+	private void SetMatchingDropdownsDisabled(bool disabled)
+	{
+		foreach (OptionButton dropdown in matchingDropdowns)
+			dropdown.Disabled = disabled;
 	}
 }
