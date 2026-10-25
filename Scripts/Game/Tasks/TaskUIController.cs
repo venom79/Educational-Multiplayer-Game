@@ -13,7 +13,15 @@ public partial class TaskUIController : CanvasLayer
 	[Export]
 	public PackedScene CalculationScene { get; set; }
 
+	[Export]
+	public PackedScene MatchTheFollowingScene { get; set; }
+
+	[Export]
+	public PackedScene TranslationScene { get; set; }
+
 	private CalculationController calculationController;
+	private MatchTheFollowingController matchingController;
+	private TranslationController translationController;
 
 	public bool IsTaskOpen { get; private set; }
 
@@ -40,7 +48,7 @@ public partial class TaskUIController : CanvasLayer
 	private int selectedOption = -1;
 	private int networkSelectedOption = -1;
 
-	private readonly List<OptionButton> matchingDropdowns = new();
+	// Matching UI is handled by MatchTheFollowingController.
 
 	public override void _Ready()
 	{
@@ -126,6 +134,11 @@ public partial class TaskUIController : CanvasLayer
 			isMatchingTask = true;
 			ShowLocalMatchingTask(matchingTask);
 		}
+		else if (task.Type == TaskType.Translation)
+		{
+			questionLabel.Text = "Translate the following:";
+			ShowTranslationTask(task.Question, "Translate into Konkani");
+		}
 		else
 		{
 			ShowTextAnswerTask();
@@ -172,6 +185,11 @@ public partial class TaskUIController : CanvasLayer
 		else if (isMatchingTask)
 		{
 			ShowNetworkMatchingTask(task);
+		}
+		else if (task.TaskType == TaskType.Translation)
+		{
+			questionLabel.Text = "Translate the following:";
+			ShowTranslationTask(task.Question, "Translate into Konkani");
 		}
 		else
 		{
@@ -229,11 +247,68 @@ public partial class TaskUIController : CanvasLayer
 		{
 			feedbackLabel.Text = "Correct!";
 			calculationController?.SetInputDisabled(true);
+			translationController?.SetInputDisabled(true);
 			OnTaskCompleted();
 		}
 		else
 		{
 			feedbackLabel.Text = "Incorrect answer. Try again.";
+		}
+	}
+
+	// TRANSLATION TASK
+	private void ShowTranslationTask(string sourceText, string direction)
+	{
+		if (TranslationScene == null)
+		{
+			GD.PrintErr("TranslationScene is not assigned in the Inspector.");
+			feedbackLabel.Text = "Translation scene is not configured.";
+			return;
+		}
+
+		TranslationController instance =
+			TranslationScene.Instantiate<TranslationController>();
+
+		instance.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		instance.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+		contentRoot.AddChild(instance);
+
+		translationController = instance;
+		translationController.AnswerSubmitted += OnTranslationAnswerSubmitted;
+		translationController.SetTranslation(sourceText, direction);
+	}
+
+	private void OnTranslationAnswerSubmitted(string answer)
+	{
+		if (!IsTaskOpen || awaitingNetworkResult ||
+			string.IsNullOrWhiteSpace(answer))
+			return;
+
+		if (isNetworkTask)
+		{
+			if (currentNetworkTask == null)
+				return;
+
+			awaitingNetworkResult = true;
+			translationController?.SetInputDisabled(true);
+			feedbackLabel.Text = "Checking translation...";
+			SubmitNetworkAnswer(answer.Trim());
+			return;
+		}
+
+		if (currentTask == null || currentTask.IsCompleted)
+			return;
+
+		bool correct = currentTask.SubmitAnswer(answer.Trim());
+		if (correct)
+		{
+			feedbackLabel.Text = "Correct!";
+			translationController?.SetInputDisabled(true);
+			OnTaskCompleted();
+		}
+		else
+		{
+			feedbackLabel.Text = "Incorrect translation. Try again.";
 		}
 	}
 
@@ -412,45 +487,6 @@ public partial class TaskUIController : CanvasLayer
 		if (!IsTaskOpen)
 			return;
 
-		if (isMatchingTask)
-		{
-			string matchingAnswer = BuildMatchingAnswer();
-
-			if (string.IsNullOrEmpty(matchingAnswer))
-			{
-				feedbackLabel.Text =
-					"Please select a match for every item.";
-
-				return;
-			}
-
-			if (isNetworkTask)
-			{
-				awaitingNetworkResult = true;
-				SetMatchingDropdownsDisabled(true);
-
-				feedbackLabel.Text = "Checking answers...";
-
-				SubmitNetworkAnswer(matchingAnswer);
-			}
-			else if (currentTask != null)
-			{
-				bool correct =
-					currentTask.SubmitAnswer(matchingAnswer);
-
-				if (correct)
-				{
-					OnTaskCompleted();
-				}
-				else
-				{
-					feedbackLabel.Text =
-						"Incorrect matches. Try again.";
-				}
-			}
-
-			return;
-		}
 
 		string answer = answerInput?.Text.Trim() ?? "";
 
@@ -541,8 +577,6 @@ public partial class TaskUIController : CanvasLayer
 		selectedOption = -1;
 		networkSelectedOption = -1;
 
-		matchingDropdowns.Clear();
-
 		if (feedbackLabel != null)
 			feedbackLabel.Text = "";
 
@@ -564,8 +598,8 @@ public partial class TaskUIController : CanvasLayer
 		submitButton = null;
 		multipleChoiceController = null;
 		calculationController = null;
-
-		matchingDropdowns.Clear();
+		matchingController = null;
+		translationController = null;
 	}
 
 	// PROGRESS
@@ -641,8 +675,8 @@ public partial class TaskUIController : CanvasLayer
 			}
 			else
 			{
-				feedbackLabel.Text =
-					"Incorrect matches. Try again.";
+				// Keep the error visible briefly, then clear all pairs/colors.
+				feedbackLabel.Text = "Incorrect matches. Starting over...";
 
 				await ToSignal(
 					GetTree().CreateTimer(0.7),
@@ -652,8 +686,9 @@ public partial class TaskUIController : CanvasLayer
 				if (!IsCurrentNetworkTask(taskId))
 					return;
 
+				matchingController?.SetMatchFeedback(false);
 				awaitingNetworkResult = false;
-				SetMatchingDropdownsDisabled(false);
+				feedbackLabel.Text = "";
 			}
 
 			return;
@@ -741,6 +776,7 @@ public partial class TaskUIController : CanvasLayer
 			);
 
 			calculationController?.SetInputDisabled(true);
+			translationController?.SetInputDisabled(true);
 			OnTaskCompleted();
 		}
 		else
@@ -762,6 +798,7 @@ public partial class TaskUIController : CanvasLayer
 				submitButton.Disabled = false;
 
 			calculationController?.SetInputDisabled(false);
+			translationController?.SetInputDisabled(false);
 		}
 	}
 
@@ -808,27 +845,7 @@ public partial class TaskUIController : CanvasLayer
 		if (task.LeftItems == null || task.RightItems == null)
 			return;
 
-		for (int i = 0; i < task.LeftItems.Length; i++)
-		{
-			HBoxContainer row = new HBoxContainer();
-
-			Label leftLabel = new Label
-			{
-				Text = task.LeftItems[i],
-				SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
-			};
-
-			OptionButton dropdown =
-				CreateMatchingDropdown(task.RightItems);
-
-			row.AddChild(leftLabel);
-			row.AddChild(dropdown);
-			contentRoot.AddChild(row);
-
-			matchingDropdowns.Add(dropdown);
-		}
-
-		AddMatchingSubmitButton();
+		ShowMatchingTask(task.LeftItems, task.RightItems);
 	}
 
 	// NETWORK MATCHING TASK
@@ -844,82 +861,84 @@ public partial class TaskUIController : CanvasLayer
 			return;
 		}
 
-		for (int i = 0; i < task.LeftItems.Length; i++)
+		ShowMatchingTask(task.LeftItems, task.RightItems);
+	}
+
+	private void ShowMatchingTask(string[] leftItems, string[] rightItems)
+	{
+		if (MatchTheFollowingScene == null)
 		{
-			HBoxContainer row = new HBoxContainer();
-
-			Label leftLabel = new Label
-			{
-				Text = task.LeftItems[i],
-				SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
-			};
-
-			OptionButton dropdown =
-				CreateMatchingDropdown(task.RightItems);
-
-			row.AddChild(leftLabel);
-			row.AddChild(dropdown);
-			contentRoot.AddChild(row);
-
-			matchingDropdowns.Add(dropdown);
+			GD.PrintErr("MatchTheFollowingScene is not assigned in the Inspector.");
+			feedbackLabel.Text = "Matching task scene is not configured.";
+			return;
 		}
 
-		AddMatchingSubmitButton();
+		MatchTheFollowingController instance =
+			MatchTheFollowingScene.Instantiate<MatchTheFollowingController>();
+
+		instance.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+		instance.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
+
+		contentRoot.AddChild(instance);
+		matchingController = instance;
+		matchingController.AnswerSubmitted += OnMatchingAnswerSubmitted;
+		matchingController.SetItems(
+			leftItems ?? Array.Empty<string>(),
+			rightItems ?? Array.Empty<string>());
 	}
 
-	private OptionButton CreateMatchingDropdown(
-		string[] rightItems
-	)
+	private async void OnMatchingAnswerSubmitted(string answer)
 	{
-		OptionButton dropdown = new OptionButton
+		if (!IsTaskOpen || awaitingNetworkResult)
+			return;
+
+		if (string.IsNullOrWhiteSpace(answer))
 		{
-			SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
-		};
+			feedbackLabel.Text = "Please select a match for every item.";
+			return;
+		}
 
-		dropdown.AddItem("Select match", 0);
-
-		for (int i = 0; i < rightItems.Length; i++)
-			dropdown.AddItem(rightItems[i], i + 1);
-
-		dropdown.Select(0);
-
-		return dropdown;
-	}
-
-	private void AddMatchingSubmitButton()
-	{
-		submitButton = new Button
+		if (isNetworkTask)
 		{
-			Text = "Submit",
-			SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter
-		};
+			if (currentNetworkTask == null)
+				return;
 
-		submitButton.Pressed += OnSubmitPressed;
-		contentRoot.AddChild(submitButton);
-	}
+			awaitingNetworkResult = true;
+			matchingController?.SetInputDisabled(true);
+			feedbackLabel.Text = "Checking answers...";
+			SubmitNetworkAnswer(answer);
+			return;
+		}
 
-	private string BuildMatchingAnswer()
-	{
-		List<string> selectedIndices = new();
+		if (currentTask == null || currentTask.IsCompleted)
+			return;
 
-		foreach (OptionButton dropdown in matchingDropdowns)
+		bool correct = currentTask.SubmitAnswer(answer);
+
+		if (correct)
 		{
-			// Zero means no match has been selected.
-			if (dropdown.Selected <= 0)
-				return "";
+			feedbackLabel.Text = "Correct!";
+			matchingController?.SetInputDisabled(true);
+			matchingController?.SetMatchFeedback(true);
+			OnTaskCompleted();
+		}
+		else
+		{
+			// Show feedback first, then reset every selection and pair color.
+			feedbackLabel.Text = "Incorrect matches. Starting over...";
+			matchingController?.SetInputDisabled(true);
 
-			// Csonvert to zero-based indices.
-			selectedIndices.Add(
-				(dropdown.Selected - 1).ToString()
+			await ToSignal(
+				GetTree().CreateTimer(0.7),
+				SceneTreeTimer.SignalName.Timeout
 			);
+
+			if (!IsTaskOpen || currentTask == null || currentTask.IsCompleted)
+				return;
+
+			matchingController?.SetMatchFeedback(false);
+			feedbackLabel.Text = "";
 		}
-
-		return string.Join(",", selectedIndices);
 	}
 
-	private void SetMatchingDropdownsDisabled(bool disabled)
-	{
-		foreach (OptionButton dropdown in matchingDropdowns)
-			dropdown.Disabled = disabled;
-	}
 }

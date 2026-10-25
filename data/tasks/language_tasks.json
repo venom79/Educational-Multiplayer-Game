@@ -5,301 +5,551 @@
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Water' to Konkani.",
-	  "correctAnswer": "उदक"
+	  "correctAnswer": "उदक",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Book' to Konkani.",
-	  "correctAnswer": "पुस्तक"
+	  "correctAnswer": "पुस्तक",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Sun' to Konkani.",
-	  "correctAnswer": "सूर्य"
+	  "correctAnswer": "सूर्य",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Moon' to Konkani.",
-	  "correctAnswer": "चंद्र"
+	  "correctAnswer": "चंद्र",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'House' to Konkani.",
-	  "correctAnswer": "घर"
+	  "correctAnswer": "घर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Friend' to Konkani.",
-	  "correctAnswer": "इश्ट"
+	  "correctAnswer": "इश्ट",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'School' to Konkani.",
-	  "correctAnswer": "इस्कूल"
+	  "correctAnswer": "इस्कूल",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Tree' to Konkani.",
-	  "correctAnswer": "झाड"
+	  "correctAnswer": "झाड",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Flower' to Konkani.",
-	  "correctAnswer": "फूल"
+	  "correctAnswer": "फूल",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Milk' to Konkani.",
-	  "correctAnswer": "दूद"
+	  "correctAnswer": "दूद",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Food' to Konkani.",
-	  "correctAnswer": "जेवण"
+	  "correctAnswer": "जेवण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Mother' to Konkani.",
-	  "correctAnswer": "आय"
+	  "correctAnswer": "आय",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Father' to Konkani.",
-	  "correctAnswer": "बाप"
+	  "correctAnswer": "बाप",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Child' to Konkani.",
-	  "correctAnswer": "भुरगो"
+	  "correctAnswer": "भुरगो",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'River' to Konkani.",
-	  "correctAnswer": "नदी"
+	  "correctAnswer": "नदी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Mountain' to Konkani.",
-	  "correctAnswer": "डोंगर"
+	  "correctAnswer": "डोंगर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Road' to Konkani.",
-	  "correctAnswer": "रस्तो"
+	  "correctAnswer": "रस्तो",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Window' to Konkani.",
-	  "correctAnswer": "खिडकी"
+	  "correctAnswer": "खिडकी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Door' to Konkani.",
-	  "correctAnswer": "दार"
+	  "correctAnswer": "दार",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Rain' to Konkani.",
-	  "correctAnswer": "पावस"
+	  "correctAnswer": "पावस",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Today' to Konkani.",
-	  "correctAnswer": "आयज"
+	  "correctAnswer": "आयज",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Tomorrow' to Konkani.",
-	  "correctAnswer": "फाल्यां"
+	  "correctAnswer": "फाल्यां",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Beautiful' to Konkani.",
-	  "correctAnswer": "सुंदर"
+	  "correctAnswer": "सुंदर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Courage' to Konkani.",
-	  "correctAnswer": "धाडस"
+	  "correctAnswer": "धाडस",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Knowledge' to Konkani.",
-	  "correctAnswer": "गिन्यान"
+	  "correctAnswer": "गिन्यान",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Freedom' to Konkani.",
-	  "correctAnswer": "स्वातंत्र"
+	  "correctAnswer": "स्वातंत्र",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Kindness' to Konkani.",
-	  "correctAnswer": "दयाळपण"
+	  "correctAnswer": "दयाळपण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Honesty' to Konkani.",
-	  "correctAnswer": "प्रामाणिकपण"
+	  "correctAnswer": "प्रामाणिकपण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Success' to Konkani.",
-	  "correctAnswer": "यश"
+	  "correctAnswer": "यश",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Question' to Konkani.",
-	  "correctAnswer": "प्रश्न"
+	  "correctAnswer": "प्रश्न",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Answer' to Konkani.",
-	  "correctAnswer": "जाप"
+	  "correctAnswer": "जाप",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Environment' to Konkani.",
-	  "correctAnswer": "पर्यावरण"
+	  "correctAnswer": "पर्यावरण",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Responsibility' to Konkani.",
-	  "correctAnswer": "जापसालदारकी"
+	  "correctAnswer": "जापसालदारकी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Opportunity' to Konkani.",
-	  "correctAnswer": "संधी"
+	  "correctAnswer": "संधी",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Experience' to Konkani.",
-	  "correctAnswer": "अनुभव"
+	  "correctAnswer": "अनुभव",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Improvement' to Konkani.",
-	  "correctAnswer": "सुधारणा"
+	  "correctAnswer": "सुधारणा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Decision' to Konkani.",
-	  "correctAnswer": "निर्णय"
+	  "correctAnswer": "निर्णय",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Peace' to Konkani.",
-	  "correctAnswer": "शांती"
+	  "correctAnswer": "शांती",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Health' to Konkani.",
-	  "correctAnswer": "आरोग्य"
+	  "correctAnswer": "आरोग्य",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Patience' to Konkani.",
-	  "correctAnswer": "धीर"
+	  "correctAnswer": "धीर",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Ancient' to Konkani.",
-	  "correctAnswer": "प्राचीन"
+	  "correctAnswer": "प्राचीन",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Tradition' to Konkani.",
-	  "correctAnswer": "परंपरा"
+	  "correctAnswer": "परंपरा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Possibility' to Konkani.",
-	  "correctAnswer": "शक्यता"
+	  "correctAnswer": "शक्यता",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Achievement' to Konkani.",
-	  "correctAnswer": "साध्य"
+	  "correctAnswer": "साध्य",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Confidence' to Konkani.",
-	  "correctAnswer": "आत्मविश्वास"
+	  "correctAnswer": "आत्मविश्वास",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Curiosity' to Konkani.",
-	  "correctAnswer": "जिज्ञासा"
+	  "correctAnswer": "जिज्ञासा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Creativity' to Konkani.",
-	  "correctAnswer": "सर्जनशीलता"
+	  "correctAnswer": "सर्जनशीलता",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Equality' to Konkani.",
-	  "correctAnswer": "समानता"
+	  "correctAnswer": "समानता",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Compassion' to Konkani.",
-	  "correctAnswer": "करुणा"
+	  "correctAnswer": "करुणा",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "Translation",
 	  "difficulty": "Hard",
 	  "question": "Translate 'Determination' to Konkani.",
-	  "correctAnswer": "निश्चय"
+	  "correctAnswer": "निश्चय",
+	  "options": [],
+	  "correctOptionIndex": -1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MatchTheFollowing",
@@ -623,7 +873,11 @@
 		"आयज",
         "सकाळीं"
 	  ],
-	  "correctAnswer": "फाल्यां"
+	  "correctAnswer": "फाल्यां",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -635,7 +889,11 @@
 		"Come here quickly",
         "The rain has stopped"
 	  ],
-	  "correctAnswer": "May God do good"
+	  "correctAnswer": "May God do good",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -647,7 +905,11 @@
 		"परवां",
         "आतां"
 	  ],
-	  "correctAnswer": "काल"
+	  "correctAnswer": "काल",
+	  "correctOptionIndex": 1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -659,7 +921,11 @@
 		"उशीर",
         "ल्हान"
 	  ],
-	  "correctAnswer": "सुंदर"
+	  "correctAnswer": "सुंदर",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -671,7 +937,11 @@
 		"I am going home",
         "I have finished"
 	  ],
-	  "correctAnswer": "I do not understand"
+	  "correctAnswer": "I do not understand",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -683,7 +953,11 @@
 		"तुका कितें जाय?",
         "तो खंय आसा?"
 	  ],
-	  "correctAnswer": "तूं खंय वता?"
+	  "correctAnswer": "तूं खंय वता?",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -695,7 +969,11 @@
 		"तुका उदक आसा.",
         "उदक खूब सुंदर."
 	  ],
-	  "correctAnswer": "म्हाका उदक जाय."
+	  "correctAnswer": "म्हाका उदक जाय.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -707,7 +985,11 @@
 		"Yesterday",
         "Far away"
 	  ],
-	  "correctAnswer": "Now"
+	  "correctAnswer": "Now",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -719,7 +1001,11 @@
 		"लांब",
         "जाड"
 	  ],
-	  "correctAnswer": "ल्हान"
+	  "correctAnswer": "ल्हान",
+	  "correctOptionIndex": 1,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -731,7 +1017,11 @@
 		"Cold",
         "Quiet"
 	  ],
-	  "correctAnswer": "Big"
+	  "correctAnswer": "Big",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -743,7 +1033,11 @@
 		"म्हाका घर जाय.",
         "घर खूब लांब."
 	  ],
-	  "correctAnswer": "हांव घरा वता."
+	  "correctAnswer": "हांव घरा वता.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -755,7 +1049,11 @@
 		"रस्तो",
         "पावस"
 	  ],
-	  "correctAnswer": "जेवण"
+	  "correctAnswer": "जेवण",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -767,7 +1065,11 @@
 		"The wind stopped",
         "It is getting dark"
 	  ],
-	  "correctAnswer": "It is raining"
+	  "correctAnswer": "It is raining",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -779,7 +1081,11 @@
 		"झाड",
         "दूध"
 	  ],
-	  "correctAnswer": "रस्तो"
+	  "correctAnswer": "रस्तो",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -791,7 +1097,11 @@
 		"When will you come?",
         "Who is calling you?"
 	  ],
-	  "correctAnswer": "What do you want?"
+	  "correctAnswer": "What do you want?",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -803,7 +1113,11 @@
 		"दार बंद कर.",
         "हांगा बस."
 	  ],
-	  "correctAnswer": "उणें उणें उलय."
+	  "correctAnswer": "उणें उणें उलय.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -815,7 +1129,11 @@
 		"फाल्यां",
         "सदांच"
 	  ],
-	  "correctAnswer": "आयज"
+	  "correctAnswer": "आयज",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -827,7 +1145,11 @@
 		"Tomorrow",
         "Outside"
 	  ],
-	  "correctAnswer": "Always"
+	  "correctAnswer": "Always",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -839,7 +1161,11 @@
 		"म्हाका खूब भूक.",
         "तो खूब उंच."
 	  ],
-	  "correctAnswer": "हांव खूब दमलों."
+	  "correctAnswer": "हांव खूब दमलों.",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	},
 	{
 	  "taskType": "MultipleChoice",
@@ -851,7 +1177,11 @@
 		"तूं कोंकणी खाता?",
         "कोंकणी खंय आसा?"
 	  ],
-	  "correctAnswer": "तुका कोंकणी येता?"
+	  "correctAnswer": "तुका कोंकणी येता?",
+	  "correctOptionIndex": 0,
+	  "leftItems": [],
+	  "rightItems": [],
+	  "correctMatches": []
 	}
   ]
 }

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dqt0yuvakv6ov"]
+
+[ext_resource type="Script" uid="uid://d2w5kdmenlbpk" path="res://Scripts/Game/Tasks/TranslationController.cs" id="1_jv0h0"]
+
+[node name="Translation" type="Control" unique_id=750628341]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_jv0h0")
+
+[node name="Layout" type="VBoxContainer" parent="." unique_id=1432802305]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DirectionLabel" type="Label" parent="Layout" unique_id=652518873]
+layout_mode = 2
+
+[node name="SourceTextLabel" type="Label" parent="Layout" unique_id=140835848]
+layout_mode = 2
+
+[node name="AnswerInput" type="LineEdit" parent="Layout" unique_id=661273392]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="Layout" unique_id=484435291]
+layout_mode = 2
