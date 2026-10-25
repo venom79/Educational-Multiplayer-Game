@@ -24,6 +24,7 @@ GameManager="*uid://5pofy0s8gajj"
 TaskManager="*uid://pbrf00t2r4og"
 TaskPoolManager="*uid://d3m530b0e5osc"
 TaskstationAnimation="*uid://ddab13frwhnlg"
+MusicManager="*uid://bdatq1vll76q1"
 
 [display]
 
