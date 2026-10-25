@@ -1,34 +1,95 @@
 [gd_scene format=3 uid="uid://ddogl8vpp8w86"]
 
 [ext_resource type="Script" uid="uid://f4uhpdspxam6" path="res://Scripts/Game/Tasks/TaskStation.cs" id="1_mev00"]
+[ext_resource type="Texture2D" uid="uid://c5buijkb58h0l" path="res://Assets/Sprites/TaskStation/mission_marker.png" id="2_icmrp"]
+[ext_resource type="Script" uid="uid://ddab13frwhnlg" path="res://Scripts/UI/MissionMarkerAnimation.cs" id="3_4f3gh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f3gh"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(0, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mf0jn"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(271, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgqox"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(542, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coyw1"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(813, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo3j3"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(1084, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weocn"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(1355, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d75e"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(1626, 93, 271, 483)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43ai2"]
+atlas = ExtResource("2_icmrp")
+region = Rect2(1897, 93, 271, 483)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cekx0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4f3gh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mf0jn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgqox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coyw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo3j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weocn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d75e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43ai2")
+}],
+"loop": 1,
+"name": &"spin",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mev00"]
 radius = 40.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cekx0"]
-size = Vector2(34, 46)
-
 [node name="TaskStation" type="Area2D" unique_id=704673815]
 script = ExtResource("1_mev00")
 
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=878550755]
-position = Vector2(-2.3841858e-07, -1.1920929e-07)
-scale = Vector2(0.7083333, 0.4693877)
-color = Color(0.9538931, 0.16342604, 0.3191919, 1)
-polygon = PackedVector2Array(-24, -49, -24, 48.000015, 24, 49.000015, 23.999998, -48.999996)
-uv = PackedVector2Array(-71, -96, -72, 97, 73, 96, 73, -98)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484308433]
-shape = SubResource("CircleShape2D_mev00")
-debug_color = Color(0.11372549, 0, 0.49411765, 0.41960785)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=767063696]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1194163185]
-shape = SubResource("RectangleShape2D_cekx0")
-
 [node name="InteractionLabel" type="Label" parent="." unique_id=1170162283]
 visible = false
-offset_right = 40.0
+offset_right = 140.0
 offset_bottom = 23.0
 text = "Press E to interact"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1308200899]
+position = Vector2(-2, -6)
+scale = Vector2(0.21125466, 0.1371636)
+sprite_frames = SubResource("SpriteFrames_cekx0")
+animation = &"spin"
+frame_progress = 0.28536674
+speed_scale = 8.0
+script = ExtResource("3_4f3gh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484308433]
+visible = false
+shape = SubResource("CircleShape2D_mev00")
+debug_color = Color(0.11372549, 0, 0.49411765, 0.41960785)

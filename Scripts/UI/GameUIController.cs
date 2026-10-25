@@ -4,97 +4,99 @@ using Godot;
 public partial class GameUIController : CanvasLayer
 {
 	private Label timerLabel;
-
+	private Label teamNameLabel;
+	private ProgressBar teamProgressBar;
+	private Label opponentNameLabel;
+	private ProgressBar opponentProgressBar;
 	private Label playerProgressLabel;
 	private ProgressBar playerProgressBar;
+	private StyleBoxFlat teamFillStyle;
+	private StyleBoxFlat opponentFillStyle;
+	private StyleBoxFlat playerFillStyle;
 
-	private Label blueProgressLabel;
-	private ProgressBar blueProgressBar;
-
-	private Label redProgressLabel;
-	private ProgressBar redProgressBar;
+	private static readonly Color BlueColor = new("#3987FF");
+	private static readonly Color RedColor = new("#FF6262");
+	private static readonly Color PersonalColor = new("#60A5FA");
+	private static readonly Color WhiteColor = new("#F1F5F9");
 
 	public override void _Ready()
 	{
-		timerLabel = GetNode<Label>("TimerLabel");
+		timerLabel = GetNode<Label>(
+            "HUD/ScreenMargin/Layout/TopBar/TimerPanel/TimerContent/TimerLabel"
+		);
 
-		playerProgressLabel =
-			GetNode<Label>("PlayerProgressLabel");
+		teamNameLabel = GetNode<Label>(
+            "HUD/ScreenMargin/Layout/TopBar/OwnTeamPanel/TeamContent/TeamNameLabel"
+		);
 
-		playerProgressBar =
-			GetNode<ProgressBar>("PlayerProgressBar");
+		teamProgressBar = GetNode<ProgressBar>(
+            "HUD/ScreenMargin/Layout/TopBar/OwnTeamPanel/TeamContent/TeamProgressBar"
+		);
 
-		blueProgressLabel =
-			GetNode<Label>("BlueProgressLabel");
+		opponentNameLabel = GetNode<Label>(
+            "HUD/ScreenMargin/Layout/TopBar/OpponentTeamPanel/OpponentContent/OpponentNameLabel"
+		);
 
-		blueProgressBar =
-			GetNode<ProgressBar>("BlueProgressBar");
+		opponentProgressBar = GetNode<ProgressBar>(
+            "HUD/ScreenMargin/Layout/TopBar/OpponentTeamPanel/OpponentContent/OpponentProgressBar"
+		);
 
-		redProgressLabel =
-			GetNode<Label>("RedProgressLabel");
+		playerProgressLabel = GetNode<Label>(
+            "HUD/ScreenMargin/Layout/PlayerProgressPanel/PlayerContent/PlayerProgressLabel"
+		);
 
-		redProgressBar =
-			GetNode<ProgressBar>("RedProgressBar");
+		playerProgressBar = GetNode<ProgressBar>(
+            "HUD/ScreenMargin/Layout/PlayerProgressPanel/PlayerContent/PlayerProgressBar"
+		);
+		
+		teamFillStyle = CreateFillStyle(BlueColor);
+		opponentFillStyle = CreateFillStyle(RedColor);
+		playerFillStyle = CreateFillStyle(PersonalColor);
 
-		SetupUI();
+		teamProgressBar.AddThemeStyleboxOverride(
+			"fill", teamFillStyle
+		);
 
-		UpdateTimer();
-		UpdateProgress();
+		opponentProgressBar.AddThemeStyleboxOverride(
+			"fill", opponentFillStyle
+		);
+
+		playerProgressBar.AddThemeStyleboxOverride(
+			"fill", playerFillStyle
+		);
+		
+		teamProgressBar.ShowPercentage = false;
+		opponentProgressBar.ShowPercentage = false;
+		playerProgressBar.ShowPercentage = false;
+
+		timerLabel.HorizontalAlignment = HorizontalAlignment.Center;
+		timerLabel.AddThemeColorOverride("font_color", WhiteColor);
+
+		UpdateHUD();
 	}
 
 	public override void _Process(double delta)
 	{
-		UpdateTimer();
-		UpdateProgress();
+		UpdateHUD();
 	}
 
-	private void SetupUI()
+	private void UpdateHUD()
 	{
-		timerLabel.Position = new Vector2(40, 30);
-		timerLabel.AddThemeFontSizeOverride("font_size", 32);
+		GameManager game = GameManager.Instance;
 
-		playerProgressLabel.Position = new Vector2(40, 85);
-		playerProgressLabel.AddThemeFontSizeOverride(
-			"font_size", 20
-		);
-
-		playerProgressBar.Position = new Vector2(40, 115);
-		playerProgressBar.Size = new Vector2(250, 22);
-
-		blueProgressLabel.Position = new Vector2(40, 155);
-		blueProgressLabel.AddThemeFontSizeOverride(
-			"font_size", 20
-		);
-		blueProgressLabel.AddThemeColorOverride(
-			"font_color", new Color("#3987FF")
-		);
-
-		blueProgressBar.Position = new Vector2(40, 185);
-		blueProgressBar.Size = new Vector2(250, 22);
-		blueProgressBar.Modulate = new Color("#3987FF");
-
-		redProgressLabel.Position = new Vector2(40, 220);
-		redProgressLabel.AddThemeFontSizeOverride(
-			"font_size", 20
-		);
-		redProgressLabel.AddThemeColorOverride(
-			"font_color", new Color("#FF6262")
-		);
-
-		redProgressBar.Position = new Vector2(40, 250);
-		redProgressBar.Size = new Vector2(250, 22);
-		redProgressBar.Modulate = new Color("#FF6262");
-	}
-
-	private void UpdateTimer()
-	{
-		if (GameManager.Instance == null)
+		if (game == null)
 			return;
 
-		double remaining = GameManager.Instance.TimeRemaining;
+		UpdateTimer(game);
+		UpdateTaskProgress(game);
+	}
 
-		int totalSeconds =
-			Mathf.Max(0, Mathf.CeilToInt((float)remaining));
+	private void UpdateTimer(GameManager game)
+	{
+		int totalSeconds = Mathf.Max(
+			0,
+			Mathf.CeilToInt((float)game.TimeRemaining)
+		);
 
 		int minutes = totalSeconds / 60;
 		int seconds = totalSeconds % 60;
@@ -102,13 +104,9 @@ public partial class GameUIController : CanvasLayer
 		timerLabel.Text = $"{minutes:00}:{seconds:00}";
 	}
 
-	private void UpdateProgress()
+	
+	private void UpdateTaskProgress(GameManager game)
 	{
-		if (GameManager.Instance == null)
-			return;
-
-		GameManager game = GameManager.Instance;
-
 		int playerCompleted = game.PlayerCompletedTasks;
 		int playerTotal = game.PlayerTotalTasks;
 
@@ -118,28 +116,79 @@ public partial class GameUIController : CanvasLayer
 		int redCompleted = game.RedCompletedTasks;
 		int redTotal = game.RedTotalTasks;
 
+		NetworkPlayer localPlayer = null;
+
+		if (LobbyManager.Instance != null)
+		{
+			localPlayer = LobbyManager.Instance.GetPlayer(
+				Multiplayer.GetUniqueId()
+			);
+		}
+
+		// Wait until the local player's team is available.
+		if (localPlayer == null)
+			return;
+
+		bool isBlue = localPlayer.Team == PlayerTeam.Blue;
+
+		// Determine own-team and opponent progress.
+		int ownCompleted = isBlue ? blueCompleted : redCompleted;
+		int ownTotal = isBlue ? blueTotal : redTotal;
+
+		int enemyCompleted = isBlue ? redCompleted : blueCompleted;
+		int enemyTotal = isBlue ? redTotal : blueTotal;
+
+		// Determine colors dynamically from the local player's team.
+		Color ownColor = isBlue ? BlueColor : RedColor;
+		Color enemyColor = isBlue ? RedColor : BlueColor;
+
+		// Update own-team label.
+		teamNameLabel.Text = isBlue ? "TEAM BLUE" : "TEAM RED";
+		teamNameLabel.AddThemeColorOverride(
+			"font_color",
+			Colors.White
+		);
+
+		// Update opponent label.
+		opponentNameLabel.Text = isBlue ? "TEAM RED" : "TEAM BLUE";
+		opponentNameLabel.AddThemeColorOverride(
+			"font_color",
+			Colors.White
+		);
+
+		// Change the fill colors without tinting the backgrounds.
+		teamFillStyle.BgColor = ownColor;
+		opponentFillStyle.BgColor = enemyColor;
+		playerFillStyle.BgColor = PersonalColor;
+
+		// Update personal task text.
 		playerProgressLabel.Text =
 			$"YOUR TASKS  {playerCompleted} / {playerTotal}";
 
+		// Update all progress bars.
+		SetProgress(teamProgressBar, ownCompleted, ownTotal);
+		SetProgress(opponentProgressBar, enemyCompleted, enemyTotal);
 		SetProgress(playerProgressBar, playerCompleted, playerTotal);
-
-		blueProgressLabel.Text =
-			$"TEAM BLUE  {blueCompleted} / {blueTotal}";
-
-		SetProgress(blueProgressBar, blueCompleted, blueTotal);
-
-		redProgressLabel.Text =
-			$"TEAM RED  {redCompleted} / {redTotal}";
-
-		SetProgress(redProgressBar, redCompleted, redTotal);
 	}
 
-	private void SetProgress(
+
+	private static void SetProgress(
 		ProgressBar bar,
 		int completed,
 		int total)
 	{
-		bar.MaxValue = total > 0 ? total : 1;
-		bar.Value = completed;
+		bar.MaxValue = Mathf.Max(1, total);
+		bar.Value = Mathf.Clamp(completed, 0, Mathf.Max(1, total));
+	}
+	
+	private static StyleBoxFlat CreateFillStyle(Color color)
+	{
+		var style = new StyleBoxFlat
+		{
+			BgColor = color
+		};
+
+		style.SetCornerRadiusAll(4);
+		return style;
 	}
 }

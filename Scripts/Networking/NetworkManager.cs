@@ -488,6 +488,7 @@ public partial class NetworkManager : Node
 		);
 	}
 	
+		
 	private void SendTaskAssignmentsToPlayer(
 		long playerId,
 		List<NetworkTaskData> tasks
@@ -496,24 +497,36 @@ public partial class NetworkManager : Node
 		if (!IsServer)
 			return;
 
-		Godot.Collections.Array<
-			Godot.Collections.Dictionary
-		> networkTasks =
-			new Godot.Collections.Array<
-				Godot.Collections.Dictionary
-			>();
+		Godot.Collections.Array<Godot.Collections.Dictionary> networkTasks =
+			new Godot.Collections.Array<Godot.Collections.Dictionary>();
 
 		foreach (NetworkTaskData task in tasks)
 		{
 			Godot.Collections.Array options =
 				new Godot.Collections.Array();
 
+			Godot.Collections.Array leftItems =
+				new Godot.Collections.Array();
+
+			Godot.Collections.Array rightItems =
+				new Godot.Collections.Array();
+
 			if (task.Options != null)
 			{
 				foreach (string option in task.Options)
-				{
 					options.Add(option);
-				}
+			}
+
+			if (task.LeftItems != null)
+			{
+				foreach (string item in task.LeftItems)
+					leftItems.Add(item);
+			}
+
+			if (task.RightItems != null)
+			{
+				foreach (string item in task.RightItems)
+					rightItems.Add(item);
 			}
 
 			Godot.Collections.Dictionary taskData =
@@ -523,7 +536,9 @@ public partial class NetworkManager : Node
 					{ "station_id", task.StationId },
 					{ "task_type", (int)task.TaskType },
 					{ "question", task.Question },
-					{ "options", options }
+					{ "options", options },
+					{ "left_items", leftItems },
+					{ "right_items", rightItems }
 				};
 
 			networkTasks.Add(taskData);
@@ -539,6 +554,8 @@ public partial class NetworkManager : Node
 			$"Sent {tasks.Count} tasks to player {playerId}."
 		);
 	}
+
+	
 	
 	[Rpc(
 		MultiplayerApi.RpcMode.Authority,
@@ -549,54 +566,34 @@ public partial class NetworkManager : Node
 		Godot.Collections.Array<Godot.Collections.Dictionary> networkTasks
 	)
 	{
-		long localPlayerId =
-			Multiplayer.GetUniqueId();
+		long localPlayerId = Multiplayer.GetUniqueId();
 
 		List<NetworkTaskData> tasks =
 			new List<NetworkTaskData>();
 
-		foreach (
-			Godot.Collections.Dictionary data
-			in networkTasks
-		)
+		foreach (Godot.Collections.Dictionary data in networkTasks)
 		{
-			int taskId =
-				(int)data["task_id"];
+			int taskId = (int)data["task_id"];
+			string stationId = (string)data["station_id"];
+			TaskType taskType = (TaskType)(int)data["task_type"];
+			string question = (string)data["question"];
 
-			string stationId =
-				(string)data["station_id"];
+			// Read multiple-choice options.
+			string[] options = ReadStringArray(data, "options");
 
-			TaskType taskType =
-				(TaskType)(int)data["task_type"];
+			// Read matching task items.
+			string[] leftItems = ReadStringArray(data, "left_items");
+			string[] rightItems = ReadStringArray(data, "right_items");
 
-			string question =
-				(string)data["question"];
-
-			string[] options = null;
-
-			Godot.Collections.Array receivedOptions =
-				data["options"].AsGodotArray();
-
-			if (receivedOptions.Count > 0)
-			{
-				options =
-					new string[receivedOptions.Count];
-
-				for (int i = 0;
-					i < receivedOptions.Count;
-					i++)
-				{
-					options[i] =
-						(string)receivedOptions[i];
-				}
-			}
 			tasks.Add(
 				new NetworkTaskData(
 					taskId,
 					stationId,
 					taskType,
 					question,
-					options
+					options,
+					leftItems,
+					rightItems
 				)
 			);
 		}
@@ -610,6 +607,26 @@ public partial class NetworkManager : Node
 			$"Received {tasks.Count} task assignments from server."
 		);
 	}
+
+	private static string[] ReadStringArray(
+		Godot.Collections.Dictionary data,
+		string key
+	)
+	{
+		if (!data.ContainsKey(key))
+			return System.Array.Empty<string>();
+
+		Godot.Collections.Array receivedItems =
+			data[key].AsGodotArray();
+
+		string[] items = new string[receivedItems.Count];
+
+		for (int i = 0; i < receivedItems.Count; i++)
+			items[i] = receivedItems[i].AsString();
+
+		return items;
+	}
+
 	
 	public void SubmitTaskAnswer(
 		int taskId,
