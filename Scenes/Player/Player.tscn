@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ccvmay42xvuy6" path="res://Assets/Characters/Black/black_up_walk/step1.png" id="2_jmcll"]
 [ext_resource type="Texture2D" uid="uid://b4t26fjgdws53" path="res://Assets/Characters/Black/black_left_walk/step1.png" id="4_4wape"]
 [ext_resource type="Texture2D" uid="uid://j3xaaknhhopg" path="res://Assets/Characters/Black/black_right_walk/step1.png" id="5_t26db"]
+[ext_resource type="FontFile" uid="uid://0jt1nkoj280c" path="res://Assets/Fonts/Silkscreen-Regular.ttf" id="6_4wape"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cekx0"]
 radius = 8.0
@@ -26,3 +27,18 @@ position = Vector2(-3, 13)
 shape = SubResource("CapsuleShape2D_cekx0")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=34816961]
+
+[node name="NameLabel" type="Label" parent="." unique_id=289344124]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -48.0
+offset_right = 21.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_4wape")
+horizontal_alignment = 1

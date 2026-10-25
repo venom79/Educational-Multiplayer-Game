@@ -8,7 +8,8 @@ public partial class Player : CharacterBody2D
 	[Export] public Texture2D DownSprite;
 	[Export] public Texture2D LeftSprite;
 	[Export] public Texture2D RightSprite;
-
+	
+	private Label _nameLabel;
 	private double networkUpdateTimer = 0.0;
 
 	private const double NetworkUpdateInterval = 0.05;
@@ -23,9 +24,13 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
+		
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		camera = GetNode<Camera2D>("Camera2D");
+		_nameLabel = GetNode<Label>("NameLabel");
+		_nameLabel.Text = GameSession.Instance.PlayerName;
 		networkTargetPosition = GlobalPosition;
+		
 		camera.Enabled = false;
 	}
 
